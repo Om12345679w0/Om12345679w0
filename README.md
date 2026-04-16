@@ -1,49 +1,29 @@
-# 🌐 EchoCustom Web Presence
+# 🌐 EchoCustom Android Personalization Suite
 
-Welcome to the web documentation and landing page repository for **EchoCustom**. This project features a professional, bilingual (English/Hindi) web interface designed to support the Android application.
+Welcome to the official repository for **EchoCustom**, an intelligent Android assistant featuring custom audio/contact management and interactive widgets.
 
-## 🚀 Live Webpages
+## 🚀 [Visit the Live Landing Page](https://om12345679w0.github.io/Project_EchoCustom/)
 
-The following pages are available in this repository to provide a complete user and developer experience:
+This repository is powered by **GitHub Pages**. The following pages provide a professional, bilingual support ecosystem for the EchoCustom app:
 
-### 🏠 [Landing Page (index.html)](index.html)
-The main entry point for users. It features:
-- **Hero Section:** High-impact introduction to the EchoCustom ecosystem.
-- **Feature Grid:** Showcasing the Maid Assistant, Granular Audio, and State-Aware Widgets.
-- **Bilingual Toggle:** Real-time switching between English and Hindi (हिन्दी).
-- **Interactive Gallery:** Visual showcase of the Material 3 interface.
-- **Roadmap:** Current development phases and progress.
-
-### 📚 [Help Center (app_info.html)](app_info.html)
-A comprehensive resource for users to understand app functionality:
-- Installation guides.
-- Permission explanations (Notification Listener, Contacts, etc.).
-- FAQ and troubleshooting tips.
-
-### 📥 [Download Center (download.html)](download.html)
-The official source for EchoCustom artifacts:
-- Access to the latest stable APKs.
-- Version history and changelogs.
-- Signature verification (idsig) information.
-
-### ⚖️ [Privacy Policy (privacy.html)](privacy.html)
-Our commitment to user data protection:
-- Detailed breakdown of data usage (Local-only processing).
-- Permission rationale.
-- Transparency regarding offline functionality.
+- 🏠 **[Landing Page](https://om12345679w0.github.io/Project_EchoCustom/)** - Overview, Features, and Roadmap.
+- 📥 **[Download Center](https://om12345679w0.github.io/Project_EchoCustom/download.html)** - Get the latest signed APKs.
+- 📚 **[Help Center](https://om12345679w0.github.io/Project_EchoCustom/app_info.html)** - User documentation and technical details.
+- ⚖️ **[Privacy Policy](https://om12345679w0.github.io/Project_EchoCustom/privacy.html)** - Our commitment to local-only data processing.
 
 ---
 
 ## 🎨 Design & Branding
-- **Theme:** Modern Material 3 aesthetic with Inter font.
-- **Colors:** Indigo primary (`#6366f1`) with sophisticated dark/light modes.
-- **Interactivity:** Smooth scroll behavior, responsive glassmorphism navigation, and dynamic language switching.
+- **Theme:** Modern Material 3 aesthetic with Inter typography.
+- **Colors:** Indigo primary (`#6366f1`) with sophisticated glassmorphism effects.
+- **Localization:** Real-time client-side switching between **English** and **Hindi (हिन्दी)**.
 
-## 🛠 Technical Setup
-These pages are built using:
-- **HTML5/CSS3:** Responsive grid and flexbox layouts.
-- **JavaScript:** Client-side localization and UI state management.
-- **Google Fonts:** Integration of 'Inter' for high readability.
+## 📱 Core App Features
+The EchoCustom Android app provides:
+- **Interactive System Character:** A maid assistant that reacts to battery, charging, and light states.
+- **Granular Audio Profiles:** Map unique sounds and ringtones to individual apps and VIP contacts.
+- **State-Aware Widgets:** Real-time hardware telemetry on your home screen.
 
 ---
-*For the core Android application source code and technical documentation, please refer to the `app/` directory and `docs/README.md`.*
+*For the core Android application source code, please refer to the `app/` directory.*
+*Technical documentation can be found in `docs/README.md`.*

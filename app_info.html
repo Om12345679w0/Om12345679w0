@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EchoCustom - Intelligent System Assistant</title>
+    <style>
+        :root {
+            --primary: #0f172a;
+            --accent: #3b82f6;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+        }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: var(--text-main);
+            background-color: var(--bg);
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: var(--primary);
+            color: white;
+            text-align: center;
+            padding: 3rem 1rem;
+            border-bottom: 4px solid var(--accent);
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            letter-spacing: -1px;
+        }
+        header p {
+            opacity: 0.8;
+            font-weight: 300;
+            margin-top: 0.5rem;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+        .section {
+            background: var(--card-bg);
+            padding: 2.5rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            margin-bottom: 2rem;
+        }
+        h2 {
+            color: var(--primary);
+            font-size: 1.75rem;
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        .card {
+            padding: 1.5rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            transition: transform 0.2s;
+        }
+        .card:hover {
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+        .card h3 {
+            margin-top: 0;
+            color: var(--accent);
+            font-size: 1.1rem;
+        }
+        .status-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+        .status-table td {
+            padding: 12px;
+            border-bottom: 1px solid #f1f5f9;
+        }
+        .status-table td:first-child {
+            font-weight: 600;
+            color: var(--accent);
+            width: 30%;
+        }
+        .footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-muted);
+            font-size: 0.875rem;
+        }
+        .badge {
+            background: #dbeafe;
+            color: #1e40af;
+            padding: 4px 12px;
+            border-radius: 99px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>EchoCustom</h1>
+    <p>Advanced System Interaction & Personalization / उन्नत सिस्टम इंटरेक्शन और पर्सनलाइजेशन</p>
+</header>
+
+<div class="container">
+    <!-- English Section -->
+    <div class="section">
+        <span class="badge">Technical Overview</span>
+        <h2>System Capabilities</h2>
+        <p>EchoCustom is a sophisticated Android utility designed to enhance device interaction through an interactive <b>System Character Assistant</b>. It provides real-time visual feedback of hardware states and granular control over application-specific audio profiles.</p>
+
+        <div class="grid">
+            <div class="card">
+                <h3>State-Aware Widget</h3>
+                <p>An intelligent home-screen interface that dynamically updates visual assets based on battery telemetry, network availability, and ambient light sensors.</p>
+            </div>
+            <div class="card">
+                <h3>Audio Management</h3>
+                <p>Advanced notification interception allowing users to map specific audio signatures or soundtracks to individual third-party applications.</p>
+            </div>
+            <div class="card">
+                <h3>Telephony Integration</h3>
+                <p>Seamless call interception service that identifies incoming traffic and manages device ringtone states dynamically.</p>
+            </div>
+        </div>
+
+        <h3>Visual State Logic</h3>
+        <table class="status-table">
+            <tr><td>Power Input</td><td>Transitions to active charging state with optimized animations.</td></tr>
+            <tr><td>Critical Battery</td><td>System triggers a "Low Power" character alert.</td></tr>
+            <tr><td>Connectivity Loss</td><td>Instant notification when WiFi and Mobile Data are both unreachable.</td></tr>
+            <tr><td>Low Light</td><td>Activates Sleep Mode UI to match environment.</td></tr>
+        </table>
+    </div>
+
+    <!-- Hindi Section -->
+    <div class="section">
+        <span class="badge">तकनीकी विवरण</span>
+        <h2>सिस्टम की क्षमताएं</h2>
+        <p>EchoCustom एक उन्नत एंड्रॉइड यूटिलिटी है जिसे एक इंटरैक्टिव <b>सिस्टम कैरेक्टर असिस्टेंट</b> के माध्यम से डिवाइस इंटरैक्शन को बेहतर बनाने के लिए डिज़ाइन किया गया है। यह हार्डवेयर स्थितियों का रीयल-टाइम विजुअल फीडबैक और एप्लिकेशन-विशिष्ट ऑडियो प्रोफाइल पर नियंत्रण प्रदान करता है।</p>
+
+        <div class="grid">
+            <div class="card">
+                <h3>स्टेट-अवेयर विजेट</h3>
+                <p>एक इंटेलिजेंट होम-स्क्रीन इंटरफ़ेस जो बैटरी टेलीमेट्री, नेटवर्क उपलब्धता और एम्बिएंट लाइट सेंसर के आधार पर विजुअल एसेट्स को अपडेट करता है।</p>
+            </div>
+            <div class="card">
+                <h3>ऑडियो प्रबंधन</h3>
+                <p>एडवांस नोटिफिकेशन इंटरसेप्शन जो उपयोगकर्ताओं को व्यक्तिगत ऐप्स के लिए विशिष्ट ऑडियो सिग्नेचर मैप करने की अनुमति देता है।</p>
+            </div>
+            <div class="card">
+                <h3>टेलीफोनी एकीकरण</h3>
+                <p>निर्बाध कॉल इंटरसेप्शन सर्विस जो इनकमिंग कॉल की पहचान करती है और रिंगटोन की स्थिति को डायनामिक रूप से प्रबंधित करती है।</p>
+            </div>
+        </div>
+
+        <h3>विजुअल स्टेट लॉजिक</h3>
+        <table class="status-table">
+            <tr><td>पावर इनपुट</td><td>एक्टिव चार्जिंग स्टेट और ऑप्टिमाइज्ड एनिमेशन में ट्रांज़िशन।</td></tr>
+            <tr><td>लो बैटरी</td><td>सिस्टम "लो पावर" कैरेक्टर अलर्ट ट्रिगर करता है।</td></tr>
+            <tr><td>कनेक्टिविटी लॉस</td><td>वाईफाई और मोबाइल डेटा दोनों अनुपलब्ध होने पर तत्काल सूचना।</td></tr>
+            <tr><td>लो लाइट</td><td>वातावरण के अनुसार स्लीप मोड UI सक्रिय करता है।</td></tr>
+        </table>
+    </div>
+
+    <div class="footer">
+        Professional Deployment Build &copy; 2024 Project EchoCustom
+    </div>
+</div>
+
+</body>
+</html>

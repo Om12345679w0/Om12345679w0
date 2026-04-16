@@ -4,27 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Download EchoCustom v3.0</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary: #6366f1;
             --dark: #0f172a;
             --light: #f8fafc;
-            --text-main: #334155;
             --white: #ffffff;
         }
-
         body {
             font-family: 'Inter', sans-serif;
-            line-height: 1.6;
-            color: var(--text-main);
             background-color: var(--light);
             margin: 0;
             display: flex;
             flex-direction: column;
             min-height: 100vh;
         }
-
         .container {
             flex: 1;
             max-width: 600px;
@@ -32,27 +27,23 @@
             text-align: center;
             padding: 0 2rem;
         }
-
         .download-card {
             background: var(--white);
-            padding: 3rem;
+            padding: 4rem;
             border-radius: 32px;
-            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1);
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.1);
         }
-
         .version-badge {
             background: rgba(99, 102, 241, 0.1);
             color: var(--primary);
-            padding: 6px 16px;
+            padding: 8px 20px;
             border-radius: 50px;
-            font-weight: 700;
-            font-size: 0.875rem;
+            font-weight: 800;
+            font-size: 0.8rem;
             display: inline-block;
-            margin-bottom: 1.5rem;
+            margin-bottom: 2rem;
         }
-
-        h1 { font-size: 2.5rem; color: var(--dark); margin-bottom: 1rem; }
-
+        h1 { font-size: 2.5rem; color: var(--dark); margin-bottom: 1.5rem; }
         .btn-download {
             display: inline-block;
             background: var(--primary);
@@ -61,65 +52,35 @@
             border-radius: 50px;
             text-decoration: none;
             font-weight: 700;
-            font-size: 1.1rem;
             margin-top: 2rem;
             box-shadow: 0 10px 15px -3px rgba(99, 102, 241, 0.4);
-            transition: transform 0.3s;
+            transition: 0.3s;
         }
-
-        .btn-download:hover {
-            transform: translateY(-3px);
-        }
-
-        .file-info {
-            margin-top: 2rem;
-            color: #64748b;
-            font-size: 0.875rem;
-        }
-
-        .requirements {
-            margin-top: 3rem;
-            text-align: left;
-            border-top: 1px solid #f1f5f9;
-            padding-top: 2rem;
-        }
-
-        footer {
-            padding: 2rem;
-            text-align: center;
-            color: #94a3b8;
-        }
+        .btn-download:hover { transform: translateY(-3px); background: #4f46e5; }
+        .footer { padding: 3rem; text-align: center; color: #94a3b8; font-size: 0.8rem; }
     </style>
 </head>
 <body>
 
 <div class="container">
     <div class="download-card">
-        <span class="version-badge">LATEST STABLE</span>
+        <span class="version-badge">OFFICIAL RELEASE</span>
         <h1>EchoCustom v3.0</h1>
-        <p>Experience the most advanced personalization suite for Android. Optimized for performance and stability.</p>
+        <p>The latest production build featuring full Android 15 support and the new VIP Contact management system.</p>
 
-        <a href="#" class="btn-download">Download APK (14.2 MB)</a>
+        <a href="https://github.com/Om12345679w0/Project_EchoCustom/raw/main/Project_EchoCustom_Signed.apk" class="btn-download">Download APK (v3.0)</a>
 
-        <div class="file-info">
-            MD5: 8f2d...b3a1 | Release: Oct 2024
-        </div>
-
-        <div class="requirements">
-            <h4 style="margin-bottom: 0.5rem; color: var(--dark);">System Requirements:</h4>
-            <ul style="padding-left: 1.2rem; color: #64748b;">
-                <li>Android 8.0 (Oreo) or higher</li>
-                <li>At least 2GB of RAM recommended</li>
-                <li>Notification Access permission required</li>
-            </ul>
+        <div style="margin-top: 2rem; font-size: 0.8rem; color: #64748b;">
+            <p>Size: ~14 MB | Build: Signed Production</p>
+            <p><a href="https://github.com/Om12345679w0/Project_EchoCustom" style="color: var(--primary);">View GitHub Repository</a></p>
         </div>
     </div>
-    <a href="index.html" style="display: inline-block; margin-top: 2rem; color: var(--primary); text-decoration: none; font-weight: 600;">← Back to Homepage</a>
+    <a href="index.html" style="display: inline-block; margin-top: 3rem; color: var(--primary); text-decoration: none; font-weight: 600;">← Back to Home</a>
 </div>
 
-<footer>
-    &copy; 2024 EchoCustom Project. All rights reserved.
-</footer>
+<div class="footer">
+    &copy; 2024 EchoCustom Project.
+</div>
 
 </body>
 </html>

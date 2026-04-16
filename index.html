@@ -4,6 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EchoCustom - The Ultimate Android Personalization Suite</title>
+
+    <!-- Primary Meta Tags -->
+    <meta name="title" content="EchoCustom - Intelligent Android Assistant">
+    <meta name="description" content="Elevate your Android experience with EchoCustom. Intelligent notification management, custom audio profiles, and state-aware widgets.">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://om12345679w0.github.io/Project_EchoCustom/">
+    <meta property="og:title" content="EchoCustom - Intelligent Android Assistant">
+    <meta property="og:description" content="Professional-grade Android utility featuring a responsive Maid Assistant and granular audio control.">
+
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -50,11 +61,11 @@
         .logo {
             font-size: 1.5rem;
             font-weight: 800;
-            color: var(--primary);
+            color: var(--dark);
             text-decoration: none;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
         }
 
         .nav-links {
@@ -64,7 +75,7 @@
 
         .nav-links a {
             text-decoration: none;
-            color: var(--text-main);
+            color: var(--text-light);
             font-weight: 500;
             transition: color 0.3s;
         }
@@ -75,15 +86,15 @@
 
         /* Hero Section */
         .hero {
-            padding: 6rem 5% 4rem;
             background: linear-gradient(135deg, var(--dark) 0%, #1e293b 100%);
             color: var(--white);
+            padding: 8rem 5% 6rem;
             text-align: center;
             position: relative;
             overflow: hidden;
         }
 
-        .hero::after {
+        .hero::before {
             content: '';
             position: absolute;
             top: -50%;
@@ -91,12 +102,12 @@
             width: 200%;
             height: 200%;
             background: radial-gradient(circle, rgba(99, 102, 241, 0.1) 0%, transparent 70%);
-            z-index: 0;
+            z-index: 1;
         }
 
         .hero-content {
             position: relative;
-            z-index: 1;
+            z-index: 2;
             max-width: 900px;
             margin: 0 auto;
         }
@@ -210,35 +221,27 @@
             color: var(--dark);
         }
 
-        /* Details Section */
-        .details-container {
-            display: flex;
-            align-items: center;
-            gap: 4rem;
-            flex-wrap: wrap;
-            margin-top: 4rem;
+        /* Gallery Section */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
         }
 
-        .details-text {
-            flex: 1;
-            min-width: 300px;
-        }
-
-        .details-image {
-            flex: 1;
-            min-width: 300px;
-            background: var(--dark);
-            height: 400px;
-            border-radius: 32px;
+        .gallery-item {
+            aspect-ratio: 9/16;
+            background: #1e293b;
+            border-radius: 24px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
-            font-weight: 800;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            border: 4px solid var(--white);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            color: rgba(255,255,255,0.2);
+            font-size: 3rem;
         }
 
-        /* Roadmap Summary */
+        /* Roadmap */
         .roadmap-lite {
             background: var(--white);
             border-radius: 32px;
@@ -352,7 +355,7 @@
 <body>
 
 <nav>
-    <a href="#" class="logo">
+    <a href="index.html" class="logo">
         <span style="background: var(--primary); color: white; padding: 4px 8px; border-radius: 8px;">Σ</span>
         EchoCustom
     </a>
@@ -361,24 +364,24 @@
         <a href="#gallery">Gallery</a>
         <a href="#roadmap">Roadmap</a>
         <a href="app_info.html">Help</a>
-        <a href="IMPROVEMENTS_ROADMAP.html">Technical</a>
+        <a href="privacy.html">Privacy</a>
     </div>
-    <a href="download.html" class="btn btn-primary" style="padding: 0.6rem 1.2rem; font-size: 0.9rem;">Download v3.0</a>
+    <a href="download.html" class="btn btn-primary" style="padding: 0.6rem 1.2rem; font-size: 0.9rem;">Get App</a>
 </nav>
 
 <div class="hero">
     <div class="hero-content">
         <div lang="en">
             <h1>Elevate Your Android Experience</h1>
-            <p>The first intelligent system assistant that adapts to your environment, manages your notifications, and brings your device to life with state-aware character interactions.</p>
+            <p>The first intelligent system assistant that adapts to your environment, manages notifications, and brings your device to life.</p>
         </div>
         <div lang="hi">
             <h1>अपने एंड्रॉइड अनुभव को बेहतर बनाएं</h1>
-            <p>पहला इंटेलिजेंट सिस्टम असिस्टेंट जो आपके वातावरण के अनुकूल होता है, आपके नोटिफिकेशन को मैनेज करता है, और स्टेट-अवेयर कैरेक्टर इंटरैक्शन के साथ आपके डिवाइस में जान फूंक देता है।</p>
+            <p>पहला इंटेलिजेंट सिस्टम असिस्टेंट जो आपके वातावरण के अनुकूल होता है और आपके डिवाइस में जान फूंक देता है।</p>
         </div>
         <div class="cta-group">
-            <a href="download.html" class="btn btn-primary">Explore Features</a>
-            <a href="app_info.html" class="btn btn-secondary">Documentation</a>
+            <a href="download.html" class="btn btn-primary">Download v3.0</a>
+            <a href="app_info.html" class="btn btn-secondary">Learn More</a>
         </div>
     </div>
 </div>
@@ -386,12 +389,12 @@
 <div id="features" class="section">
     <div class="section-header">
         <div lang="en">
-            <h2>Next-Gen Personalization</h2>
-            <p>EchoCustom goes beyond basic themes. It integrates deeply with your system to provide a truly interactive experience.</p>
+            <h2>Core Features</h2>
+            <p>Next-gen personalization that integrates deeply with your system.</p>
         </div>
         <div lang="hi">
-            <h2>अगली पीढ़ी का वैयक्तिकरण</h2>
-            <p>EchoCustom बुनियादी थीम से कहीं आगे जाता है। यह वास्तव में इंटरैक्टिव अनुभव प्रदान करने के लिए आपके सिस्टम के साथ गहराई से एकीकृत होता है।</p>
+            <h2>मुख्य विशेषताएं</h2>
+            <p>अगली पीढ़ी का वैयक्तिकरण जो आपके सिस्टम के साथ गहराई से एकीकृत होता है।</p>
         </div>
     </div>
 
@@ -400,11 +403,11 @@
             <div class="card-icon">🎭</div>
             <div lang="en">
                 <h3>System Character</h3>
-                <p>An interactive Maid assistant that responds to your device's health. Watch her react to charging states, low battery, and ambient lighting.</p>
+                <p>Interactive Maid assistant reacting to charging, battery levels, and ambient light.</p>
             </div>
             <div lang="hi">
                 <h3>सिस्टम कैरेक्टर</h3>
-                <p>एक इंटरैक्टिव मेड असिस्टेंट जो आपके डिवाइस की स्थिति पर प्रतिक्रिया देती है। उसे चार्जिंग, लो बैटरी और लाइटिंग पर रिएक्ट करते देखें।</p>
+                <p>एक इंटरैक्टिव मेड असिस्टेंट जो चार्जिंग और बैटरी लेवल पर रिएक्ट करती है।</p>
             </div>
         </div>
 
@@ -412,95 +415,52 @@
             <div class="card-icon">🔊</div>
             <div lang="en">
                 <h3>Granular Audio</h3>
-                <p>Assign unique ringtones and soundscapes to individual apps. Know who's notifying you without even looking at your screen.</p>
+                <p>Assign unique soundscapes to individual apps. Identify notifications by sound alone.</p>
             </div>
             <div lang="hi">
                 <h3>ग्रैनुलर ऑडियो</h3>
-                <p>अलग-अलग ऐप्स को अद्वितीय रिंगटोन और साउंडस्केप असाइन करें। स्क्रीन देखे बिना जानें कि आपको कौन नोटिफिकेशन भेज रहा है।</p>
+                <p>व्यक्तिगत ऐप्स के लिए अद्वितीय साउंडस्केप असाइन करें।</p>
             </div>
         </div>
 
         <div class="card">
             <div class="card-icon">📱</div>
             <div lang="en">
-                <h3>State-Aware Widgets</h3>
-                <p>Smart home screen widgets that display real-time telemetry including battery, brightness, and connectivity status with a professional flair.</p>
+                <h3>Smart Widgets</h3>
+                <p>Real-time telemetry widgets for battery, brightness, and connection status.</p>
             </div>
             <div lang="hi">
-                <h3>स्टेट-अवेयर विजेट्स</h3>
-                <p>स्मार्ट होम स्क्रीन विजेट जो बैटरी, ब्राइटनेस और कनेक्टिविटी स्थिति सहित रीयल-टाइम टेलीमेट्री प्रदर्शित करते हैं।</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- Gallery Section -->
-    <div id="gallery" class="section">
-        <div class="section-header">
-            <div lang="en">
-                <h2>Visual Showcase</h2>
-                <p>Explore the elegant Material 3 interface and dynamic character interactions.</p>
-            </div>
-            <div lang="hi">
-                <h2>विजुअल शोकेस</h2>
-                <p>शानदार मटीरियल 3 इंटरफ़ेस और डायनेमिक कैरेक्टर इंटरैक्शन देखें।</p>
-            </div>
-        </div>
-        <div class="grid">
-            <div class="card" style="padding: 0; overflow: hidden; height: 450px; background: #1e293b; display: flex; align-items: center; justify-content: center; border: 4px solid var(--white);">
-                <div style="text-align: center; color: rgba(255,255,255,0.4);">
-                    <div style="font-size: 3rem;">📱</div>
-                    <p>Main Dashboard<br><small>Material 3 Design</small></p>
-                </div>
-            </div>
-            <div class="card" style="padding: 0; overflow: hidden; height: 450px; background: #1e293b; display: flex; align-items: center; justify-content: center; border: 4px solid var(--white);">
-                <div style="text-align: center; color: rgba(255,255,255,0.4);">
-                    <div style="font-size: 3rem;">⚙️</div>
-                    <p>App Configuration<br><small>Granular Audio Control</small></p>
-                </div>
-            </div>
-            <div class="card" style="padding: 0; overflow: hidden; height: 450px; background: #1e293b; display: flex; align-items: center; justify-content: center; border: 4px solid var(--white);">
-                <div style="text-align: center; color: rgba(255,255,255,0.4);">
-                    <div style="font-size: 3rem;">👥</div>
-                    <p>Contact Groups<br><small>VIP Management</small></p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="details-container">
-        <div class="details-image" style="background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('assets/maid.jpg'); background-size: cover; background-position: center;">
-            <div style="text-align: center;">
-                <h3 style="margin-bottom: 0.5rem;">Maid Assistant</h3>
-                <p style="font-weight: 400; font-size: 0.9rem; opacity: 0.8;">Responsive System Character</p>
-            </div>
-        </div>
-        <div class="details-text">
-            <div lang="en">
-                <h2 style="font-size: 2rem; margin-bottom: 1.5rem;">Intelligent Environmental Adapting</h2>
-                <p>EchoCustom's unique <b>Sleep Mode</b> doesn't just silence your phone; it transforms the UI. Using ambient light sensors and scheduled triggers, the app shifts into a restful state, protecting your eyes and your peace of mind.</p>
-                <ul style="margin-top: 1.5rem; list-style: none;">
-                    <li style="margin-bottom: 0.5rem;">✅ Auto-brightness synchronization</li>
-                    <li style="margin-bottom: 0.5rem;">✅ Notification priority filtering</li>
-                    <li style="margin-bottom: 0.5rem;">✅ Low-light character animations</li>
-                </ul>
-            </div>
-            <div lang="hi">
-                <h2 style="font-size: 2rem; margin-bottom: 1.5rem;">इंटेलिजेंट एनवायर्नमेंटल एडाप्टिंग</h2>
-                <p>EchoCustom का अनूठा <b>स्लीप मोड</b> केवल आपके फोन को साइलेंट नहीं करता; यह UI को बदल देता है। लाइट सेंसर का उपयोग करके, ऐप एक शांत स्थिति में चला जाता है।</p>
+                <h3>स्मार्ट विजेट्स</h3>
+                <p>बैटरी और ब्राइटनेस के लिए रीयल-टाइम टेलीमेट्री विजेट।</p>
             </div>
         </div>
     </div>
 </div>
 
-<div id="roadmap" class="section" style="background: rgba(99, 102, 241, 0.03);">
+<div id="gallery" class="section" style="background: #f1f5f9;">
     <div class="section-header">
         <div lang="en">
-            <h2>Development Roadmap</h2>
-            <p>We are constantly evolving. See what's coming next in the EchoCustom ecosystem.</p>
+            <h2>Interface Showcase</h2>
         </div>
         <div lang="hi">
-            <h2>डेवलपमेंट रोडमैप</h2>
-            <p>हम लगातार विकसित हो रहे हैं। देखें कि EchoCustom इकोसिस्टम में आगे क्या आने वाला है।</p>
+            <h2>इंटरफ़ेस शोकेस</h2>
+        </div>
+    </div>
+    <div class="gallery-grid">
+        <div class="gallery-item">📱</div>
+        <div class="gallery-item">⚙️</div>
+        <div class="gallery-item">👥</div>
+        <div class="gallery-item">🌙</div>
+    </div>
+</div>
+
+<div id="roadmap" class="section">
+    <div class="section-header">
+        <div lang="en">
+            <h2>Development Journey</h2>
+        </div>
+        <div lang="hi">
+            <h2>विकास यात्रा</h2>
         </div>
     </div>
 
@@ -508,28 +468,15 @@
         <div class="roadmap-item">
             <div class="status-dot"></div>
             <div>
-                <h4 lang="en">Phase 1: Performance Overhaul</h4>
-                <h4 lang="hi">फेज 1: परफॉरमेंस ओवरहॉल</h4>
-                <p lang="en">Complete migration to Kotlin Coroutines for lightning-fast app list loading and optimized state management.</p>
-                <p lang="hi">बिजली की गति से ऐप लिस्ट लोडिंग और ऑप्टिमाइज्ड स्टेट मैनेजमेंट के लिए कोटलिन कोरोटाइन्स में पूर्ण माइग्रेशन।</p>
+                <h4 lang="en">Phase 1: Performance</h4>
+                <p lang="en">Kotlin Coroutines migration for lightning-fast loading.</p>
             </div>
         </div>
         <div class="roadmap-item">
             <div class="status-dot" style="background: var(--primary);"></div>
             <div>
-                <h4 lang="en">Phase 2: Advanced Contact Management (In Progress)</h4>
-                <h4 lang="hi">फेज 2: एडवांस्ड कॉन्टैक्ट मैनेजमेंट</h4>
-                <p lang="en">Implementing VIP lists and Contact Grouping with custom group-wide audio profiles and emoji identifiers.</p>
-                <p lang="hi">कस्टम ग्रुप-वाइड ऑडियो प्रोफाइल और इमोजी आइडेंटिफायर्स के साथ VIP लिस्ट और कॉन्टैक्ट ग्रुपिंग लागू करना।</p>
-            </div>
-        </div>
-        <div class="roadmap-item">
-            <div class="status-dot" style="background: #cbd5e1;"></div>
-            <div>
-                <h4 lang="en">Phase 3: Widget Expansion</h4>
-                <h4 lang="hi">फेज 3: विजेट एक्सपेंशन</h4>
-                <p lang="en">Introduction of the Recent History Widget and a comprehensive Widget Configuration suite for deep personalization.</p>
-                <p lang="hi">गहरी वैयक्तिकरण के लिए हालिया इतिहास विजेट और एक व्यापक विजेट कॉन्फ़िगरेशन सूट का परिचय।</p>
+                <h4 lang="en">Phase 2: Contact VIPs (In Progress)</h4>
+                <p lang="en">Custom group-wide audio profiles and emoji identifiers.</p>
             </div>
         </div>
     </div>
@@ -539,36 +486,26 @@
     <div class="footer-grid">
         <div class="footer-col" style="grid-column: span 2;">
             <div class="footer-logo">EchoCustom</div>
-            <p style="color: #94a3b8; max-width: 400px;">EchoCustom is a professional-grade Android utility designed for users who demand more from their devices. From audio management to real-time telemetry, we put you in control.</p>
+            <p style="color: #94a3b8; max-width: 400px;">Professional-grade Android utility for advanced device control.</p>
         </div>
         <div class="footer-col">
-            <h4>Product</h4>
+            <h4>Support</h4>
             <ul>
-                <li><a href="#features">Features</a></li>
-                <li><a href="#gallery">Gallery</a></li>
-                <li><a href="#roadmap">Roadmap</a></li>
                 <li><a href="app_info.html">Help Center</a></li>
-            </ul>
-        </div>
-        <div class="footer-col">
-            <h4>Technical</h4>
-            <ul>
-                <li><a href="IMPROVEMENTS_ROADMAP.html">Development Logs</a></li>
                 <li><a href="privacy.html">Privacy Policy</a></li>
-                <li><a href="https://github.com/Om12345679w0/Project_EchoCustom">Github Source</a></li>
+                <li><a href="download.html">Downloads</a></li>
             </ul>
         </div>
         <div class="footer-col">
-            <h4>Community</h4>
+            <h4>Code</h4>
             <ul>
-                <li><a href="#">Discord Server</a></li>
-                <li><a href="#">Twitter / X</a></li>
-                <li><a href="#">Telegram Channel</a></li>
+                <li><a href="https://github.com/Om12345679w0/Project_EchoCustom">GitHub</a></li>
+                <li><a href="IMPROVEMENTS_ROADMAP.html">Technical Roadmap</a></li>
             </ul>
         </div>
     </div>
     <div class="footer-bottom">
-        &copy; 2024 Project EchoCustom. Built with Precision for the Android Ecosystem.
+        &copy; 2024 Project EchoCustom. Built for Android.
     </div>
 </footer>
 
@@ -579,24 +516,16 @@
 
 <script>
     function setLang(lang) {
-        // Toggle visibility for all elements with a lang attribute inside body
         document.querySelectorAll('body [lang]').forEach(el => {
-            // Using empty string for display restores the original CSS display value (block, flex, etc.)
             el.style.display = el.getAttribute('lang') === lang ? '' : 'none';
         });
-
-        // Update active state of language buttons
         document.querySelectorAll('.lang-btn').forEach(btn => {
             const isTarget = (lang === 'en' && btn.innerText.includes('EN')) ||
                              (lang === 'hi' && btn.innerText.includes('हिन्दी'));
             btn.classList.toggle('active', isTarget);
         });
-
-        // Update root html lang for accessibility
         document.documentElement.lang = lang;
     }
-
-    // Initialize the page with English on load
     window.addEventListener('DOMContentLoaded', () => setLang('en'));
 </script>
 

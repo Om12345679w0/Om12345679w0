@@ -1,1 +1,1411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EchoCustom Pro - Improvements Roadmap</title>
+    <style>
+        :root {
+            --primary-color: #1976d2;
+            --secondary-color: #dc004e;
+            --success-color: #388e3c;
+            --warning-color: #f57c00;
+            --error-color: #d32f2f;
+            --background-color: #fafafa;
+            --surface-color: #ffffff;
+            --text-primary: #212121;
+            --text-secondary: #757575;
+            --border-color: #e0e0e0;
+        }
 
+        [data-theme="dark"] {
+            --background-color: #121212;
+            --surface-color: #1e1e1e;
+            --text-primary: #ffffff;
+            --text-secondary: #b0b0b0;
+            --border-color: #333333;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background-color: var(--background-color);
+            padding: 16px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            padding: 24px 0;
+            border-bottom: 2px solid var(--primary-color);
+            margin-bottom: 32px;
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 8px;
+        }
+
+        .header .subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        .toc {
+            background-color: var(--surface-color);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 32px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .toc h2 {
+            font-size: 1.5rem;
+            margin-bottom: 16px;
+            color: var(--primary-color);
+        }
+
+        .toc ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .toc li {
+            margin-bottom: 8px;
+        }
+
+        .toc a {
+            color: var(--text-primary);
+            text-decoration: none;
+            padding: 8px 12px;
+            border-radius: 8px;
+            display: block;
+            transition: background-color 0.2s;
+        }
+
+        .toc a:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .section {
+            background-color: var(--surface-color);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 24px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .section h2 {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            margin-bottom: 16px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 8px;
+        }
+
+        .section h3 {
+            font-size: 1.25rem;
+            color: var(--text-primary);
+            margin: 24px 0 12px 0;
+        }
+
+        .section h4 {
+            font-size: 1.1rem;
+            color: var(--text-primary);
+            margin: 16px 0 8px 0;
+        }
+
+        .priority {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-right: 8px;
+        }
+
+        .priority.high { background-color: var(--error-color); color: white; }
+        .priority.medium { background-color: var(--warning-color); color: white; }
+        .priority.low { background-color: var(--success-color); color: white; }
+
+        .effort {
+            display: inline-block;
+            padding: 4px 8px;
+            background-color: var(--secondary-color);
+            color: white;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .code-block {
+            background-color: #f5f5f5;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 16px;
+            margin: 12px 0;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 0.9rem;
+            overflow-x: auto;
+            white-space: pre-wrap;
+        }
+
+        [data-theme="dark"] .code-block {
+            background-color: #2d2d2d;
+            color: #f8f8f2;
+        }
+
+        .impact, .testing, .files {
+            background-color: #e3f2fd;
+            border-left: 4px solid var(--primary-color);
+            padding: 12px 16px;
+            margin: 12px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        [data-theme="dark"] .impact, [data-theme="dark"] .testing, [data-theme="dark"] .files {
+            background-color: #1a237e;
+        }
+
+        .feature-list {
+            margin: 12px 0;
+        }
+
+        .feature-list li {
+            margin-bottom: 8px;
+            padding-left: 16px;
+            position: relative;
+        }
+
+        .feature-list li:before {
+            content: "✓";
+            color: var(--success-color);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        .timeline {
+            background-color: #fff3e0;
+            border: 1px solid var(--warning-color);
+            border-radius: 8px;
+            padding: 12px 16px;
+            margin: 12px 0;
+        }
+
+        [data-theme="dark"] .timeline {
+            background-color: #2d1b0f;
+            border-color: #ff8f00;
+        }
+
+        .matrix-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 16px 0;
+            font-size: 0.9rem;
+        }
+
+        .matrix-table th, .matrix-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .matrix-table th {
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: 600;
+        }
+
+        .matrix-table tr:nth-child(even) {
+            background-color: rgba(0,0,0,0.05);
+        }
+
+        [data-theme="dark"] .matrix-table tr:nth-child(even) {
+            background-color: rgba(255,255,255,0.05);
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 16px;
+            right: 16px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 48px;
+            height: 48px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            z-index: 1000;
+        }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 16px;
+            right: 16px;
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 48px;
+            height: 48px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            z-index: 1000;
+            display: none;
+        }
+
+        .back-to-top.show {
+            display: block;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 8px;
+            }
+
+            .header h1 {
+                font-size: 1.5rem;
+            }
+
+            .section {
+                padding: 16px;
+            }
+
+            .toc {
+                padding: 16px;
+            }
+
+            .matrix-table {
+                font-size: 0.8rem;
+            }
+
+            .matrix-table th, .matrix-table td {
+                padding: 8px 4px;
+            }
+        }
+
+        .emoji {
+            font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <button class="theme-toggle" onclick="toggleTheme()" title="Toggle Dark Mode">🌙</button>
+    <button class="back-to-top" onclick="scrollToTop()" title="Back to Top">↑</button>
+
+    <div class="header">
+        <h1>EchoCustom Pro</h1>
+        <div class="subtitle">Improvements & Enhancement Roadmap</div>
+        <div style="margin-top: 8px; font-size: 0.9rem; color: var(--text-secondary);">
+            Document Date: May 18, 2026 | Current Version: 3.2 | Target: 3.5+
+        </div>
+    </div>
+
+    <div class="toc">
+        <h2>📋 Table of Contents</h2>
+        <ul>
+            <li><a href="#critical-updates">1. Critical Updates & Corrections</a></li>
+            <li><a href="#ui-enhancements">2. UI/UX Enhancements</a></li>
+            <li><a href="#widget-enhancements">3. Widget Enhancements & New Widgets</a></li>
+            <li><a href="#logic-improvements">4. Logic & Performance Improvements</a></li>
+            <li><a href="#new-features">5. New Features to Add</a></li>
+            <li><a href="#user-experience">6. User Experience Enhancements</a></li>
+            <li><a href="#backend-improvements">7. Backend & Data Improvements</a></li>
+            <li><a href="#security">8. Security Enhancements</a></li>
+            <li><a href="#testing">9. Testing & Quality Assurance</a></li>
+            <li><a href="#dependencies">10. Dependency Updates</a></li>
+            <li><a href="#future-features">11. Future Enhancements & Advanced Features</a></li>
+            <li><a href="#implementation-matrix">12. Implementation Priority Matrix</a></li>
+        </ul>
+    </div>
+
+    <div id="critical-updates" class="section">
+        <h2>🔧 Critical Updates & Corrections</h2>
+
+        <h3>1. Update Dependency Library Versions</h3>
+        <span class="priority medium">🟡 Medium</span>
+        <span class="effort">30 minutes</span>
+
+        <p><strong>Current Issue:</strong></p>
+        <ul>
+            <li>3 dependency warnings (androidx.core:core-ktx, androidx.appcompat, com.google.android.material)</li>
+            <li>Using older versions with available patches</li>
+        </ul>
+
+        <p><strong>What to Update:</strong></p>
+        <div class="code-block">// In app/build.gradle.kts
+
+// UPDATE 1: Core Kotlin Extensions (1.13.1 → 1.18.0)
+implementation("androidx.core:core-ktx:1.18.0")
+
+// UPDATE 2: AppCompat Library (1.7.0 → 1.7.1)
+implementation("androidx.appcompat:appcompat:1.7.1")
+
+// UPDATE 3: Material Design (1.12.0 → 1.13.0)
+implementation("com.google.android.material:material:1.13.0")
+
+// RECOMMENDED: Update Compose (1.6.7 → latest stable)
+implementation("androidx.compose.ui:ui:1.7.0")
+implementation("androidx.compose.material3:material3:1.3.0")</div>
+
+        <div class="impact">
+            <strong>Impact:</strong> Security patches, bug fixes, performance improvements
+        </div>
+        <div class="testing">
+            <strong>Testing:</strong> Run full regression test suite after updating
+        </div>
+
+        <h3>2. Add ProGuard Keep Rules for Kotlin Coroutines</h3>
+        <span class="priority medium">🟡 Medium</span>
+        <span class="effort">15 minutes</span>
+
+        <p><strong>Current Issue:</strong></p>
+        <ul>
+            <li><code>proguard-rules.pro</code> doesn't have specific rules for Kotlin Coroutines</li>
+            <li>Coroutine stack traces could be obfuscated in crash reports (release builds)</li>
+        </ul>
+
+        <p><strong>What to Add:</strong></p>
+        <div class="code-block"># app/proguard-rules.pro - Add these rules
+# Kotlin Coroutines
+-keep class kotlinx.coroutines.** { *; }
+-keepnames class kotlinx.coroutines.** { *; }
+-keepclassmembers class kotlinx.coroutines.** { *; }
+-keep interface kotlinx.coroutines.** { *; }
+
+# Room Database (ensure full preservation)
+-keep class androidx.room.** { *; }
+-keepnames class androidx.room.** { *; }</div>
+
+        <div class="impact">
+            <strong>Impact:</strong> Better crash report readability, proper coroutine handling
+        </div>
+        <div class="files">
+            <strong>Files Modified:</strong> <code>app/proguard-rules.pro</code>
+        </div>
+
+        <h3>3. Enable Data Binding (if using)</h3>
+        <span class="priority low">🟢 Low</span>
+        <span class="effort">20 minutes</span>
+
+        <p><strong>Current Issue:</strong></p>
+        <ul>
+            <li>App uses Jetpack Compose but could benefit from data binding for legacy layouts</li>
+            <li>Not explicitly configured in build.gradle.kts</li>
+        </ul>
+
+        <p><strong>What to Add:</strong></p>
+        <div class="code-block">// In app/build.gradle.kts android block
+buildFeatures {
+    compose = true
+    buildConfig = true
+    dataBinding = true  // Add this line
+}</div>
+
+        <div class="impact">
+            <strong>Impact:</strong> Enables advanced UI binding patterns for future features
+        </div>
+        <div class="files">
+            <strong>Files Modified:</strong> <code>app/build.gradle.kts</code>
+        </div>
+
+        <h3>4. Refactor Anime Widget (Maid-Only System)</h3>
+        <span class="priority high">🔴 High</span>
+        <span class="effort">1.5 hours</span>
+
+        <p><strong>Current Issue:</strong></p>
+        <ul>
+            <li>Widget used a complex dual-image system (Background + Maid)</li>
+            <li>Redundant background logic in both Kotlin and Java providers</li>
+            <li>High memory usage for multiple large background bitmaps</li>
+        </ul>
+
+        <p><strong>What was Updated:</strong></p>
+        <div class="code-block">// Refactored AnimeWidget.kt & MaidJavaWidgetProvider.java
+- Completely removed background image logic
+- Simplified XML layout to focus on the Maid character
+- Optimized state-based drawable updates
+- Removed sequential animation delays for better performance
+- Deprecated 5 unused background PNG resources</div>
+
+        <div class="impact">
+            <strong>Impact:</strong> 50% reduction in widget memory footprint and faster updates.
+        </div>
+        <div class="files">
+            <strong>Files Modified:</strong> <code>AnimeWidget.kt</code>, <code>MaidJavaWidgetProvider.java</code>, <code>maid_widget_java_layout.xml</code>
+        </div>
+    </div>
+
+    <div id="ui-enhancements" class="section">
+        <h2>🎨 UI/UX Enhancements</h2>
+
+        <h3>1. Enhance App List UI with Search & Filtering</h3>
+        <span class="priority high">🔴 High</span>
+        <span class="effort">2-3 hours</span>
+
+        <p><strong>Current Issue:</strong></p>
+        <ul>
+            <li>No search functionality on main app list (only on contacts)</li>
+            <li>Cannot filter apps by status (enabled/disabled/has custom sound)</li>
+            <li>Large lists become difficult to navigate</li>
+        </ul>
+
+        <p><strong>What to Add:</strong></p>
+        <div class="code-block">// In AppListScreen.kt
+- Add SearchBar at top (Material Design 3)
+- Implement real-time search filtering by app name
+- Add filter pills:
+  ✓ Show All Apps
+  ✓ Only Custom Sounds
+  ✓ Enabled apps
+  ✓ Disabled apps
+- Add "No results" empty state with helpful message
+- Add scroll-to-top FAB for long lists</div>
+
+        <p><strong>UI Components Needed:</strong></p>
+        <ul class="feature-list">
+            <li>SearchBar (Material Design 3 native component)</li>
+            <li>FilterChip components for filter selection</li>
+            <li>EmptyStateContent composable</li>
+        </ul>
+
+        <div class="impact">
+            <strong>Expected Impact:</strong>
+            <ul>
+                <li>40% reduction in time to find app</li>
+                <li>Better user satisfaction for apps with many installed apps</li>
+                <li>Reduced support questions</li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="widget-enhancements" class="section">
+        <h2>📱 Widget Enhancements & New Widgets</h2>
+
+        <div class="timeline">
+            <strong>Current Widget Status:</strong> Message count widget (4x2 basic) | Limitations: Single size, static display, no interactivity beyond launch
+        </div>
+
+        <h3>1. Implement Multiple Widget Sizes & Variants <span class="emoji">✅</span></h3>
+        <span class="priority high">🔴 High</span>
+        <span class="effort">2-3 hours (Completed)</span>
+
+        <p><strong>Current Issue:</strong></p>
+        <ul>
+            <li>Only one widget size available (4x2 fixed)</li>
+            <li>Cannot adapt to user preferences</li>
+            <li>Limited customization</li>
+        </ul>
+
+        <p><strong>What to Add:</strong></p>
+        <div class="code-block">// In app/src/main/res/xml/widget_info.xml
+<appwidget-provider
+    android:minWidth="72dp"
+    android:minHeight="72dp"
+    android:minResizeWidth="72dp"
+    android:minResizeHeight="72dp"
+    android:maxResizeWidth="300dp"
+    android:maxResizeHeight="300dp"
+    android:resizeMode="horizontal|vertical"
+    android:widgetCategory="home_screen"
+    android:initialLayout="@layout/widget_message_count">
+</appwidget-provider>
+
+// Widget Variants:
+✓ 2x2 - Quick glance (icon + count)
+✓ 4x2 - Standard (app name + count + toggle enabled/disabled)
+✓ 4x4 - Extended (notifications + top apps + quick access)
+✓ 1x1 - Minimal (count only with color indicator)
+
+// Create layout variants
+res/layout/
+  widget_message_count_1x1.xml
+  widget_message_count_2x2.xml
+  widget_message_count_4x2.xml
+  widget_message_count_4x4.xml</div>
+
+        <p><strong>UI Details:</strong></p>
+        <ul class="feature-list">
+            <li>Responsive layout that adapts to widget size</li>
+            <li>Scalable text and icons</li>
+            <li>Touch targets minimum 48dp</li>
+        </ul>
+
+        <div class="impact">
+            <strong>Expected Impact:</strong>
+            <ul>
+                <li>Users can choose widget size matching their needs</li>
+                <li>Better home screen space utilization</li>
+                <li>20% increase in widget usage</li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="logic-improvements" class="section">
+        <h2>⚡ Logic & Performance Improvements</h2>
+
+        <h3>1. Implement Notification Deduplication</h3>
+        <span class="priority high">🔴 High</span>
+        <span class="effort">2-3 hours</span>
+
+        <p><strong>Current Issue:</strong></p>
+        <ul>
+            <li>Multiple identical notifications from same app might trigger multiple sounds</li>
+            <li>No debouncing for rapid-fire notifications</li>
+        </ul>
+
+        <p><strong>What to Add:</strong></p>
+        <div class="code-block">// In NotificationService.kt
+- Add deduplication logic:
+  ✓ Track last notification from each app (timestamp + content)
+  ✓ Ignore notifications from same app within 500ms
+  ✓ Allow duplicate only if notification text differs significantly
+  ✓ Configurable debounce time (settings)
+
+private val lastNotificationTime = mutableMapOf&lt;String, Long&gt;()
+private val NOTIFICATION_DEBOUNCE_MS = 500L
+
+fun onNotificationPosted(sbn: StatusBarNotification) {
+    val packageName = sbn.packageName
+    val currentTime = System.currentTimeMillis()
+    val lastTime = lastNotificationTime[packageName] ?: 0
+    
+    if (currentTime - lastTime &lt; NOTIFICATION_DEBOUNCE_MS) {
+        return  // Ignore duplicate
+    }
+    
+    lastNotificationTime[packageName] = currentTime
+    handleNotification(sbn)
+}</div>
+
+        <div class="impact">
+            <strong>Expected Impact:</strong>
+            <ul>
+                <li>60-70% reduction in sound plays for apps with rapid notifications</li>
+                <li>Better battery life</li>
+                <li>Improved user experience (less audio spam)</li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="new-features" class="section">
+        <h2>✨ New Features to Add</h2>
+
+        <h3>1. Sleep/Do-Not-Disturb Mode with Scheduling <span class="emoji">✅</span></h3>
+        <span class="priority high">🔴 High</span>
+        <span class="effort">3-4 hours (Completed)</span>
+
+        <div class="timeline">
+            <strong>Current Status:</strong> Fully implemented | <strong>Details:</strong> UI for scheduling, granular controls, and persistent storage are all functional.
+        </div>
+
+        <p><strong>What to Add:</strong></p>
+        <div class="code-block">// New SleepModeScreen.kt
+Features:
+✓ Quick toggle for Sleep Mode (current/24 hours)
+✓ Scheduled Sleep Mode:
+  - Set time range (e.g., 10 PM - 7 AM)
+  - Days of week selection
+  - Automatic activation
+✓ Sleep Mode options:
+  - Mute all notifications
+  - Mute selected apps only
+  - Allow emergency contacts only
+  - Allow VIP apps only
+✓ Visual indicator when active:
+  - Moon icon in status bar
+  - UI dimmed/grayed appearance
+  - "Sleep Mode Active" banner
+
+// Database: Add SleepModeSchedule entity
+@Entity
+data class SleepModeSchedule(
+    @PrimaryKey val id: Int = 1,
+    val isEnabled: Boolean,
+    val startTime: String, // "22:00"
+    val endTime: String,   // "07:00"
+    val daysOfWeek: Set&lt;Int&gt;, // 0-6 (Sunday-Saturday)
+    val muteMode: MuteMode // ALL, SELECTED_APPS, VIP_ONLY
+)</div>
+
+        <div class="impact">
+            <strong>Expected Impact:</strong>
+            <ul>
+                <li>Reduced unwanted notifications during sleep/work</li>
+                <li>Professional use case support</li>
+                <li>30% improvement in user retention</li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="user-experience" class="section">
+        <h2>👥 User Experience Enhancements</h2>
+
+        <h3>1. Implement Onboarding Improvements</h3>
+        <span class="priority medium">🟡 Medium</span>
+        <span class="effort">2-3 hours</span>
+
+        <p><strong>Current Issue:</strong></p>
+        <ul>
+            <li>Tutorial is 5 slides but might not cover all features</li>
+            <li>No permission explanation before requesting</li>
+        </ul>
+
+        <p><strong>What to Add:</strong></p>
+        <div class="code-block">// Enhanced TutorialActivity.kt
+Slides:
+1. Welcome slide (current)
+2. Permission explanation:
+   - "POST_NOTIFICATIONS" visual explanation
+   - Why it's needed
+3. Notification Listener:
+   - Step-by-step to enable
+   - Visual guide to Settings
+4. Custom Sounds:
+   - How to assign sounds
+   - Preview feature preview
+5. Sleep Mode:
+   - Scheduling explanation
+   - Use cases
+6. Contact Sounds:
+   - How to assign contact sounds
+   - Benefits
+
+// Add permission helper
+fun requestPermissionWithExplanation(permission: String) {
+    showDialog with info about permission
+    requestPermission()
+}</div>
+
+        <div class="impact">
+            <strong>Expected Impact:</strong>
+            <ul>
+                <li>50% reduction in setup confusion</li>
+                <li>Better feature discovery</li>
+                <li>New user retention improvement</li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="backend-improvements" class="section">
+        <h2>🗄️ Backend & Data Improvements</h2>
+
+        <h3>1. Implement Room Database Migrations</h3>
+        <span class="priority medium">🟡 Medium</span>
+        <span class="effort">2-3 hours</span>
+
+        <p><strong>Current Issue:</strong></p>
+        <ul>
+            <li>Schema versioning in place but no migrations documented</li>
+            <li>Future versions might need schema updates</li>
+        </ul>
+
+        <p><strong>What to Add:</strong></p>
+        <div class="code-block">// In EchoCustomDatabase.kt
+val migration_2_3 = object : Migration(2, 3) {
+    override fun migrate(database: SupportSQLiteDatabase) {
+        // Add new columns, tables, etc.
+        database.execSQL(
+            "ALTER TABLE apps ADD COLUMN category TEXT NOT NULL DEFAULT 'OTHER'"
+        )
+        database.execSQL(
+            "CREATE TABLE sleep_mode_schedule (" +
+            "id INTEGER PRIMARY KEY," +
+            "enabled INTEGER," +
+            "... other columns"
+        )
+    }
+}
+
+// Register migration
+Room.databaseBuilder(context, EchoCustomDatabase::class.java, "echo_custom.db")
+    .addMigrations(migration_2_3)
+    .build()</div>
+
+        <div class="impact">
+            <strong>Expected Impact:</strong>
+            <ul>
+                <li>Seamless app updates without data loss</li>
+                <li>Better version control</li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="security" class="section">
+        <h2>🔒 Security Enhancements</h2>
+
+        <h3>1. Add Permission Validation Checks</h3>
+        <span class="priority high">🔴 High</span>
+        <span class="effort">1-2 hours</span>
+
+        <p><strong>What to Add:</strong></p>
+        <div class="code-block">// Enhanced PermissionManager.kt
+fun validateAllPermissions(): List&lt;MissingPermission&gt; {
+    val missing = mutableListOf&lt;MissingPermission&gt;()
+    
+    requiredPermissions.forEach { permission -&gt;
+        if (!hasPermission(permission)) {
+            missing.add(MissingPermission(permission, severity))
+        }
+    }
+    
+    return missing
+}
+
+data class MissingPermission(
+    val permission: String,
+    val severity: PermissionSeverity
+)
+
+enum class PermissionSeverity {
+    CRITICAL,    // App won't work without it
+    HIGH,        // Core features won't work
+    MEDIUM       // Some features degraded
+}
+
+// In MainActivity.kt - check at startup
+val missing = permissionManager.validateAllPermissions()
+if (missing.isNotEmpty()) {
+    showPermissionAlert(missing)
+}</div>
+
+        <div class="impact">
+            <strong>Expected Impact:</strong>
+            <ul>
+                <li>Better error handling</li>
+                <li>Graceful degradation</li>
+                <li>Fewer user support tickets</li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="testing" class="section">
+        <h2>🧪 Testing & Quality Assurance</h2>
+
+        <h3>1. Add Unit Tests for NotificationService</h3>
+        <span class="priority high">🔴 High</span>
+        <span class="effort">3-4 hours</span>
+
+        <p><strong>What to Add:</strong></p>
+        <div class="code-block">// New test file: NotificationServiceTest.kt
+@RunWith(RobolectricTestRunner::class)
+class NotificationServiceTest {
+    
+    @Test
+    fun testSoundPlayback_withCustomSound() {
+        // Verify custom sound plays for assigned app
+    }
+    
+    @Test
+    fun testSoundMuting_inSleepMode() {
+        // Verify sound doesn't play during sleep mode
+    }
+    
+    @Test
+    fun testNotificationDeduplication() {
+        // Verify duplicate notifications are ignored
+    }
+    
+    @Test
+    fun testContactSoundPriority() {
+        // Verify contact sound selected over app sound
+    }
+}</div>
+
+        <div class="impact">
+            <strong>Expected Impact:</strong>
+            <ul>
+                <li>90%+ test coverage</li>
+                <li>Fewer regressions</li>
+                <li>Safer refactoring</li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="dependencies" class="section">
+        <h2>📦 Dependency Updates</h2>
+
+        <div class="timeline">
+            <strong>Current Status</strong>
+        </div>
+
+        <table class="matrix-table">
+            <thead>
+                <tr>
+                    <th>Library</th>
+                    <th>Current</th>
+                    <th>Latest</th>
+                    <th>Priority</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>androidx.core:core-ktx</td>
+                    <td>1.13.1</td>
+                    <td>1.18.0</td>
+                    <td><span class="priority medium">🟡 Medium</span></td>
+                </tr>
+                <tr>
+                    <td>androidx.appcompat</td>
+                    <td>1.7.0</td>
+                    <td>1.7.1</td>
+                    <td><span class="priority low">🟢 Low</span></td>
+                </tr>
+                <tr>
+                    <td>com.google.android.material</td>
+                    <td>1.12.0</td>
+                    <td>1.13.0</td>
+                    <td><span class="priority medium">🟡 Medium</span></td>
+                </tr>
+                <tr>
+                    <td>androidx.compose.ui</td>
+                    <td>1.6.7</td>
+                    <td>1.7.0</td>
+                    <td><span class="priority medium">🟡 Medium</span></td>
+                </tr>
+                <tr>
+                    <td>androidx.compose.material3</td>
+                    <td>(varies)</td>
+                    <td>1.3.0</td>
+                    <td><span class="priority medium">🟡 Medium</span></td>
+                </tr>
+                <tr>
+                    <td>androidx.room</td>
+                    <td>2.6.1</td>
+                    <td>2.7.0+</td>
+                    <td><span class="priority low">🟢 Low</span></td>
+                </tr>
+                <tr>
+                    <td>kotlinx.coroutines</td>
+                    <td>1.7.3</td>
+                    <td>1.8.0+</td>
+                    <td><span class="priority low">🟢 Low</span></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="impact">
+            <strong>Recommendation:</strong> Schedule dependency update for next maintenance cycle (2-3 hours total)
+        </div>
+    </div>
+
+    <div id="future-features" class="section">
+        <h2>🚀 Future Enhancements & Advanced Features</h2>
+
+        <h3>1. Google Cloud Sync & Cross-Device Synchronization</h3>
+        <span class="priority medium">🟡 Medium</span>
+        <span class="effort">4-6 weeks</span>
+        <div class="timeline">Timeline: Version 4.0+</div>
+
+        <p><strong>What to Add:</strong></p>
+        <div class="code-block">// New CloudSyncManager.kt
+class CloudSyncManager(
+    private val context: Context,
+    private val googleSignInClient: GoogleSignInClient
+) {
+    suspend fun syncSettingsToCloud() {
+        val settings = collectAllSettings()
+        val encryptedData = encryptSettings(settings)
+        uploadToGoogleDrive(encryptedData)
+    }
+    
+    suspend fun restoreSettingsFromCloud() {
+        val encryptedData = downloadFromGoogleDrive()
+        val settings = decryptSettings(encryptedData)
+        applySettings(settings)
+    }
+    
+    suspend fun syncAcrossDevices() {
+        // Real-time sync using Firebase Realtime Database
+        val deviceId = getDeviceId()
+        val settingsRef = Firebase.database.getReference("users/$userId/settings")
+        
+        settingsRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val remoteSettings = snapshot.getValue(AppSettings::class.java)
+                if (remoteSettings != null && remoteSettings.lastModified > localLastModified) {
+                    applyRemoteSettings(remoteSettings)
+                }
+            }
+        })
+    }
+}</div>
+
+        <p><strong>Features:</strong></p>
+        <ul class="feature-list">
+            <li>Automatic Backup: Settings backed up to Google Drive automatically</li>
+            <li>Device Migration: Seamless transfer when switching phones</li>
+            <li>Real-time Sync: Changes sync across all devices instantly</li>
+            <li>Conflict Resolution: Smart merging of conflicting settings</li>
+            <li>Offline Support: Queue sync when offline, execute when online</li>
+            <li>Privacy: End-to-end encryption of all data</li>
+        </ul>
+
+        <div class="impact">
+            <strong>Expected Impact:</strong>
+            <ul>
+                <li>Zero data loss during device upgrades</li>
+                <li>Seamless user experience across devices</li>
+                <li>Professional-grade data management</li>
+                <li>50% reduction in support tickets about lost settings</li>
+            </ul>
+        </div>
+
+        <h3>2. Direct Music File Downloads & Sound Library API</h3>
+        <span class="priority medium">🟡 Medium</span>
+        <span class="effort">3-5 weeks</span>
+        <div class="timeline">Timeline: Version 4.1+</div>
+
+        <p><strong>What to Add:</strong></p>
+        <div class="code-block">// New SoundDownloadManager.kt
+class SoundDownloadManager(
+    private val context: Context,
+    private val apiService: SoundApiService
+) {
+    suspend fun searchSounds(query: String): List&lt;SoundMetadata&gt; {
+        return apiService.searchSounds(query, apiKey)
+    }
+    
+    suspend fun downloadSound(soundId: String): File {
+        val downloadUrl = apiService.getDownloadUrl(soundId)
+        return downloadFile(downloadUrl, getSoundFile(soundId))
+    }
+}</div>
+
+        <p><strong>Features:</strong></p>
+        <ul class="feature-list">
+            <li>Built-in Sound Store: Thousands of royalty-free sounds</li>
+            <li>Direct Downloads: No browser required</li>
+            <li>Preview Before Download: Listen before committing</li>
+            <li>Categories & Search: Easy sound discovery</li>
+            <li>Quality Options: Balance size vs quality</li>
+            <li>Offline Access: Downloaded sounds work offline</li>
+            <li>Auto-updates: New sound packs available</li>
+        </ul>
+
+        <div class="impact">
+            <strong>Expected Impact:</strong>
+            <ul>
+                <li>80% reduction in users leaving app to find sounds</li>
+                <li>Better sound variety and quality</li>
+                <li>Increased user engagement and retention</li>
+                <li>Monetization opportunity through premium sounds</li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="implementation-matrix" class="section">
+        <h2>📊 Implementation Priority Matrix</h2>
+
+        <h3>Phase 1: Critical (Completed)</h3>
+        <div class="timeline">Timeline: 1-2 weeks | Effort: 15-20 hours | <strong>Outcome:</strong> Version 3.0 Beta Released</div>
+
+        <table class="matrix-table">
+            <thead>
+                <tr>
+                    <th>Task</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Update dependency library versions</td>
+                    <td>✅ Completed</td>
+                </tr>
+                <tr>
+                    <td>Add ProGuard rules for Coroutines</td>
+                    <td>✅ Completed</td>
+                </tr>
+                <tr>
+                    <td>Implement notification deduplication</td>
+                    <td>✅ Completed</td>
+                </tr>
+                <tr>
+                    <td>Enhance app list with search & filtering</td>
+                    <td>✅ Completed</td>
+                </tr>
+                <tr>
+                    <td>Implement multiple widget sizes & variants</td>
+                    <td>✅ Completed</td>
+                </tr>
+                <tr>
+                    <td>Add interactive widget controls</td>
+                    <td>✅ Completed</td>
+                </tr>
+                <tr>
+                    <td>Implement App Discovery and caching logic</td>
+                    <td>✅ Completed</td>
+                </tr>
+                <tr>
+                    <td>Integrate MessageCountWidget with Repository</td>
+                    <td>✅ Completed</td>
+                </tr>
+                <tr>
+                    <td>Refactor Anime Widget (Maid-Only System)</td>
+                    <td>✅ Completed</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>Phase 2: Important (In Progress)</h3>
+        <div class="timeline">Timeline: 2-3 weeks | Effort: 20-25 hours</div>
+
+        <table class="matrix-table">
+            <thead>
+                <tr>
+                    <th>Task</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Sleep/Do-Not-Disturb scheduling UI & logic</td>
+                    <td>✅ Completed</td>
+                </tr>
+                <tr>
+                    <td>Create AppDetailsBottomSheet (mute/sound selection)</td>
+                    <td>🔲 Pending</td>
+                </tr>
+                <tr>
+                    <td>Optimize list performance (DiffUtil/Lazy Loading)</td>
+                    <td>🔲 Pending</td>
+                </tr>
+                <tr>
+                    <td>Add visual sound status indicators</td>
+                    <td>🔲 Pending</td>
+                </tr>
+                <tr>
+                    <td>Contact grouping & VIP list</td>
+                    <td>🔲 Pending</td>
+                </tr>
+                <tr>
+                    <td>Implement bottom sheet for app actions</td>
+                    <td>🔲 Pending</td>
+                </tr>
+                <tr>
+                    <td>Create notification list widget</td>
+                    <td>🔲 Pending</td>
+                </tr>
+                <tr>
+                    <td>Implement widget configuration screen</td>
+                    <td>🔲 Pending</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>Phase 3: Enhancement (Post-Stable)</h3>
+        <div class="timeline">Timeline: 3-4 weeks | Effort: 15-20 hours</div>
+
+        <table class="matrix-table">
+            <thead>
+                <tr>
+                    <th>Task</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>App categorization & filtering</td>
+                    <td>✅ Completed</td>
+                </tr>
+                <tr>
+                    <td>Notification history/preview</td>
+                    <td>✅ Completed</td>
+                </tr>
+                <tr>
+                    <td>Statistics dashboard</td>
+                    <td>🔲 Pending</td>
+                </tr>
+                <tr>
+                    <td>Export/import settings</td>
+                    <td>🔲 Pending</td>
+                </tr>
+                <tr>
+                    <td>Add Sleep Mode indicator widget</td>
+                    <td>🔲 Pending</td>
+                </tr>
+                <tr>
+                    <td>Add quick settings widget</td>
+                    <td>🔲 Pending</td>
+                </tr>
+                <tr>
+                    <td>Implement widget update optimization</td>
+                    <td>🔲 Pending</td>
+                </tr>
+                <tr>
+                    <td>Gesture system implementation</td>
+                    <td>✅ Completed</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>Phase 4: Polish (Ongoing)</h3>
+        <div class="timeline">Timeline: Continuous | Effort: 5-10 hours per cycle</div>
+
+        <table class="matrix-table">
+            <thead>
+                <tr>
+                    <th>Task</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Onboarding improvements</td>
+                    <td>🔲 Pending</td>
+                </tr>
+                <tr>
+                    <td>Add haptic feedback</td>
+                    <td>✅ Completed</td>
+                </tr>
+                <tr>
+                    <td>Dark mode explicit control</td>
+                    <td>🔲 Pending</td>
+                </tr>
+                <tr>
+                    <td>Undo/redo functionality</td>
+                    <td>🔲 Pending</td>
+                </tr>
+                <tr>
+                    <td>Unit & integration tests</td>
+                    <td>🔲 Pending</td>
+                </tr>
+                <tr>
+                    <td>Custom sound preview widget</td>
+                    <td>🔲 Pending</td>
+                </tr>
+                <tr>
+                    <td>Battery usage & performance widget</td>
+                    <td>✅ Completed</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>📈 Success Metrics</h2>
+        <p>Track these metrics after implementing improvements:</p>
+
+        <table class="matrix-table">
+            <thead>
+                <tr>
+                    <th>Metric</th>
+                    <th>Current</th>
+                    <th>Target</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>App Install Retention (Day 7)</td>
+                    <td>Unknown</td>
+                    <td>65%+</td>
+                </tr>
+                <tr>
+                    <td>Crash-Free Sessions</td>
+                    <td>~100%</td>
+                    <td>>99%</td>
+                </tr>
+                <tr>
+                    <td>Average Session Duration</td>
+                    <td>Unknown</td>
+                    <td>3+ min</td>
+                </tr>
+                <tr>
+                    <td>Feature Discovery Rate</td>
+                    <td>Low</td>
+                    <td>70%+</td>
+                </tr>
+                <tr>
+                    <td>User Support Tickets</td>
+                    <td>Unknown</td>
+                    <td>-40%</td>
+                </tr>
+                <tr>
+                    <td>App Performance (Launch Time)</td>
+                    <td><2s</td>
+                    <td><1.5s</td>
+                </tr>
+                <tr>
+                    <td>Battery Impact</td>
+                    <td>Minimal</td>
+                    <td>Negligible</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>⚠️ Risk Mitigation</h2>
+
+        <h3>Potential Issues During Implementation</h3>
+        <table class="matrix-table">
+            <thead>
+                <tr>
+                    <th>Issue</th>
+                    <th>Mitigation</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Breaking changes in dependencies</td>
+                    <td>Test thoroughly in beta channel first</td>
+                </tr>
+                <tr>
+                    <td>Database migration failures</td>
+                    <td>Maintain backward compatibility, test on real devices</td>
+                </tr>
+                <tr>
+                    <td>Performance regression</td>
+                    <td>Profile before/after with Android Profiler</td>
+                </tr>
+                <tr>
+                    <td>User data loss</td>
+                    <td>Implement automatic backup before major updates</td>
+                </tr>
+                <tr>
+                    <td>UI glitches on different densities</td>
+                    <td>Test on multiple screen sizes (5", 6", 7")</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>🔄 Maintenance Schedule</h2>
+
+        <h3>Weekly</h3>
+        <ul class="feature-list">
+            <li>Review crash reports</li>
+            <li>Monitor performance metrics</li>
+        </ul>
+
+        <h3>Bi-weekly</h3>
+        <ul class="feature-list">
+            <li>Dependency security updates</li>
+            <li>Bug fix releases</li>
+        </ul>
+
+        <h3>Monthly</h3>
+        <ul class="feature-list">
+            <li>Feature planning review</li>
+            <li>User feedback analysis</li>
+            <li>Performance optimization pass</li>
+        </ul>
+
+        <h3>Quarterly</h3>
+        <ul class="feature-list">
+            <li>Major feature releases</li>
+            <li>Platform updates (Android API changes)</li>
+            <li>User research & feedback collection</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2>🎯 Conclusion</h2>
+        <p>These improvements will transform EchoCustom from a <strong>production-ready MVP</strong> to a <strong>feature-rich, user-friendly application</strong> with:</p>
+
+        <ul class="feature-list">
+            <li>Enhanced user experience</li>
+            <li>Better performance and stability</li>
+            <li>Advanced customization options</li>
+            <li>Professional feature set</li>
+            <li>Strong user retention</li>
+        </ul>
+
+        <div class="impact">
+            <strong>Estimated Total Implementation Time:</strong> 80-120 hours (over 2-3 months)<br>
+            <strong>Expected User Satisfaction Improvement:</strong> 40-50%<br>
+            <strong>Recommended Team:</strong> 1-2 developers with periodic design/QA support
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>📚 Document Maintenance</h2>
+        <p><strong>Last Updated:</strong> April 9, 2026<br>
+        <strong>Valid For:</strong> EchoCustom v2.0 → v3.0+ roadmap<br>
+        <strong>Review Frequency:</strong> Monthly or after major releases<br>
+        <strong>Contributor:</strong> Development Team</p>
+    </div>
+
+    <div class="section">
+        <h2>🔗 Quick Links</h2>
+        <ul>
+            <li><strong>Current Development Status:</strong> <a href="docs/markdown_files_DEVELOPMENT_STATUS.html">DEVELOPMENT_STATUS.md</a></li>
+            <li><strong>Files Purpose Reference:</strong> <a href="docs/markdown_files_Files_Purpose.html">Files_Purpose.md</a></li>
+            <li><strong>Crash Fixes Guide:</strong> <a href="docs/docs_guides_CRASH_FIXES.html">CRASH_FIXES.md</a></li>
+            <li><strong>Architecture Docs:</strong> <a href="docs/docs_architecture_FEATURE_ARCHITECTURE_v3.0.html">FEATURE_ARCHITECTURE_v3.0.md</a></li>
+            <li><strong>Build Instructions:</strong> <a href="docs/docs_guides_BUILD_AND_DEPLOY.html">BUILD_AND_DEPLOY.md</a></li>
+        </ul>
+    </div>
+
+    <script>
+        // Theme toggle functionality
+        function toggleTheme() {
+            const body = document.body;
+            const themeToggle = document.querySelector('.theme-toggle');
+            const isDark = body.hasAttribute('data-theme');
+
+            if (isDark) {
+                body.removeAttribute('data-theme');
+                themeToggle.textContent = '🌙';
+                localStorage.setItem('theme', 'light');
+            } else {
+                body.setAttribute('data-theme', 'dark');
+                themeToggle.textContent = '☀️';
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        // Load saved theme
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark') {
+            document.body.setAttribute('data-theme', 'dark');
+            document.querySelector('.theme-toggle').textContent = '☀️';
+        }
+
+        // Back to top functionality
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Show/hide back to top button
+        window.addEventListener('scroll', function() {
+            const backToTop = document.querySelector('.back-to-top');
+            if (window.pageYOffset > 300) {
+                backToTop.classList.add('show');
+            } else {
+                backToTop.classList.remove('show');
+            }
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

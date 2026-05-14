@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AGENTS.md — Project EchoCustom</title>
+    <style>
+        body { font-family: sans-serif; line-height: 1.6; max-width: 800px; margin: 0 auto; padding: 20px; background: #f4f4f9; }
+        .content { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        h1, h2 { color: #333; }
+        code { background: #eee; padding: 2px 4px; border-radius: 4px; }
+        pre { background: #eee; padding: 10px; overflow-x: auto; }
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+    </style>
+</head>
+<body>
+    <a href="../index.html">← Back</a>
+    <div class="content">
+        <h1>AGENTS.md — Project EchoCustom</h1>
+        <h2>Project Identity</h2>
+        <ul>
+            <li><strong>Type:</strong> Android launcher / personalization app (single module <code>:app</code>)</li>
+            <li><strong>Package:</strong> <code>com.echo.custom</code></li>
+            <li><strong>Namespace:</strong> <code>com.echo.custom</code></li>
+            <li><strong>Version:</strong> code=4, name="3.0"</li>
+        </ul>
+        <h2>Build / Toolchain</h2>
+        <table>
+            <tr><th>Config</th><th>Value</th></tr>
+            <tr><td>Gradle</td><td>9.4.1 (wrapper)</td></tr>
+            <tr><td>AGP</td><td>9.2.0</td></tr>
+            <tr><td>Kotlin</td><td>2.2.10</td></tr>
+            <tr><td>compileSdk</td><td>36</td></tr>
+            <tr><td>minSdk</td><td>26</td></tr>
+            <tr><td>targetSdk</td><td>36</td></tr>
+            <tr><td>JDK</td><td>21 required</td></tr>
+        </table>
+        <h3>Developer Commands</h3>
+        <pre><code>./gradlew assembleDebug          # Debug APK
+./gradlew assembleRelease        # Release APK
+./gradlew installDebug           # Build + install
+./gradlew test                   # Unit tests
+./gradlew clean                  # Clear build artifacts
+./gradlew lint                   # Lint check</code></pre>
+        <h2>Architecture Overview</h2>
+        <ul>
+            <li><strong>UI:</strong> Jetpack Compose (Material 3)</li>
+            <li><strong>DI:</strong> Hilt</li>
+            <li><strong>Database:</strong> Room (v8)</li>
+            <li><strong>Preferences:</strong> Jetpack DataStore</li>
+        </ul>
+    </div>
+</body>
+</html>

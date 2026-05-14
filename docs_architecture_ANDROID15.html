@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Android 15 Deployment Configuration Guide</title>
+    <style>
+        body { font-family: sans-serif; line-height: 1.6; max-width: 800px; margin: 0 auto; padding: 20px; background: #f4f4f9; }
+        .content { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        h1, h2 { color: #333; }
+        code { background: #eee; padding: 2px 4px; border-radius: 4px; }
+        pre { background: #eee; padding: 10px; overflow-x: auto; }
+    </style>
+</head>
+<body>
+    <a href="../index.html">← Back</a>
+    <div class="content">
+        <h1>Android 15 Deployment Configuration Guide</h1>
+        <h2>Overview</h2>
+        <p>This document outlines all configuration updates made to support <strong>Android 15 (API 35)</strong> deployment across all Android mobile phones.</p>
+        <h2>1. Configuration Files Updated</h2>
+        <h3>1.1 AndroidManifest.xml</h3>
+        <ul>
+            <li>Added <code>POST_NOTIFICATIONS</code> permission.</li>
+            <li>Added <code>READ_MEDIA_AUDIO</code> permission.</li>
+        </ul>
+        <h3>1.2 app/build.gradle.kts</h3>
+        <pre><code>compileSdk = 35
+minSdk = 26
+targetSdk = 35</code></pre>
+        <h2>2. Device Compatibility</h2>
+        <p>Supported on CPU architectures ARM64, ARM, x86, x86_64. Min RAM 256MB.</p>
+    </div>
+</body>
+</html>

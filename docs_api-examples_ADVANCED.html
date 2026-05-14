@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EchoCustom Pro v3.0 - Implementation Examples</title>
+    <style>
+        body { font-family: sans-serif; line-height: 1.6; max-width: 800px; margin: 0 auto; padding: 20px; background: #f4f4f9; }
+        .content { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        h1, h2 { color: #333; }
+        code { background: #eee; padding: 2px 4px; border-radius: 4px; }
+        pre { background: #eee; padding: 10px; overflow-x: auto; }
+    </style>
+</head>
+<body>
+    <a href="../index.html">← Back</a>
+    <div class="content">
+        <h1>EchoCustom Pro v3.0 - Implementation Examples & Best Practices</h1>
+        <h2>Advanced Database Queries</h2>
+        <pre><code>// Example 1: Complex App Filtering
+suspend fun getConfiguredApps(): List&lt;AppEntity&gt; {
+    return appDao.getAllApps().filter { app -&gt;
+        app.isEnabled && app.customSoundUri != null
+    }.sortedByDescending { it.lastUsed }
+}</code></pre>
+        <h2>Widget Advanced Implementation</h2>
+        <pre><code>// Enhanced widget that observes database changes
+class AdvancedMessageCountWidget : GlanceAppWidget() {
+    override suspend fun provideGlance(context: Context, id: GlanceId) {
+        // ...
+    }
+}</code></pre>
+        <h2>Performance Optimization</h2>
+        <p>Icon caching with compression and lazy loading with pagination.</p>
+    </div>
+</body>
+</html>

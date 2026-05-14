@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EchoCustom Pro - Android 15 Build & Deployment Guide</title>
+    <style>
+        body { font-family: sans-serif; line-height: 1.6; max-width: 800px; margin: 0 auto; padding: 20px; background: #f4f4f9; }
+        .content { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        h1, h2 { color: #333; }
+        code { background: #eee; padding: 2px 4px; border-radius: 4px; }
+        pre { background: #eee; padding: 10px; overflow-x: auto; }
+    </style>
+</head>
+<body>
+    <a href="../index.html">← Back</a>
+    <div class="content">
+        <h1>EchoCustom Pro - Android 15 Build & Deployment Guide</h1>
+        <h2>Quick Start</h2>
+        <p>JDK 21 required. Android SDK API 35 (Android 15).</p>
+        <h2>Building the APK</h2>
+        <pre><code>./gradlew assembleDebug
+./gradlew assembleRelease</code></pre>
+        <h2>Installation</h2>
+        <pre><code>adb install -r app-release.apk</code></pre>
+    </div>
+</body>
+</html>

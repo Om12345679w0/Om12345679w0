@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project EchoCustom: Comprehensive Learning Guide</title>
+    <style>
+        body { font-family: sans-serif; line-height: 1.6; max-width: 800px; margin: 0 auto; padding: 20px; background: #f4f4f9; }
+        .content { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        h1, h2 { color: #333; }
+        code { background: #eee; padding: 2px 4px; border-radius: 4px; }
+        pre { background: #eee; padding: 10px; overflow-x: auto; }
+    </style>
+</head>
+<body>
+    <a href="../index.html">← Back</a>
+    <div class="content">
+        <h1>Project EchoCustom: Comprehensive Learning Guide</h1>
+        <p>Welcome to the internal documentation for <strong>Project EchoCustom Pro</strong>. This guide provides a detailed breakdown of the project's architecture, logic, and file structure to help you understand how every piece fits together.</p>
+        <hr>
+        <h2>1. 🌟 Project Overview</h2>
+        <p><strong>EchoCustom Pro</strong> is a modular Android personalization suite and launcher. It combines several high-level features:</p>
+        <ul>
+            <li><strong>Sound Mapping</strong>: Custom audio overrides for notifications on a per-app/per-contact basis.</li>
+            <li><strong>Smart Launcher</strong>: A feature-rich home screen with a "Maid" assistant, modular dashboard, and resource monitoring.</li>
+            <li><strong>Elder Mode</strong>: A specialized, high-visibility UI for simplified accessibility.</li>
+            <li><strong>Privacy & Security</strong>: Call screening and accessibility-based gestures.</li>
+        </ul>
+        <blockquote><strong>Note:</strong> The <code>Niagara Launcher/</code> directory in the root is a separate reference project (uIndex Launcher) and is <strong>not</strong> part of the Gradle build.</blockquote>
+        <hr>
+        <h2>2. 🏗 Architecture & Tech Stack</h2>
+        <p>The project follows modern Android development practices:</p>
+        <ul>
+            <li><strong>Language</strong>: 100% Kotlin (with some Java for legacy widget support).</li>
+            <li><strong>Architecture</strong>: <strong>MVVM (Model-ViewModel-Intent)</strong> with a reactive data flow.</li>
+            <li><strong>UI Framework</strong>: <strong>Jetpack Compose</strong> (Material 3) for all modern screens; XML for legacy widgets and <code>TutorialActivity</code>.</li>
+            <li><strong>Dependency Injection</strong>: <strong>Hilt</strong> (Dagger) for managing object lifecycles.</li>
+            <li><strong>Persistence</strong>: 
+                <ul>
+                    <li><strong>Room Database</strong>: For structured data (Apps, Notifications, Folders). Currently at <strong>Schema v8</strong>.</li>
+                    <li><strong>DataStore</strong>: For lightweight user preferences (Themes, Modes).</li>
+                </ul>
+            </li>
+            <li><strong>Asynchronous Logic</strong>: <strong>Kotlin Coroutines</strong> and <strong>Flow</strong>.</li>
+        </ul>
+        <hr>
+        <h2>3. 📁 Module Breakdown</h2>
+        <h3>📱 UI Layer (<code>com.echo.custom.ui</code>)</h3>
+        <ul>
+            <li><strong><code>MainActivity.kt</code></strong>: The single-activity entry point. Configured with <code>HOME</code> category to act as a launcher. It manages navigation via <code>NavHost</code>, handles theme switching, and observes global states like <strong>Elder Mode</strong>.</li>
+            <li><strong><code>screens/</code></strong>:
+                <ul>
+                    <li><code>HomeScreen.kt</code>: The main dashboard. Dynamically switches between the <strong>Professional Dashboard</strong> and the <strong>Elder Mode Grid</strong>.</li>
+                    <li><code>AppListScreen.kt</code>: A categorized list of all installed apps with search and filtering.</li>
+                    <li><code>ContactScreens.kt</code>: Manages contact-specific sound mappings and the dialer (in Elder Mode).</li>
+                </ul>
+            </li>
+        </ul>
+        <h3>🧠 Logic Layer (<code>com.echo.custom.viewmodel</code>)</h3>
+        <ul>
+            <li><strong><code>HomeViewModel.kt</code></strong>: The "brain" of the home screen.</li>
+        </ul>
+        <h3>💾 Data Layer (<code>com.echo.custom.database</code> & <code>com.echo.custom.data</code>)</h3>
+        <ul>
+            <li><strong><code>EchoCustomDatabase.kt</code></strong>: Defines the Room database with entities.</li>
+        </ul>
+        <h3>⚙️ Services & Receivers (<code>com.echo.custom.service</code> & <code>com.echo.custom.receiver</code>)</h3>
+        <ul>
+            <li><strong><code>NotificationService.kt</code></strong>: A <code>NotificationListenerService</code>. Intercepts notifications.</li>
+        </ul>
+        <hr>
+        <h2>4. 🔑 Key Logic Deep Dives</h2>
+        <h3>🔊 Sound Mapping Logic</h3>
+        <ol>
+            <li>A notification arrives -> <code>NotificationService.onNotificationPosted</code> is triggered.</li>
+            <li>The service checks the <code>AppDao</code> for the package name.</li>
+            <li>If <code>customSoundUri</code> exists and "Sleep Mode" isn't blocking it, the sound is played.</li>
+        </ol>
+        <hr>
+        <h2>5. 🛠 Build & Environment</h2>
+        <ul>
+            <li><strong>Target SDK</strong>: <strong>36 (Android 15)</strong>.</li>
+            <li><strong>Java Version</strong>: <strong>JDK 21</strong> required.</li>
+        </ul>
+        <hr>
+        <h2>📖 How to Learn More</h2>
+        <ul>
+            <li>Check <code>AGENTS.md</code> for AI instructions.</li>
+            <li>Review <code>docs/architecture/</code> for deep dives.</li>
+        </ul>
+    </div>
+</body>
+</html>

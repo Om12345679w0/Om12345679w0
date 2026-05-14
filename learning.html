@@ -1,1 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EchoCustom Pro - Learning Guide</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary-color: #ec4899;
+            --background-color: #f8fafc;
+            --surface-color: #ffffff;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --border-color: #e2e8f0;
+            --note-bg: #eff6ff;
+            --note-border: #3b82f6;
+        }
 
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --background-color: #0f172a;
+                --surface-color: #1e293b;
+                --text-primary: #f1f5f9;
+                --text-secondary: #94a3b8;
+                --border-color: #334155;
+                --note-bg: #1e293b;
+                --note-border: #6366f1;
+            }
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background-color: var(--background-color);
+            padding: 20px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 0;
+            margin-bottom: 40px;
+            border-bottom: 2px solid var(--primary-color);
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        header p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        .nav-back {
+            display: inline-flex;
+            align-items: center;
+            text-decoration: none;
+            color: var(--primary-color);
+            font-weight: 600;
+            margin-bottom: 20px;
+            transition: transform 0.2s;
+        }
+
+        .nav-back:hover {
+            transform: translateX(-5px);
+        }
+
+        .toc {
+            background-color: var(--surface-color);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--border-color);
+        }
+
+        .toc h2 {
+            font-size: 1.5rem;
+            margin-bottom: 16px;
+            color: var(--primary-color);
+        }
+
+        .toc ul {
+            list-style: none;
+        }
+
+        .toc li {
+            margin-bottom: 10px;
+        }
+
+        .toc a {
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: color 0.2s;
+            display: block;
+            padding: 4px 0;
+        }
+
+        .toc a:hover {
+            color: var(--primary-color);
+        }
+
+        .section {
+            background-color: var(--surface-color);
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--border-color);
+        }
+
+        .section h2 {
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section h3 {
+            font-size: 1.3rem;
+            color: var(--primary-dark);
+            margin: 25px 0 15px 0;
+            border-left: 4px solid var(--primary-color);
+            padding-left: 15px;
+        }
+
+        p {
+            margin-bottom: 16px;
+        }
+
+        ul {
+            margin-bottom: 16px;
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        code {
+            background-color: var(--background-color);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.9em;
+            color: var(--secondary-color);
+        }
+
+        blockquote {
+            background-color: var(--note-bg);
+            border-left: 4px solid var(--note-border);
+            padding: 16px 20px;
+            margin-bottom: 24px;
+            border-radius: 0 8px 8px 0;
+            font-style: italic;
+        }
+
+        hr {
+            border: 0;
+            border-top: 1px solid var(--border-color);
+            margin: 40px 0;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 15px;
+            }
+            header h1 {
+                font-size: 1.8rem;
+            }
+            .section {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="nav-back">← Back to Home</a>
+
+    <header>
+        <h1>🧠 Learning Guide</h1>
+        <p>Comprehensive breakdown of Project EchoCustom Pro architecture and logic.</p>
+    </header>
+
+    <div class="toc">
+        <h2>Contents</h2>
+        <ul>
+            <li><a href="#overview">1. 🌟 Project Overview</a></li>
+            <li><a href="#architecture">2. 🏗 Architecture & Tech Stack</a></li>
+            <li><a href="#modules">3. 📁 Module Breakdown</a></li>
+            <li><a href="#logic">4. 🔑 Key Logic Deep Dives</a></li>
+            <li><a href="#build">5. 🛠 Build & Environment</a></li>
+            <li><a href="#more">📖 How to Learn More</a></li>
+        </ul>
+    </div>
+
+    <div id="overview" class="section">
+        <h2>1. 🌟 Project Overview</h2>
+        <p><strong>EchoCustom Pro</strong> is a modular Android personalization suite and launcher. It combines several high-level features:</p>
+        <ul>
+            <li><strong>Sound Mapping</strong>: Custom audio overrides for notifications on a per-app/per-contact basis.</li>
+            <li><strong>Smart Launcher</strong>: A feature-rich home screen with a "Maid" assistant, modular dashboard, and resource monitoring.</li>
+            <li><strong>Elder Mode</strong>: A specialized, high-visibility UI for simplified accessibility.</li>
+            <li><strong>Privacy & Security</strong>: Call screening and accessibility-based gestures.</li>
+        </ul>
+        <blockquote>
+            <strong>Note:</strong> The <code>Niagara Launcher/</code> directory in the root is a separate reference project (uIndex Launcher) and is <strong>not</strong> part of the Gradle build.
+        </blockquote>
+    </div>
+
+    <div id="architecture" class="section">
+        <h2>2. 🏗 Architecture & Tech Stack</h2>
+        <p>The project follows modern Android development practices:</p>
+        <ul>
+            <li><strong>Language</strong>: 100% Kotlin (with some Java for legacy widget support).</li>
+            <li><strong>Architecture</strong>: <strong>MVVM (Model-ViewModel-Intent)</strong> with a reactive data flow.</li>
+            <li><strong>UI Framework</strong>: <strong>Jetpack Compose</strong> (Material 3) for all modern screens; XML for legacy widgets and <code>TutorialActivity</code>.</li>
+            <li><strong>Dependency Injection</strong>: <strong>Hilt</strong> (Dagger) for managing object lifecycles.</li>
+            <li><strong>Persistence</strong>: 
+                <ul>
+                    <li><strong>Room Database</strong>: For structured data (Apps, Notifications, Folders). Currently at <strong>Schema v8</strong>.</li>
+                    <li><strong>DataStore</strong>: For lightweight user preferences (Themes, Modes).</li>
+                </ul>
+            </li>
+            <li><strong>Asynchronous Logic</strong>: <strong>Kotlin Coroutines</strong> and <strong>Flow</strong>.</li>
+        </ul>
+    </div>
+
+    <div id="modules" class="section">
+        <h2>3. 📁 Module Breakdown</h2>
+
+        <h3>📱 UI Layer (<code>com.echo.custom.ui</code>)</h3>
+        <ul>
+            <li><strong><code>MainActivity.kt</code></strong>: The single-activity entry point. Configured with <code>HOME</code> category to act as a launcher. It manages navigation via <code>NavHost</code>, handles theme switching, and observes global states like <strong>Elder Mode</strong>.</li>
+            <li><strong><code>screens/</code></strong>:
+                <ul>
+                    <li><code>HomeScreen.kt</code>: The main dashboard. Dynamically switches between the <strong>Professional Dashboard</strong> and the <strong>Elder Mode Grid</strong>.</li>
+                    <li><code>AppListScreen.kt</code>: A categorized list of all installed apps with search and filtering.</li>
+                    <li><code>ContactScreens.kt</code>: Manages contact-specific sound mappings and the dialer (in Elder Mode).</li>
+                </ul>
+            </li>
+            <li><strong><code>components/</code></strong>: Small, reusable UI units like <code>MaidWidget</code>, <code>ResourceCard</code>, and <code>NotificationLogItem</code>.</li>
+        </ul>
+
+        <h3>🧠 Logic Layer (<code>com.echo.custom.viewmodel</code>)</h3>
+        <ul>
+            <li><strong><code>HomeViewModel.kt</code></strong>: The "brain" of the home screen.
+                <ul>
+                    <li>Manages "Maid" dialogue logic based on system state (battery, time, RAM).</li>
+                    <li>Simulates resource usage for the "Maid" character to provide a "living" assistant feel.</li>
+                    <li>Handles app launching, folder management, and screen locking.</li>
+                </ul>
+            </li>
+            <li><strong><code>AppListViewModel.kt</code></strong>: Manages the retrieval and filtering of apps, including icon pack application.</li>
+        </ul>
+
+        <h3>💾 Data Layer (<code>com.echo.custom.database</code> & <code>com.echo.custom.data</code>)</h3>
+        <ul>
+            <li><strong><code>EchoCustomDatabase.kt</code></strong>: Defines the Room database with entities for <code>AppEntity</code>, <code>NotificationLogEntity</code>, <code>FolderEntity</code>, and <code>WidgetEntity</code>.</li>
+            <li><strong><code>SettingsRepository.kt</code></strong>: Abstracts access to persistent settings like Sleep Mode hours and Dashboard module order.</li>
+        </ul>
+
+        <h3>⚙️ Services & Receivers (<code>com.echo.custom.service</code> & <code>com.echo.custom.receiver</code>)</h3>
+        <ul>
+            <li><strong><code>NotificationService.kt</code></strong>: A <code>NotificationListenerService</code>. Intercepts notifications, checks if a custom sound is mapped, and plays it.</li>
+            <li><strong><code>EchoAccessibilityService.kt</code></strong>: Provides global gestures (like locking the screen on double-tap).</li>
+            <li><strong><code>EchoCallScreeningService.kt</code></strong>: <code>CallScreeningService</code> for call privacy.</li>
+        </ul>
+    </div>
+
+    <div id="logic" class="section">
+        <h2>4. 🔑 Key Logic Deep Dives</h2>
+
+        <h3>🔊 Sound Mapping Logic</h3>
+        <ol>
+            <li>A notification arrives -> <code>NotificationService.onNotificationPosted</code> is triggered.</li>
+            <li>The service checks the <code>AppDao</code> for the package name.</li>
+            <li>If <code>customSoundUri</code> exists and "Sleep Mode" isn't blocking it (or it's a VIP app), the sound is played.</li>
+            <li>The notification is logged to the <code>NotificationLog</code> table for the dashboard.</li>
+        </ol>
+
+        <h3>👴 Elder Mode Transition</h3>
+        <ul>
+            <li>User toggles "Elder Mode" in settings.</li>
+            <li><code>DataStoreManager</code> updates the <code>elderModeEnabled</code> Flow.</li>
+            <li><code>MainActivity</code> observes this change and triggers a <code>DashboardLoadingState</code>.</li>
+            <li><code>HomeScreen</code> recomposes, swapping the complex Professional Dashboard for a high-contrast app grid.</li>
+        </ul>
+
+        <h3>🧹 The "Maid" Assistant</h3>
+        <p>The Maid is integrated into the <code>HomeViewModel</code>:</p>
+        <ul>
+            <li><strong>Contextual Dialogue</strong>: She changes her speech based on the time of day, battery level, or if the user "pokes" (taps) her too many times.</li>
+            <li><strong>Resource Simulation</strong>: <code>HomeViewModel</code> calculates a simulated RAM/Battery impact to make the Maid feel like she's actively "managing" the device.</li>
+        </ul>
+    </div>
+
+    <div id="build" class="section">
+        <h2>5. 🛠 Build & Environment</h2>
+        <ul>
+            <li><strong>Target SDK</strong>: <strong>36 (Android 16)</strong>.</li>
+            <li><strong>Java Version</strong>: <strong>JDK 21</strong> required.</li>
+            <li><strong>Gradle</strong>: 9.4.1 with AGP 9.2.0.</li>
+            <li><strong>Widgets</strong>: <strong>Glance</strong> for modern interactive widgets and <strong>RemoteViews</strong> for legacy support.</li>
+        </ul>
+    </div>
+
+    <div id="more" class="section">
+        <h2>📖 How to Learn More</h2>
+        <ul>
+            <li>Check <a href="docs/AGENTS.html"><code>AGENTS.md</code></a> for specific AI instructions and build commands.</li>
+            <li>Review <a href="docs/docs_architecture_README.html"><code>docs/architecture/</code></a> for deep dives into specific subsystems.</li>
+            <li>Look at <a href="IMPROVEMENTS_ROADMAP.html"><code>IMPROVEMENTS_ROADMAP.md</code></a> to see where the project is headed next.</li>
+        </ul>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 EchoCustom Pro - Internal Learning Documentation</p>
+    </footer>
+</body>
+</html>

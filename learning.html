@@ -185,15 +185,23 @@
             font-size: 0.9rem;
         }
 
-        @media (max-width: 600px) {
+        @media (max-width: 768px) {
             body {
                 padding: 15px;
+                font-size: 16px;
             }
             header h1 {
                 font-size: 1.8rem;
             }
             .section {
                 padding: 20px;
+                border-radius: 12px;
+            }
+            .toc {
+                padding: 20px;
+            }
+            header {
+                padding: 30px 0;
             }
         }
     </style>
@@ -242,7 +250,7 @@
             <li><strong>Dependency Injection</strong>: <strong>Hilt</strong> (Dagger) for managing object lifecycles.</li>
             <li><strong>Persistence</strong>: 
                 <ul>
-                    <li><strong>Room Database</strong>: For structured data (Apps, Notifications, Folders). Currently at <strong>Schema v8</strong>.</li>
+                    <li><strong>Room Database</strong>: For structured data (Apps, Notifications, Folders). Currently at <strong>Schema v14</strong>.</li>
                     <li><strong>DataStore</strong>: For lightweight user preferences (Themes, Modes).</li>
                 </ul>
             </li>
@@ -261,6 +269,7 @@
                     <li><code>HomeScreen.kt</code>: The main dashboard. Dynamically switches between the <strong>Professional Dashboard</strong> and the <strong>Elder Mode Grid</strong>.</li>
                     <li><code>AppListScreen.kt</code>: A categorized list of all installed apps with search and filtering.</li>
                     <li><code>ContactScreens.kt</code>: Manages contact-specific sound mappings and the dialer (in Elder Mode).</li>
+                    <li><code>SaoResourceBlocks.kt</code>: SAO-themed Compose UI components for monitoring CPU, RAM, and Network.</li>
                 </ul>
             </li>
             <li><strong><code>components/</code></strong>: Small, reusable UI units like <code>MaidWidget</code>, <code>ResourceCard</code>, and <code>NotificationLogItem</code>.</li>
@@ -271,24 +280,25 @@
             <li><strong><code>HomeViewModel.kt</code></strong>: The "brain" of the home screen.
                 <ul>
                     <li>Manages "Maid" dialogue logic based on system state (battery, time, RAM).</li>
-                    <li>Simulates resource usage for the "Maid" character to provide a "living" assistant feel.</li>
+                    <li>Integrates module filtering and state-aware visibility.</li>
                     <li>Handles app launching, folder management, and screen locking.</li>
                 </ul>
             </li>
-            <li><strong><code>AppListViewModel.kt</code></strong>: Manages the retrieval and filtering of apps, including icon pack application.</li>
+            <li><strong><code>AppListViewModel.kt</code></strong>: Manages the retrieval and filtering of apps, including icon pack application and repair logic.</li>
         </ul>
 
         <h3>💾 Data Layer (<code>com.echo.custom.database</code> & <code>com.echo.custom.data</code>)</h3>
         <ul>
             <li><strong><code>EchoCustomDatabase.kt</code></strong>: Defines the Room database with entities for <code>AppEntity</code>, <code>NotificationLogEntity</code>, <code>FolderEntity</code>, and <code>WidgetEntity</code>.</li>
-            <li><strong><code>SettingsRepository.kt</code></strong>: Abstracts access to persistent settings like Sleep Mode hours and Dashboard module order.</li>
+            <li><strong><code>SystemRepository.kt</code></strong>: Core resource monitoring logic using <code>/proc/stat</code> and <code>TrafficStats</code>.</li>
+            <li><strong><code>DataStoreManager.kt</code></strong>: Manages persistent preferences including the Maid Assistant toggle.</li>
         </ul>
 
         <h3>⚙️ Services & Receivers (<code>com.echo.custom.service</code> & <code>com.echo.custom.receiver</code>)</h3>
         <ul>
+            <li><strong><code>WidgetUpdateWorker.kt</code></strong>: Background state monitoring and voice playback (respects Maid toggle).</li>
             <li><strong><code>NotificationService.kt</code></strong>: A <code>NotificationListenerService</code>. Intercepts notifications, checks if a custom sound is mapped, and plays it.</li>
             <li><strong><code>EchoAccessibilityService.kt</code></strong>: Provides global gestures (like locking the screen on double-tap).</li>
-            <li><strong><code>EchoCallScreeningService.kt</code></strong>: <code>CallScreeningService</code> for call privacy.</li>
         </ul>
     </div>
 
@@ -303,6 +313,19 @@
             <li>The notification is logged to the <code>NotificationLog</code> table for the dashboard.</li>
         </ol>
 
+        <h3>⚔️ SAO Resource HUD</h3>
+        <ul>
+            <li><strong>CPU Monitoring</strong>: Uses <code>/proc/stat</code> for real-time CPU wave generation.</li>
+            <li><strong>Network Tracking</strong>: Uses <code>TrafficStats</code> for monitoring upload/download speeds.</li>
+            <li><strong>Visual Fidelity</strong>: SAO-inspired design with high-contrast health bars for system resources.</li>
+        </ul>
+
+        <h3>🎭 Maid Assistant Toggle</h3>
+        <ul>
+            <li>Users can hide the Maid character and mute its background voice reactions via settings.</li>
+            <li>Preferences are persisted in <code>DataStore</code> and observed by <code>WidgetUpdateWorker</code> and <code>HomeScreen</code>.</li>
+        </ul>
+
         <h3>👴 Elder Mode Transition</h3>
         <ul>
             <li>User toggles "Elder Mode" in settings.</li>
@@ -310,21 +333,14 @@
             <li><code>MainActivity</code> observes this change and triggers a <code>DashboardLoadingState</code>.</li>
             <li><code>HomeScreen</code> recomposes, swapping the complex Professional Dashboard for a high-contrast app grid.</li>
         </ul>
-
-        <h3>🧹 The "Maid" Assistant</h3>
-        <p>The Maid is integrated into the <code>HomeViewModel</code>:</p>
-        <ul>
-            <li><strong>Contextual Dialogue</strong>: She changes her speech based on the time of day, battery level, or if the user "pokes" (taps) her too many times.</li>
-            <li><strong>Resource Simulation</strong>: <code>HomeViewModel</code> calculates a simulated RAM/Battery impact to make the Maid feel like she's actively "managing" the device.</li>
-        </ul>
     </div>
 
     <div id="build" class="section">
         <h2>5. 🛠 Build & Environment</h2>
         <ul>
-            <li><strong>Target SDK</strong>: <strong>36 (Android 16)</strong>.</li>
-            <li><strong>Java Version</strong>: <strong>JDK 21</strong> required.</li>
-            <li><strong>Gradle</strong>: 9.4.1 with AGP 9.2.0.</li>
+            <li><strong>Target SDK</strong>: <strong>35 (Android 15)</strong>.</li>
+            <li><strong>Java Version</strong>: <strong>JDK 17</strong> required.</li>
+            <li><strong>Gradle</strong>: 8.10.2 with AGP 8.7.2.</li>
             <li><strong>Widgets</strong>: <strong>Glance</strong> for modern interactive widgets and <strong>RemoteViews</strong> for legacy support.</li>
         </ul>
     </div>

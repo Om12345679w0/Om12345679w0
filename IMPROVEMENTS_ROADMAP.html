@@ -216,6 +216,15 @@
             font-size: 0.9rem;
         }
 
+        .table-container {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            margin-bottom: 24px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
         .matrix-table th, .matrix-table td {
             padding: 12px;
             text-align: left;
@@ -312,7 +321,7 @@
         <h1>EchoCustom Pro</h1>
         <div class="subtitle">Improvements & Enhancement Roadmap</div>
         <div style="margin-top: 8px; font-size: 0.9rem; color: var(--text-secondary);">
-            Document Date: May 18, 2026 | Current Version: 3.2 | Target: 3.5+
+            Document Date: May 18, 2026 | Current Version: 3.5 | Target: 3.6+
         </div>
     </div>
 
@@ -341,27 +350,13 @@
         <span class="priority medium">🟡 Medium</span>
         <span class="effort">30 minutes</span>
 
-        <p><strong>Current Issue:</strong></p>
+        <p><strong>Current Status:</strong> <span class="priority low">✅ Completed</span></p>
         <ul>
-            <li>3 dependency warnings (androidx.core:core-ktx, androidx.appcompat, com.google.android.material)</li>
-            <li>Using older versions with available patches</li>
+            <li>Updated core-ktx to 1.18.0</li>
+            <li>Updated appcompat to 1.7.1</li>
+            <li>Updated material to 1.13.0</li>
+            <li>Updated compose to 1.7.0</li>
         </ul>
-
-        <p><strong>What to Update:</strong></p>
-        <div class="code-block">// In app/build.gradle.kts
-
-// UPDATE 1: Core Kotlin Extensions (1.13.1 → 1.18.0)
-implementation("androidx.core:core-ktx:1.18.0")
-
-// UPDATE 2: AppCompat Library (1.7.0 → 1.7.1)
-implementation("androidx.appcompat:appcompat:1.7.1")
-
-// UPDATE 3: Material Design (1.12.0 → 1.13.0)
-implementation("com.google.android.material:material:1.13.0")
-
-// RECOMMENDED: Update Compose (1.6.7 → latest stable)
-implementation("androidx.compose.ui:ui:1.7.0")
-implementation("androidx.compose.material3:material3:1.3.0")</div>
 
         <div class="impact">
             <strong>Impact:</strong> Security patches, bug fixes, performance improvements

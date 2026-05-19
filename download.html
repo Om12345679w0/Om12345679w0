@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Download EchoCustom v3.5</title>
+    <title>Download EchoCustom v3.0</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -140,6 +140,40 @@
             animation: none;
         }
 
+        .btn-download.disabled {
+            background: linear-gradient(135deg, #4b5563 0%, #3a4452 100%);
+            color: #9ca3af;
+            cursor: not-allowed;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
+            animation: none;
+            opacity: 0.8;
+        }
+
+        .btn-download.disabled:hover {
+            background: linear-gradient(135deg, #4b5563 0%, #3a4452 100%);
+            transform: none;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
+        }
+
+        .status-message {
+            margin-top: 2.5rem;
+            padding: 1.5rem;
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            border-left: 4px solid #94a3b8;
+            border-radius: 12px;
+            color: #e2e8f0;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            animation: fadeInUp 0.8s ease-out 0.3s backwards;
+        }
+
+        .status-message strong {
+            color: #cbd5e1;
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
         .info-box {
             margin-top: 2rem;
             font-size: 0.8rem;
@@ -187,17 +221,20 @@
         }
 
         @media (max-width: 768px) {
+            .container { margin: 3rem auto; padding: 0 1rem; }
             .download-card {
-                padding: 2rem;
-                border-radius: 20px;
+                padding: 2.5rem 1.5rem;
+                border-radius: 24px;
             }
             h1 {
-                font-size: 1.8rem;
+                font-size: 2rem;
             }
             .btn-download {
-                padding: 1rem 2rem;
+                padding: 1.2rem;
                 width: 100%;
+                font-size: 1rem;
             }
+            .status-message { padding: 1.2rem; font-size: 0.9rem; }
         }
     </style>
 </head>
@@ -209,7 +246,12 @@
         <h1>EchoCustom v3.5</h1>
         <p>The latest production build featuring SAO Resource HUD, Maid Assistant Toggle, and advanced system monitoring.</p>
 
-        <a href="https://github.com/Om12345679w0/Om12345679w0/releases/download/v3.5.0/app-release.apk" class="btn-download">Download APK (v3.5)</a>
+        <button class="btn-download disabled" disabled>Download Paused (Google Verification Pending)</button>
+
+        <div class="status-message">
+            <strong>⏸️ Downloads Temporarily Paused</strong>
+            EchoCustom is undergoing standard Google Play Protect verification. Downloads are temporarily paused for 5 to 7 days while Google whitelists our developer signature to ensure a seamless, warning-free installation for everyone. Check back soon!
+        </div>
 
         <div class="info-box">
             <p>Size: ~30.5 MB | Build: Signed Production</p>

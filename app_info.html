@@ -13,6 +13,29 @@
             --card-bg: #ffffff;
             --text-main: #1e293b;
         }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
             font-family: 'Inter', sans-serif;
             line-height: 1.6;
@@ -28,16 +51,47 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            animation: fadeIn 0.6s ease-out;
         }
-        .logo { font-weight: 800; color: var(--dark); text-decoration: none; font-size: 1.25rem; }
-        .nav-link { color: var(--primary); text-decoration: none; font-weight: 600; }
+        .logo { 
+            font-weight: 800; 
+            color: var(--dark); 
+            text-decoration: none; 
+            font-size: 1.25rem;
+            transition: color 0.3s ease;
+        }
+
+        .logo:hover {
+            color: var(--primary);
+        }
+
+        .nav-link { 
+            color: var(--primary); 
+            text-decoration: none; 
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            transform: translateX(-5px);
+        }
 
         header {
-            background-color: var(--dark);
+            background: linear-gradient(135deg, var(--dark) 0%, #1e293b 100%);
             color: white;
             text-align: center;
             padding: 4rem 1rem;
+            animation: fadeIn 0.8s ease-out;
         }
+
+        header h1 {
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        header p {
+            animation: fadeInUp 0.8s ease-out 0.2s backwards;
+        }
+
         .container {
             max-width: 900px;
             margin: 0 auto;
@@ -49,8 +103,36 @@
             border-radius: 24px;
             box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05);
             margin-bottom: 2rem;
+            animation: fadeInUp 0.8s ease-out backwards;
+            transition: all 0.3s ease;
         }
-        h2 { color: var(--dark); font-size: 1.75rem; margin-top: 0; }
+
+        .section:nth-child(1) { animation-delay: 0s; }
+        .section:nth-child(2) { animation-delay: 0.1s; }
+        .section:nth-child(3) { animation-delay: 0.2s; }
+
+        .section:hover {
+            box-shadow: 0 10px 25px rgba(99, 102, 241, 0.15);
+            transform: translateY(-5px);
+        }
+
+        h2 { 
+            color: var(--dark); 
+            font-size: 1.75rem; 
+            margin-top: 0;
+            transition: color 0.3s ease;
+        }
+
+        .section:hover h2 {
+            color: var(--primary);
+        }
+
+        h3 {
+            color: var(--primary);
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+
         .badge {
             background: rgba(99, 102, 241, 0.1);
             color: var(--primary);
@@ -61,8 +143,43 @@
             text-transform: uppercase;
             margin-bottom: 1rem;
             display: inline-block;
+            animation: fadeInUp 0.8s ease-out backwards;
         }
-        .footer { text-align: center; padding: 2rem; color: #64748b; font-size: 0.875rem; }
+
+        ul, ol {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+            transition: transform 0.2s ease;
+        }
+
+        li:hover {
+            transform: translateX(5px);
+        }
+
+        .footer { 
+            text-align: center; 
+            padding: 2rem; 
+            color: #64748b; 
+            font-size: 0.875rem;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 2rem 1rem;
+            }
+            .section {
+                padding: 1.5rem;
+                border-radius: 16px;
+            }
+            h2 {
+                font-size: 1.3rem;
+            }
+        }
     </style>
 </head>
 <body>

@@ -12,9 +12,41 @@
             --light: #f8fafc;
             --white: #ffffff;
         }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% { 
+                box-shadow: 0 10px 15px -3px rgba(99, 102, 241, 0.4);
+            }
+            50% { 
+                box-shadow: 0 15px 35px -5px rgba(99, 102, 241, 0.8);
+            }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
             font-family: 'Inter', sans-serif;
-            background-color: var(--light);
+            background: linear-gradient(135deg, var(--light) 0%, #e2e8f0 100%);
             margin: 0;
             display: flex;
             flex-direction: column;
@@ -32,7 +64,15 @@
             padding: 4rem;
             border-radius: 32px;
             box-shadow: 0 25px 50px -12px rgba(0,0,0,0.1);
+            animation: fadeInUp 0.8s ease-out;
+            transition: all 0.3s ease;
         }
+
+        .download-card:hover {
+            box-shadow: 0 40px 60px -15px rgba(99, 102, 241, 0.3);
+            transform: translateY(-5px);
+        }
+
         .version-badge {
             background: rgba(99, 102, 241, 0.1);
             color: var(--primary);
@@ -42,8 +82,21 @@
             font-size: 0.8rem;
             display: inline-block;
             margin-bottom: 2rem;
+            animation: fadeInUp 0.8s ease-out backwards;
         }
-        h1 { font-size: 2.5rem; color: var(--dark); margin-bottom: 1.5rem; }
+        h1 { 
+            font-size: 2.5rem; 
+            color: var(--dark); 
+            margin-bottom: 1.5rem;
+            animation: fadeInUp 0.8s ease-out 0.1s backwards;
+        }
+
+        p {
+            animation: fadeInUp 0.8s ease-out 0.2s backwards;
+            color: #64748b;
+            margin-bottom: 1.5rem;
+        }
+
         .btn-download {
             display: inline-block;
             background: var(--primary);
@@ -54,10 +107,98 @@
             font-weight: 700;
             margin-top: 2rem;
             box-shadow: 0 10px 15px -3px rgba(99, 102, 241, 0.4);
-            transition: 0.3s;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            border: none;
+            cursor: pointer;
+            animation: pulse 2s ease-in-out infinite;
+            position: relative;
+            overflow: hidden;
         }
-        .btn-download:hover { transform: translateY(-3px); background: #4f46e5; }
-        .footer { padding: 3rem; text-align: center; color: #94a3b8; font-size: 0.8rem; }
+
+        .btn-download::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .btn-download:active::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .btn-download:hover { 
+            transform: translateY(-5px);
+            background: #4f46e5;
+            box-shadow: 0 25px 40px -10px rgba(99, 102, 241, 0.6);
+            animation: none;
+        }
+
+        .info-box {
+            margin-top: 2rem;
+            font-size: 0.8rem;
+            color: #64748b;
+            animation: fadeInUp 0.8s ease-out 0.3s backwards;
+        }
+
+        .info-box p {
+            animation: none;
+            margin: 0.5rem 0;
+        }
+
+        .info-box a {
+            color: var(--primary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .info-box a:hover {
+            text-decoration: underline;
+            color: #4f46e5;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 3rem;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.8s ease-out 0.4s backwards;
+        }
+
+        .back-link:hover {
+            transform: translateX(-5px);
+            text-decoration: underline;
+        }
+
+        .footer { 
+            padding: 3rem; 
+            text-align: center; 
+            color: #94a3b8; 
+            font-size: 0.8rem;
+            animation: fadeInUp 0.8s ease-out 0.5s backwards;
+        }
+
+        @media (max-width: 768px) {
+            .download-card {
+                padding: 2rem;
+                border-radius: 20px;
+            }
+            h1 {
+                font-size: 1.8rem;
+            }
+            .btn-download {
+                padding: 1rem 2rem;
+                width: 100%;
+            }
+        }
     </style>
 </head>
 <body>
@@ -70,12 +211,12 @@
 
         <a href="Project_EchoCustom_Signed.apk" class="btn-download">Download APK (v3.5)</a>
 
-        <div style="margin-top: 2rem; font-size: 0.8rem; color: #64748b;">
-            <p>Size: ~14.5 MB | Build: Signed Production</p>
-            <p><a href="https://github.com/Om12345679w0/Project_EchoCustom" style="color: var(--primary);">View GitHub Repository</a></p>
+        <div class="info-box">
+            <p>Size: ~30.5 MB | Build: Signed Production</p>
+            <p><a href="https://github.com/Om12345679w0/Project_EchoCustom">View GitHub Repository</a></p>
         </div>
     </div>
-    <a href="index.html" style="display: inline-block; margin-top: 3rem; color: var(--primary); text-decoration: none; font-weight: 600;">← Back to Home</a>
+    <a href="index.html" class="back-link">← Back to Home</a>
 </div>
 
 <div class="footer">

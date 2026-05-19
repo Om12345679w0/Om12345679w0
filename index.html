@@ -284,6 +284,41 @@
             transform: translateY(-1px);
         }
 
+        .btn.disabled, .btn:disabled {
+            background: linear-gradient(135deg, #4b5563 0%, #3a4452 100%) !important;
+            color: #9ca3af !important;
+            cursor: not-allowed;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2) !important;
+            opacity: 0.8;
+        }
+
+        .btn.disabled:hover, .btn:disabled:hover {
+            background: linear-gradient(135deg, #4b5563 0%, #3a4452 100%) !important;
+            transform: none !important;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2) !important;
+        }
+
+        .status-banner {
+            display: block;
+            margin-top: 2rem;
+            padding: 1.5rem 2rem;
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            border-left: 4px solid #94a3b8;
+            border-radius: 12px;
+            color: #e2e8f0;
+            font-size: 1rem;
+            line-height: 1.6;
+            animation: fadeInUp 0.8s ease-out 0.4s backwards;
+            text-align: center;
+        }
+
+        .status-banner strong {
+            color: #cbd5e1;
+            display: block;
+            margin-bottom: 0.75rem;
+            font-weight: 700;
+        }
+
         .btn-secondary {
             background: linear-gradient(to right, #60a5fa, #f472b6);
             color: var(--white);
@@ -557,13 +592,14 @@
         }
 
         @media (max-width: 768px) {
+            nav { padding: 1rem 3%; }
             .hero h1 { font-size: 2.5rem; }
             .menu-toggle { display: flex; }
             .nav-links {
                 position: fixed;
                 top: 0;
                 right: -100%;
-                width: 75%;
+                width: 85%;
                 height: 100vh;
                 background: var(--white);
                 flex-direction: column;
@@ -575,14 +611,18 @@
             .nav-links.active { right: 0; }
             .nav-links a { 
                 font-size: 1.2rem;
-                padding: 1rem 0;
+                padding: 1.2rem 0;
                 border-bottom: 1px solid rgba(0,0,0,0.05);
                 width: 100%;
             }
-            .grid { grid-template-columns: 1fr; }
-            .hero { padding: 6rem 5% 4rem; }
-            .cta-group { flex-direction: column; }
-            .btn { width: 100%; text-align: center; }
+            .grid { grid-template-columns: 1fr; gap: 1.5rem; }
+            .hero { padding: 5rem 5% 3rem; }
+            .cta-group { flex-direction: column; gap: 1rem; }
+            .btn { width: 100%; text-align: center; padding: 1.2rem; }
+            .section { padding: 3rem 5%; }
+            .section-header { margin-bottom: 2rem; }
+            .section-header h2 { font-size: 2rem; }
+            .status-banner { padding: 1rem; font-size: 0.9rem; }
         }
     </style>
 </head>
@@ -607,7 +647,7 @@
         <a href="app_info.html">Help</a>
         <a href="privacy.html">Privacy</a>
     </div>
-    <a href="download.html" class="btn btn-primary" id="nav-cta" style="padding: 0.6rem 1.2rem; font-size: 0.9rem;">Get App</a>
+    <a href="download.html" class="btn btn-primary disabled" id="nav-cta" style="padding: 0.6rem 1.2rem; font-size: 0.9rem; cursor: not-allowed;">Get App</a>
 </nav>
 
 <div class="hero">
@@ -621,8 +661,12 @@
             <p>पहला इंटेलिजेंट सिस्टम असिस्टेंट जो आपके वातावरण के अनुकूल होता है और आपके डिवाइस में जान फूंक देता है।</p>
         </div>
         <div class="cta-group">
-            <a href="download.html" class="btn btn-primary">Download v3.5</a>
+            <button class="btn btn-primary disabled" disabled>Download v3.5 (Verification Pending)</button>
             <a href="app_info.html" class="btn btn-secondary">Learn More</a>
+        </div>
+        <div class="status-banner">
+            <strong>⏸️ Downloads Temporarily Paused</strong>
+            EchoCustom is undergoing standard Google Play Protect verification. Downloads are temporarily paused for 5 to 7 days while Google whitelists our developer signature to ensure a seamless, warning-free installation for everyone. Check back soon!
         </div>
     </div>
 </div>

@@ -1,10 +1,12 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <title>Download EchoCustom v3.5</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&display=swap"
+          rel="stylesheet">
     <style>
         :root {
             --primary: #6366f1;
@@ -25,10 +27,10 @@
         }
 
         @keyframes pulse {
-            0%, 100% { 
+            0%, 100% {
                 box-shadow: 0 10px 15px -3px rgba(99, 102, 241, 0.4);
             }
-            50% { 
+            50% {
                 box-shadow: 0 15px 35px -5px rgba(99, 102, 241, 0.8);
             }
         }
@@ -84,9 +86,9 @@
             margin-bottom: 2rem;
             animation: fadeInUp 0.8s ease-out backwards;
         }
-        h1 { 
-            font-size: 2.5rem; 
-            color: var(--dark); 
+        h1 {
+            font-size: 2.5rem;
+            color: var(--dark);
             margin-bottom: 1.5rem;
             animation: fadeInUp 0.8s ease-out 0.1s backwards;
         }
@@ -133,7 +135,7 @@
             height: 300px;
         }
 
-        .btn-download:hover { 
+        .btn-download:hover {
             transform: translateY(-5px);
             background: #4f46e5;
             box-shadow: 0 25px 40px -10px rgba(99, 102, 241, 0.6);
@@ -212,10 +214,10 @@
             text-decoration: underline;
         }
 
-        .footer { 
-            padding: 3rem; 
-            text-align: center; 
-            color: #94a3b8; 
+        .footer {
+            padding: 3rem;
+            text-align: center;
+            color: #94a3b8;
             font-size: 0.8rem;
             animation: fadeInUp 0.8s ease-out 0.5s backwards;
         }
@@ -244,25 +246,81 @@
     <div class="download-card">
         <span class="version-badge">OFFICIAL RELEASE</span>
         <h1>EchoCustom v3.5</h1>
-        <p>The latest production build featuring SAO Resource HUD, Maid Assistant Toggle, and advanced system monitoring.</p>
+        <p>The latest production build featuring SAO Resource HUD, Maid Assistant Toggle, and
+            advanced system monitoring.</p>
 
-        <button class="btn-download disabled" disabled>Download Paused (Google Verification Pending)</button>
+        <button class="btn-download disabled" disabled>Download Paused (Google Verification
+            Pending)
+        </button>
 
         <div class="status-message">
             <strong>⏸️ Downloads Temporarily Paused</strong>
-            EchoCustom is undergoing standard Google Play Protect verification. Downloads are temporarily paused for 5 to 7 days while Google whitelists our developer signature to ensure a seamless, warning-free installation for everyone. Check back soon!
+            EchoCustom is undergoing standard Google Play Protect verification. Downloads are
+            temporarily paused while Google whitelists our developer signature to
+            ensure a seamless, warning-free installation for everyone.
+
+            <div id="countdown-timer"
+                 style="margin-top: 1rem; font-weight: 800; color: #cbd5e1; font-size: 1.2rem; font-family: 'Inter', sans-serif; display: flex; justify-content: center; gap: 15px;">
+                <div style="text-align: center;"><span id="days">0</span>
+                    <div style="font-size: 0.7rem; font-weight: 400; opacity: 0.8;">DAYS</div>
+                </div>
+                <div style="text-align: center;"><span id="hours">0</span>
+                    <div style="font-size: 0.7rem; font-weight: 400; opacity: 0.8;">HOURS</div>
+                </div>
+                <div style="text-align: center;"><span id="minutes">0</span>
+                    <div style="font-size: 0.7rem; font-weight: 400; opacity: 0.8;">MINUTES</div>
+                </div>
+                <div style="text-align: center;"><span id="seconds">0</span>
+                    <div style="font-size: 0.7rem; font-weight: 400; opacity: 0.8;">SECONDS</div>
+                </div>
+            </div>
+
+            <p style="margin-top: 1rem; margin-bottom: 0; font-size: 0.85rem; opacity: 0.8;">
+                Estimated time remaining until verification completion.</p>
         </div>
+
+        <script>
+            // Set the target date (7 days from May 19, 2026)
+            const targetDate = new Date("May 26, 2026 00:00:00").getTime();
+
+            function updateCountdown() {
+                const now = new Date().getTime();
+                const distance = targetDate - now;
+
+                if (distance < 0) {
+                    document.getElementById("countdown-timer").innerHTML = "VERIFICATION COMPLETE";
+                    return;
+                }
+
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                document.getElementById("days").innerText = days;
+                document.getElementById("hours").innerText = hours;
+                document.getElementById("minutes").innerText = minutes;
+                document.getElementById("seconds").innerText = seconds;
+            }
+
+            setInterval(updateCountdown, 1000);
+            updateCountdown();
+        </script>
 
         <div class="info-box">
             <p>Size: ~30.5 MB | Build: Signed Production</p>
-            <p><a href="https://github.com/Om12345679w0/Project_EchoCustom">View GitHub Repository</a></p>
+            <p>
+                <a href="https://github.com/Om12345679w0/Om12345679w0/">View
+                    GitHub
+                    Repository</a></p>
+
         </div>
     </div>
-    <a href="index.html" class="back-link">← Back to Home</a>
+    <a class="back-link" href="index.html">← Back to Home</a>
 </div>
 
 <div class="footer">
-    &copy; 2026 EchoCustom Project.
+    &copy; 2026 EchoCustom Project. | Last Updated: May 19, 2026
 </div>
 
 </body>

@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -244,21 +243,17 @@
 
 <div class="container">
     <div class="download-card">
-        <span class="version-badge">OFFICIAL RELEASE</span>
-        <h1>EchoCustom v3.5</h1>
-        <p>The latest production build featuring SAO Resource HUD, Maid Assistant Toggle, and
-            advanced system monitoring.</p>
+        <span class="version-badge">v4.1 BETA (EXPERIMENTAL)</span>
+        <h1>EchoCustom v4.1 Beta</h1>
+        <p>Experience the new <b>Maid Voice Assistant</b> with on-device Voice Recognition and customizable Wake Word triggers.</p>
 
-        <button class="btn-download disabled" disabled>Download Paused (Google Verification
-            Pending)
+        <button class="btn-download disabled" disabled>Download Paused (Beta Verification)
         </button>
 
         <div class="status-message">
-            <strong>⏸️ Downloads Temporarily Paused</strong>
-            EchoCustom is undergoing standard Google Play Protect verification. Downloads are
-            temporarily paused while Google whitelists our developer signature to
-            ensure a seamless, warning-free installation for everyone.
-
+            <strong>🧪 Experimental Build Notice</strong>
+            <p>The <b>Voice Assistant</b> modules are currently in a "Live Debug" phase. Users may experience recognition failures or higher battery drain as we optimize the local speech processing engine.</p>
+            
             <div id="countdown-timer"
                  style="margin-top: 1rem; font-weight: 800; color: #cbd5e1; font-size: 1.2rem; font-family: 'Inter', sans-serif; display: flex; justify-content: center; gap: 15px;">
                 <div style="text-align: center;"><span id="days">0</span>
@@ -276,19 +271,19 @@
             </div>
 
             <p style="margin-top: 1rem; margin-bottom: 0; font-size: 0.85rem; opacity: 0.8;">
-                Estimated time remaining until verification completion.</p>
+                Estimated time remaining until stability patch release.</p>
         </div>
 
         <script>
-            // Set the target date (7 days from May 19, 2026)
-            const targetDate = new Date("May 26, 2026 00:00:00").getTime();
+            // Set the target date (7 days from May 22, 2026)
+            const targetDate = new Date("May 29, 2026 00:00:00").getTime();
 
             function updateCountdown() {
                 const now = new Date().getTime();
                 const distance = targetDate - now;
 
                 if (distance < 0) {
-                    document.getElementById("countdown-timer").innerHTML = "VERIFICATION COMPLETE";
+                    document.getElementById("countdown-timer").innerHTML = "STABILITY PATCH READY";
                     return;
                 }
 
@@ -308,7 +303,7 @@
         </script>
 
         <div class="info-box">
-            <p>Size: ~30.5 MB | Build: Signed Production</p>
+            <p>Size: ~38.2 MB | Build: Signed Experimental Beta</p>
             <p>
                 <a href="https://github.com/Om12345679w0/Om12345679w0/">View
                     GitHub
@@ -320,7 +315,7 @@
 </div>
 
 <div class="footer">
-    &copy; 2026 EchoCustom Project. | Last Updated: May 19, 2026
+    &copy; 2026 EchoCustom Project. | Last Updated: May 22, 2026
 </div>
 
 </body>

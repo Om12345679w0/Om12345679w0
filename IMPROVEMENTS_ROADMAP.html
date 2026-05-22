@@ -218,7 +218,7 @@
     <h1>EchoCustom Pro</h1>
     <div class="subtitle">Improvements & Enhancement Roadmap</div>
     <div style="margin-top: 8px; font-size: 0.9rem; color: var(--text-secondary);">
-        Document Date: May 19, 2026 | Current Version: 3.5 | Target: 3.6+
+        Document Date: May 22, 2026 | Current Version: 4.1 Beta | Target: 4.5+
     </div>
 </div>
 
@@ -241,110 +241,49 @@
 </div>
 
 <div class="section" id="critical-updates">
-    <h2>🔧 Critical Updates & Corrections</h2>
+    <h2>🔧 Core Evolution</h2>
 
-    <h3>1. Update Dependency Library Versions</h3>
-    <span class="priority medium">🟡 Medium</span>
-    <span class="effort">30 minutes</span>
-
-    <p><strong>Current Status:</strong> <span class="priority low">✅ Completed</span></p>
-    <ul>
-        <li>Updated core-ktx to 1.18.0</li>
-        <li>Updated appcompat to 1.7.1</li>
-        <li>Updated material to 1.13.0</li>
-        <li>Updated compose to 1.7.0</li>
-    </ul>
-
-    <div class="impact">
-        <strong>Impact:</strong> Security patches, bug fixes, performance improvements
-    </div>
-    <div class="testing">
-        <strong>Testing:</strong> Run full regression test suite after updating
-    </div>
-
-    <h3>2. Add ProGuard Keep Rules for Kotlin Coroutines</h3>
-    <span class="priority medium">🟡 Medium</span>
-    <span class="effort">15 minutes</span>
-
-    <p><strong>Current Issue:</strong></p>
-    <ul>
-        <li><code>proguard-rules.pro</code> doesn't have specific rules for Kotlin Coroutines</li>
-        <li>Coroutine stack traces could be obfuscated in crash reports (release builds)</li>
-    </ul>
-
-    <p><strong>What to Add:</strong></p>
-    <div class="code-block"># app/proguard-rules.pro - Add these rules
-        # Kotlin Coroutines
-        -keep class kotlinx.coroutines.** { *; }
-        -keepnames class kotlinx.coroutines.** { *; }
-        -keepclassmembers class kotlinx.coroutines.** { *; }
-        -keep interface kotlinx.coroutines.** { *; }
-
-        # Room Database (ensure full preservation)
-        -keep class androidx.room.** { *; }
-        -keepnames class androidx.room.** { *; }
-    </div>
-
-    <div class="impact">
-        <strong>Impact:</strong> Better crash report readability, proper coroutine handling
-    </div>
-    <div class="files">
-        <strong>Files Modified:</strong> <code>app/proguard-rules.pro</code>
-    </div>
-
-    <h3>3. Enable Data Binding (if using)</h3>
-    <span class="priority low">🟢 Low</span>
-    <span class="effort">20 minutes</span>
-
-    <p><strong>Current Issue:</strong></p>
-    <ul>
-        <li>App uses Jetpack Compose but could benefit from data binding for legacy layouts</li>
-        <li>Not explicitly configured in build.gradle.kts</li>
-    </ul>
-
-    <p><strong>What to Add:</strong></p>
-    <div class="code-block">// In app/build.gradle.kts android block
-        buildFeatures {
-        compose = true
-        buildConfig = true
-        dataBinding = true // Add this line
-        }
-    </div>
-
-    <div class="impact">
-        <strong>Impact:</strong> Enables advanced UI binding patterns for future features
-    </div>
-    <div class="files">
-        <strong>Files Modified:</strong> <code>app/build.gradle.kts</code>
-    </div>
-
-    <h3>4. Refactor Anime Widget (Maid-Only System)</h3>
+    <h3>1. Voice Recognition Engine (v4.1 Beta)</h3>
     <span class="priority high">🔴 High</span>
-    <span class="effort">1.5 hours</span>
+    <span class="effort">4-6 hours</span>
 
-    <p><strong>Current Issue:</strong></p>
+    <p><strong>Current Status:</strong> <span class="priority medium">🧪 Beta Testing</span></p>
     <ul>
-        <li>Widget used a complex dual-image system (Background + Maid)</li>
-        <li>Redundant background logic in both Kotlin and Java providers</li>
-        <li>High memory usage for multiple large background bitmaps</li>
+        <li>On-device Speech-to-Text integration.</li>
+        <li>Customizable Wake Word ("Echo" default).</li>
+        <li>Manual trigger UI integration (above pinned apps).</li>
+        <li><b>Issue:</b> High failure rate in noisy environments; active debugging on-going.</li>
     </ul>
 
-    <p><strong>What was Updated:</strong></p>
-    <div class="code-block">// Refactored AnimeWidget.kt & MaidJavaWidgetProvider.java
-        - Completely removed background image logic
-        - Simplified XML layout to focus on the Maid character
-        - Optimized state-based drawable updates
-        - Removed sequential animation delays for better performance
-        - Deprecated 5 unused background PNG resources
+    <div class="impact">
+        <strong>Impact:</strong> Hands-free system control and natural interaction.
     </div>
 
+    <h3>2. ML Intelligence Layer (v4.0)</h3>
+    <span class="priority high">🔴 High</span>
+    <span class="effort">Completed</span>
+
+    <p><strong>Status:</strong> <span class="priority low">✅ Completed</span></p>
+    <ul>
+        <li>Google ML Kit Entity Extraction (Dates, Phone, Address).</li>
+        <li>Language ID (EN, ES, FR).</li>
+        <li>Language-aware Sentiment Analysis.</li>
+    </ul>
+
     <div class="impact">
-        <strong>Impact:</strong> 50% reduction in widget memory footprint and faster updates.
+        <strong>Impact:</strong> Context-aware notification management and actionable history hints.
     </div>
-    <div class="files">
-        <strong>Files Modified:</strong> <code>AnimeWidget.kt</code>, <code>MaidJavaWidgetProvider.java</code>,
-        <code>maid_widget_java_layout.xml</code>
-    </div>
+
+    <h3>3. Accessibility Suite (v4.0)</h3>
+    <span class="priority high">🔴 High</span>
+    <span class="effort">Completed</span>
+
+    <p><strong>Status:</strong> <span class="priority low">✅ Completed</span></p>
+    <ul>
+        <li>Shake-to-SOS (Accelerometer-based emergency trigger).</li>
+        <li>Assistive Voice Feedback (TextToSpeech).</li>
+        <li>MainActivity Decomposition (Manager-based architecture).</li>
+    </ul>
 </div>
 
 <div class="section" id="ui-enhancements">
@@ -911,10 +850,8 @@
 <div class="section" id="implementation-matrix">
     <h2>📊 Implementation Priority Matrix</h2>
 
-    <h3>Phase 1: Critical (Completed)</h3>
-    <div class="timeline">Timeline: 1-2 weeks | Effort: 15-20 hours | <strong>Outcome:</strong>
-        Version 3.0 Stable Released
-    </div>
+    <h3>Phase 1-4: Foundation & Intelligence (Completed)</h3>
+    <div class="timeline">Timeline: Q1-Q2 2026 | <strong>Outcome:</strong> Version 4.0 Stable Released</div>
 
     <table class="matrix-table">
         <thead>
@@ -925,46 +862,34 @@
         </thead>
         <tbody>
         <tr>
-            <td>Update dependency library versions</td>
+            <td>Google ML Kit Entity Extraction</td>
             <td>✅ Completed</td>
         </tr>
         <tr>
-            <td>Add ProGuard rules for Coroutines</td>
+            <td>Language Identification (Multi-lang)</td>
             <td>✅ Completed</td>
         </tr>
         <tr>
-            <td>Implement notification deduplication</td>
+            <td>Shake-to-SOS Accessibility</td>
             <td>✅ Completed</td>
         </tr>
         <tr>
-            <td>Enhance app list with search & filtering</td>
+            <td>MainActivity Decomposition (Architectural Refactor)</td>
             <td>✅ Completed</td>
         </tr>
         <tr>
-            <td>Implement multiple widget sizes & variants</td>
+            <td>Thermal & Memory Telemetry Monitoring</td>
             <td>✅ Completed</td>
         </tr>
         <tr>
-            <td>Add interactive widget controls</td>
-            <td>✅ Completed</td>
-        </tr>
-        <tr>
-            <td>Implement App Discovery and caching logic</td>
-            <td>✅ Completed</td>
-        </tr>
-        <tr>
-            <td>Integrate MessageCountWidget with Repository</td>
-            <td>✅ Completed</td>
-        </tr>
-        <tr>
-            <td>Refactor Anime Widget (Maid-Only System)</td>
+            <td>Notification Listener Healer Service</td>
             <td>✅ Completed</td>
         </tr>
         </tbody>
     </table>
 
-    <h3>Phase 2: Important (Completed)</h3>
-    <div class="timeline">Timeline: 2-3 weeks | Effort: 20-25 hours | <strong>Outcome:</strong> Version 3.5 Released</div>
+    <h3>Phase 5: Voice Intelligence (In Progress - v4.1 Beta)</h3>
+    <div class="timeline">Timeline: May 2026 | <strong>Outcome:</strong> Experimental Beta</div>
 
     <table class="matrix-table">
         <thead>
@@ -975,124 +900,20 @@
         </thead>
         <tbody>
         <tr>
-            <td>Sleep/Do-Not-Disturb scheduling UI & logic</td>
+            <td>Maid Voice Assistant Core</td>
+            <td>🧪 Beta (Failing)</td>
+        </tr>
+        <tr>
+            <td>Customizable Wake Word Detection</td>
+            <td>🧪 Beta (Failing)</td>
+        </tr>
+        <tr>
+            <td>Manual Assistant Trigger Button</td>
             <td>✅ Completed</td>
         </tr>
         <tr>
-            <td>Create AppDetailsBottomSheet (mute/sound selection)</td>
-            <td>✅ Completed</td>
-        </tr>
-        <tr>
-            <td>Optimize list performance (DiffUtil/Lazy Loading)</td>
-            <td>✅ Completed</td>
-        </tr>
-        <tr>
-            <td>Add visual sound status indicators</td>
-            <td>✅ Completed</td>
-        </tr>
-        <tr>
-            <td>Contact grouping & VIP list</td>
-            <td>✅ Completed</td>
-        </tr>
-        <tr>
-            <td>Implement bottom sheet for app actions</td>
-            <td>✅ Completed</td>
-        </tr>
-        <tr>
-            <td>Create notification list widget</td>
-            <td>✅ Completed</td>
-        </tr>
-        <tr>
-            <td>Implement widget configuration screen</td>
-            <td>✅ Completed</td>
-        </tr>
-        </tbody>
-    </table>
-
-    <h3>Phase 3: Enhancement (In Progress)</h3>
-    <div class="timeline">Timeline: 3-4 weeks | Effort: 15-20 hours</div>
-
-    <table class="matrix-table">
-        <thead>
-        <tr>
-            <th>Task</th>
-            <th>Status</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <td>App categorization & filtering</td>
-            <td>✅ Completed</td>
-        </tr>
-        <tr>
-            <td>Notification history/preview</td>
-            <td>✅ Completed</td>
-        </tr>
-        <tr>
-            <td>Statistics dashboard</td>
-            <td>🔲 Pending</td>
-        </tr>
-        <tr>
-            <td>Export/import settings</td>
-            <td>🔲 Pending</td>
-        </tr>
-        <tr>
-            <td>Add Sleep Mode indicator widget</td>
-            <td>🔲 Pending</td>
-        </tr>
-        <tr>
-            <td>Add quick settings widget</td>
-            <td>🔲 Pending</td>
-        </tr>
-        <tr>
-            <td>Implement widget update optimization</td>
-            <td>🔲 Pending</td>
-        </tr>
-        <tr>
-            <td>Gesture system implementation</td>
-            <td>✅ Completed</td>
-        </tr>
-        </tbody>
-    </table>
-
-    <h3>Phase 4: Polish (Ongoing)</h3>
-    <div class="timeline">Timeline: Continuous | Effort: 5-10 hours per cycle</div>
-
-    <table class="matrix-table">
-        <thead>
-        <tr>
-            <th>Task</th>
-            <th>Status</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <td>Onboarding improvements</td>
-            <td>🔲 Pending</td>
-        </tr>
-        <tr>
-            <td>Add haptic feedback</td>
-            <td>✅ Completed</td>
-        </tr>
-        <tr>
-            <td>Dark mode explicit control</td>
-            <td>🔲 Pending</td>
-        </tr>
-        <tr>
-            <td>Undo/redo functionality</td>
-            <td>🔲 Pending</td>
-        </tr>
-        <tr>
-            <td>Unit & integration tests</td>
-            <td>🔲 Pending</td>
-        </tr>
-        <tr>
-            <td>Custom sound preview widget</td>
-            <td>🔲 Pending</td>
-        </tr>
-        <tr>
-            <td>Battery usage & performance widget</td>
-            <td>✅ Completed</td>
+            <td>Live Debugging & Failure Mitigation</td>
+            <td>🔄 In Progress</td>
         </tr>
         </tbody>
     </table>
@@ -1238,8 +1059,8 @@
 
 <div class="section">
     <h2>📚 Document Maintenance</h2>
-    <p><strong>Last Updated:</strong> May 19, 2026<br>
-        <strong>Valid For:</strong> EchoCustom v3.0 → v4.0+ roadmap<br>
+    <p><strong>Last Updated:</strong> May 22, 2026<br>
+        <strong>Valid For:</strong> EchoCustom v4.0 → v4.5+ roadmap<br>
         <strong>Review Frequency:</strong> Monthly or after major releases<br>
         <strong>Contributor:</strong> Development Team</p>
 </div>

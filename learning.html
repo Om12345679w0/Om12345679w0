@@ -221,128 +221,68 @@
 </div>
 
 <div class="section" id="modules">
-    <h2>3. 📁 Module Breakdown</h2>
+    <h2>3. 📁 Module Breakdown (v4.1 Beta)</h2>
 
     <h3>📱 UI Layer (<code>com.echo.custom.ui</code>)</h3>
     <ul>
-        <li><strong><code>MainActivity.kt</code></strong>: The single-activity entry point.
-            Configured with <code>HOME</code> category to act as a launcher. It manages navigation
-            via <code>NavHost</code>, handles theme switching, and observes global states like
-            <strong>Elder Mode</strong>.
+        <li><strong><code>MainActivity.kt</code></strong>: Refactored into a lean entry point. It delegates core responsibilities to specialized managers like <code>WidgetBindingManager</code> and <code>PermissionLifecycleObserver</code>.
         </li>
         <li><strong><code>screens/</code></strong>:
             <ul>
-                <li><code>HomeScreen.kt</code>: The main dashboard. Dynamically switches between the
-                    <strong>Professional Dashboard</strong> and the <strong>Elder Mode Grid</strong>.
-                </li>
-                <li><code>AppListScreen.kt</code>: A categorized list of all installed apps with
-                    search and filtering.
-                </li>
-                <li><code>ContactScreens.kt</code>: Manages contact-specific sound mappings and the
-                    dialer (in Elder Mode).
-                </li>
-                <li><code>SaoResourceBlocks.kt</code>: SAO-themed Compose UI components for
-                    monitoring CPU, RAM, and Network.
-                </li>
+                <li><code>HomeScreen.kt</code>: Now includes the <b>Manual Voice Assistant Trigger</b> button (positioned above pinned apps) and the v4.0 multi-state dashboard.</li>
+                <li><code>AppListScreen.kt</code>: Enhanced with Search and Category filtering logic.</li>
+                <li><code>SaoResourceBlocks.kt</code>: Upgraded with real-time thermal state and per-app memory telemetry components.</li>
             </ul>
         </li>
-        <li><strong><code>components/</code></strong>: Small, reusable UI units like <code>MaidWidget</code>,
-            <code>ResourceCard</code>, and <code>NotificationLogItem</code>.
-        </li>
     </ul>
 
-    <h3>🧠 Logic Layer (<code>com.echo.custom.viewmodel</code>)</h3>
+    <h3>🧠 Logic Layer (<code>com.echo.custom.viewmodel</code> & <code>managers</code>)</h3>
     <ul>
-        <li><strong><code>HomeViewModel.kt</code></strong>: The "brain" of the home screen.
-            <ul>
-                <li>Manages "Maid" dialogue logic based on system state (battery, time, RAM).</li>
-                <li>Integrates module filtering and state-aware visibility.</li>
-                <li>Handles app launching, folder management, and screen locking.</li>
-            </ul>
-        </li>
-        <li><strong><code>AppListViewModel.kt</code></strong>: Manages the retrieval and filtering
-            of apps, including icon pack application and repair logic.
-        </li>
+        <li><strong><code>NotificationIntelligenceManager.kt</code></strong>: The core intelligence orchestrator. It manages Google ML Kit's <b>Entity Extraction</b> and <b>Language Identification</b> pipelines.</li>
+        <li><strong><code>HomeViewModel.kt</code></strong>: Now handles Voice Assistant command dispatching and the high-performance module filtering logic.</li>
+        <li><strong><code>NotificationListenerHealer.kt</code></strong>: A self-healing manager that monitors the integrity of the notification listener service and performs re-binds if necessary.</li>
     </ul>
 
-    <h3>💾 Data Layer (<code>com.echo.custom.database</code> & <code>com.echo.custom.data</code>)
-    </h3>
+    <h3>💾 Data Layer (<code>com.echo.custom.database</code>)</h3>
     <ul>
-        <li><strong><code>EchoCustomDatabase.kt</code></strong>: Defines the Room database with
-            entities for <code>AppEntity</code>, <code>NotificationLogEntity</code>, <code>FolderEntity</code>,
-            and <code>WidgetEntity</code>.
-        </li>
-        <li><strong><code>SystemRepository.kt</code></strong>: Core resource monitoring logic using
-            <code>/proc/stat</code> and <code>TrafficStats</code>.
-        </li>
-        <li><strong><code>DataStoreManager.kt</code></strong>: Manages persistent preferences
-            including the Maid Assistant toggle.
-        </li>
+        <li><strong><code>EchoCustomDatabase.kt</code></strong>: Currently at <b>Schema v15</b>, including new columns for ML-derived sentiment and entity metadata in notification logs.</li>
+        <li><strong><code>SystemRepository.kt</code></strong>: Expanded to track <code>PowerManager.thermalState</code> and granular app-specific memory consumption.</li>
     </ul>
 
-    <h3>⚙️ Services & Receivers (<code>com.echo.custom.service</code> & <code>com.echo.custom.receiver</code>)
-    </h3>
+    <h3>⚙️ Services (<code>com.echo.custom.service</code>)</h3>
     <ul>
-        <li><strong><code>WidgetUpdateWorker.kt</code></strong>: Background state monitoring and
-            voice playback (respects Maid toggle).
-        </li>
-        <li><strong><code>NotificationService.kt</code></strong>: A <code>NotificationListenerService</code>.
-            Intercepts notifications, checks if a custom sound is mapped, and plays it.
-        </li>
-        <li><strong><code>EchoAccessibilityService.kt</code></strong>: Provides global gestures
-            (like locking the screen on double-tap).
-        </li>
+        <li><strong><code>VoiceAssistantService.kt</code></strong>: Manages the Speech-to-Text pipeline and the customizable <b>Wake Word</b> ("Echo") detection engine.</li>
+        <li><strong><code>NotificationService.kt</code></strong>: Integrated with the Intelligence Manager for real-time triage and language-aware triage.</li>
     </ul>
 </div>
 
 <div class="section" id="logic">
     <h2>4. 🔑 Key Logic Deep Dives</h2>
 
-    <h3>🔊 Sound Mapping Logic</h3>
-    <ol>
-        <li>A notification arrives -> <code>NotificationService.onNotificationPosted</code> is
-            triggered.
-        </li>
-        <li>The service checks the <code>AppDao</code> for the package name.</li>
-        <li>If <code>customSoundUri</code> exists and "Sleep Mode" isn't blocking it (or it's a VIP
-            app), the sound is played.
-        </li>
-        <li>The notification is logged to the <code>NotificationLog</code> table for the dashboard.
-        </li>
-    </ol>
+    <h3>🎙️ Voice Recognition Pipeline (v4.1 Beta)</h3>
+    <p>The <b>Maid Voice Assistant</b> uses a multi-stage recognition flow to ensure privacy and efficiency:</p>
+    <ul>
+        <li><b>Wake-Word Detection:</b> A low-power listener monitoring for "Echo" (default) or user-defined triggers. This occurs 100% on-device.</li>
+        <li><b>Speech-to-Text:</b> Once triggered, the <code>VoiceAssistantService</code> activates the Android SpeechRecognizer to process commands locally.</li>
+        <li><b>Intent Mapping:</b> Recognized text is parsed and mapped to system actions (e.g., "Toggle HUD", "Enable Sleep Mode") via the <code>HomeViewModel</code>.</li>
+    </ul>
+
+    <h3>🧠 ML-Powered Intelligence (v4.0)</h3>
+    <ul>
+        <li><b>Entity Extraction:</b> Uses Google ML Kit to scan notification content for actionable data (Dates, Addresses, Phone Numbers).</li>
+        <li><b>Language ID:</b> Automatically identifies the language of incoming alerts to apply the correct sentiment analysis model (supporting EN, ES, FR).</li>
+    </ul>
+
+    <h3>🛡️ Service Healer & Integrity</h3>
+    <ul>
+        <li><b>Monitoring:</b> The <code>NotificationListenerHealer</code> tracks the <code>onServiceConnected</code> state.</li>
+        <li><b>Restoration:</b> If the service is unbound by the OS (e.g., due to memory pressure), the healer triggers a re-bind via a hidden <code>ComponentName</code> intent, ensuring notification features remain active.</li>
+    </ul>
 
     <h3>⚔️ SAO Resource HUD</h3>
     <ul>
-        <li><strong>CPU Monitoring</strong>: Uses <code>/proc/stat</code> for real-time CPU wave
-            generation.
-        </li>
-        <li><strong>Network Tracking</strong>: Uses <code>TrafficStats</code> for monitoring
-            upload/download speeds.
-        </li>
-        <li><strong>Visual Fidelity</strong>: SAO-inspired design with high-contrast health bars for
-            system resources.
-        </li>
-    </ul>
-
-    <h3>🎭 Maid Assistant Toggle</h3>
-    <ul>
-        <li>Users can hide the Maid character and mute its background voice reactions via
-            settings.
-        </li>
-        <li>Preferences are persisted in <code>DataStore</code> and observed by <code>WidgetUpdateWorker</code>
-            and <code>HomeScreen</code>.
-        </li>
-    </ul>
-
-    <h3>👴 Elder Mode Transition</h3>
-    <ul>
-        <li>User toggles "Elder Mode" in settings.</li>
-        <li><code>DataStoreManager</code> updates the <code>elderModeEnabled</code> Flow.</li>
-        <li><code>MainActivity</code> observes this change and triggers a <code>DashboardLoadingState</code>.
-        </li>
-        <li><code>HomeScreen</code> recomposes, swapping the complex Professional Dashboard for a
-            high-contrast app grid.
-        </li>
+        <li><strong>Thermal Telemetry</strong>: Maps <code>PowerManager.thermalState</code> to UI color shifts (Blue -> Red) and warning dialogues.</li>
+        <li><strong>Memory Tracking</strong>: Fetches granular <code>ActivityManager.MemoryInfo</code> to display per-app consumption lists in a floating HUD.</li>
     </ul>
 </div>
 
@@ -374,7 +314,7 @@
 </div>
 
 <footer>
-    <p>&copy; 2026 EchoCustom Pro - Internal Learning Documentation | Last Updated: May 19, 2026</p>
+    <p>&copy; 2026 EchoCustom Pro - Internal Learning Documentation | Last Updated: May 22, 2026</p>
 </footer>
 </body>
 </html>

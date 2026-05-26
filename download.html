@@ -3,47 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>Download EchoCustom v3.5</title>
+    <title>Download EchoCustom v4.1 Beta</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&display=swap"
           rel="stylesheet">
     <style>
         :root {
             --primary: #6366f1;
+            --primary-dark: #4f46e5;
             --dark: #0f172a;
             --light: #f8fafc;
             --white: #ffffff;
+            --text-main: #1e293b;
+            --text-light: #64748b;
+            --nav-bg: rgba(255, 255, 255, 0.7);
+            --border: rgba(255, 255, 255, 0.3);
+            --card-bg: #ffffff;
+        }
+
+        [data-theme="dark"] {
+            --bg: #0f172a;
+            --light: #0f172a;
+            --dark: #f8fafc;
+            --white: #1e293b;
+            --text-main: #f1f5f9;
+            --text-light: #94a3b8;
+            --nav-bg: rgba(15, 23, 42, 0.8);
+            --border: rgba(255, 255, 255, 0.1);
+            --card-bg: rgba(30, 41, 59, 0.8);
         }
 
         @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         @keyframes pulse {
-            0%, 100% {
-                box-shadow: 0 10px 15px -3px rgba(99, 102, 241, 0.4);
-            }
-            50% {
-                box-shadow: 0 15px 35px -5px rgba(99, 102, 241, 0.8);
-            }
+            0%, 100% { box-shadow: 0 10px 15px -3px rgba(99, 102, 241, 0.4); }
+            50% { box-shadow: 0 15px 35px -5px rgba(99, 102, 241, 0.8); }
         }
 
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease; }
 
         body {
             font-family: 'Inter', sans-serif;
@@ -52,26 +51,54 @@
             display: flex;
             flex-direction: column;
             min-height: 100vh;
-        }
-        .container {
-            flex: 1;
-            max-width: 600px;
-            margin: 6rem auto;
-            text-align: center;
-            padding: 0 2rem;
-        }
-        .download-card {
-            background: var(--white);
-            padding: 4rem;
-            border-radius: 32px;
-            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.1);
-            animation: fadeInUp 0.8s ease-out;
-            transition: all 0.3s ease;
+            color: var(--text-main);
         }
 
-        .download-card:hover {
-            box-shadow: 0 40px 60px -15px rgba(99, 102, 241, 0.3);
-            transform: translateY(-5px);
+        [data-theme="dark"] body {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+        }
+
+        /* Navigation */
+        nav {
+            background: var(--nav-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .logo { font-size: 1.5rem; font-weight: 800; color: var(--dark); text-decoration: none; display: flex; align-items: center; gap: 10px; }
+        .nav-links { display: flex; gap: 1.5rem; align-items: center; }
+        .nav-links a { text-decoration: none; color: var(--text-light); font-weight: 500; transition: 0.3s; position: relative; }
+        .nav-links a:hover { color: var(--primary); }
+        .nav-links a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 2px; background: var(--primary); transition: width 0.3s; }
+        .nav-links a:hover::after { width: 100%; }
+
+        .theme-toggle { border: none; background: rgba(0,0,0,0.05); padding: 8px; border-radius: 50%; cursor: pointer; font-size: 1.2rem; margin-left: 1rem; display: flex; align-items: center; justify-content: center; transition: 0.3s; color: var(--text-main); }
+
+        .container {
+            flex: 1;
+            max-width: 700px;
+            margin: 4rem auto;
+            text-align: center;
+            padding: 0 1.5rem;
+        }
+
+        .download-card {
+            background: var(--card-bg);
+            padding: 4rem;
+            border-radius: 40px;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.1);
+            animation: fadeInUp 0.8s ease-out;
+            border: 1px solid var(--border);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
         }
 
         .version-badge {
@@ -80,201 +107,105 @@
             padding: 8px 20px;
             border-radius: 50px;
             font-weight: 800;
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             display: inline-block;
             margin-bottom: 2rem;
-            animation: fadeInUp 0.8s ease-out backwards;
-        }
-        h1 {
-            font-size: 2.5rem;
-            color: var(--dark);
-            margin-bottom: 1.5rem;
-            animation: fadeInUp 0.8s ease-out 0.1s backwards;
+            letter-spacing: 1px;
         }
 
-        p {
-            animation: fadeInUp 0.8s ease-out 0.2s backwards;
-            color: #64748b;
-            margin-bottom: 1.5rem;
-        }
+        h1 { font-size: 2.5rem; color: var(--dark); margin-bottom: 1.5rem; font-weight: 800; }
+        p { color: var(--text-light); margin-bottom: 1.5rem; font-size: 1.1rem; }
 
         .btn-download {
             display: inline-block;
             background: var(--primary);
             color: white;
-            padding: 1.2rem 3rem;
-            border-radius: 50px;
+            padding: 1.2rem 3.5rem;
+            border-radius: 100px;
             text-decoration: none;
             font-weight: 700;
             margin-top: 2rem;
-            box-shadow: 0 10px 15px -3px rgba(99, 102, 241, 0.4);
+            box-shadow: 0 10px 20px rgba(99, 102, 241, 0.2);
             transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
             border: none;
             cursor: pointer;
             animation: pulse 2s ease-in-out infinite;
-            position: relative;
-            overflow: hidden;
+            font-size: 1.1rem;
         }
 
-        .btn-download::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.3);
-            transform: translate(-50%, -50%);
-            transition: width 0.6s, height 0.6s;
-        }
-
-        .btn-download:active::before {
-            width: 300px;
-            height: 300px;
-        }
-
-        .btn-download:hover {
-            transform: translateY(-5px);
-            background: #4f46e5;
-            box-shadow: 0 25px 40px -10px rgba(99, 102, 241, 0.6);
-            animation: none;
-        }
-
-        .btn-download.disabled {
-            background: linear-gradient(135deg, #4b5563 0%, #3a4452 100%);
-            color: #9ca3af;
-            cursor: not-allowed;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
-            animation: none;
-            opacity: 0.8;
-        }
-
-        .btn-download.disabled:hover {
-            background: linear-gradient(135deg, #4b5563 0%, #3a4452 100%);
-            transform: none;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
-        }
+        .btn-download:hover { transform: translateY(-5px); background: var(--primary-dark); box-shadow: 0 20px 40px rgba(99, 102, 241, 0.4); }
+        .btn-download.disabled { background: #94a3b8; cursor: not-allowed; animation: none; opacity: 0.6; }
 
         .status-message {
-            margin-top: 2.5rem;
-            padding: 1.5rem;
-            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-            border-left: 4px solid #94a3b8;
-            border-radius: 12px;
-            color: #e2e8f0;
-            font-size: 0.95rem;
-            line-height: 1.6;
-            animation: fadeInUp 0.8s ease-out 0.3s backwards;
-        }
-
-        .status-message strong {
-            color: #cbd5e1;
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 700;
-        }
-
-        .info-box {
-            margin-top: 2rem;
-            font-size: 0.8rem;
-            color: #64748b;
-            animation: fadeInUp 0.8s ease-out 0.3s backwards;
-        }
-
-        .info-box p {
-            animation: none;
-            margin: 0.5rem 0;
-        }
-
-        .info-box a {
-            color: var(--primary);
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-
-        .info-box a:hover {
-            text-decoration: underline;
-            color: #4f46e5;
-        }
-
-        .back-link {
-            display: inline-block;
             margin-top: 3rem;
-            color: var(--primary);
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            animation: fadeInUp 0.8s ease-out 0.4s backwards;
+            padding: 2rem;
+            background: rgba(15, 23, 42, 0.05);
+            border-radius: 24px;
+            color: var(--text-main);
+            font-size: 1rem;
+            line-height: 1.6;
+            border: 1px solid var(--border);
         }
 
-        .back-link:hover {
-            transform: translateX(-5px);
-            text-decoration: underline;
-        }
+        [data-theme="dark"] .status-message { background: rgba(0,0,0,0.2); }
 
-        .footer {
-            padding: 3rem;
-            text-align: center;
-            color: #94a3b8;
-            font-size: 0.8rem;
-            animation: fadeInUp 0.8s ease-out 0.5s backwards;
-        }
+        .status-message strong { color: var(--primary); display: block; margin-bottom: 0.75rem; font-weight: 800; font-size: 1.1rem; }
+
+        .info-box { margin-top: 3rem; font-size: 0.9rem; color: var(--text-light); }
+        .info-box a { color: var(--primary); text-decoration: none; font-weight: 600; }
+        .info-box a:hover { text-decoration: underline; }
+
+        .back-link { display: inline-flex; align-items: center; margin-top: 3rem; color: var(--primary); text-decoration: none; font-weight: 700; transition: 0.3s; gap: 8px; }
+        .back-link:hover { transform: translateX(-5px); }
+
+        .footer { padding: 4rem 1.5rem; text-align: center; color: var(--text-light); font-size: 0.9rem; border-top: 1px solid var(--border); }
 
         @media (max-width: 768px) {
-            .container { margin: 3rem auto; padding: 0 1rem; }
-            .download-card {
-                padding: 2.5rem 1.5rem;
-                border-radius: 24px;
-            }
-            h1 {
-                font-size: 2rem;
-            }
-            .btn-download {
-                padding: 1.2rem;
-                width: 100%;
-                font-size: 1rem;
-            }
-            .status-message { padding: 1.2rem; font-size: 0.9rem; }
+            .container { margin: 2rem auto; }
+            .download-card { padding: 3rem 1.5rem; border-radius: 32px; }
+            h1 { font-size: 2rem; }
+            .btn-download { width: 100%; padding: 1.2rem; }
+            .nav-links { display: none; }
         }
     </style>
-</head>
-<body>
-
-<div class="container">
-    <div class="download-card">
-        <span class="version-badge">v4.1 BETA (EXPERIMENTAL)</span>
-        <h1>EchoCustom v4.1 Beta</h1>
-        <p>Experience the new <b>Maid Voice Assistant</b> with on-device Voice Recognition and customizable Wake Word triggers.</p>
-
-        <button class="btn-download disabled" disabled>Download Paused (Beta Verification)
-        </button>
-
-        <div class="status-message">
-            <strong>🧪 Experimental Build Notice</strong>
-            <p>The <b>Voice Assistant</b> modules are currently in a "Live Debug" phase. Users may experience recognition failures or higher battery drain as we optimize the local speech processing engine.</p>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Theme Toggle
+            const themeToggle = document.getElementById('theme-toggle');
+            const body = document.body;
             
-            <div id="countdown-timer"
-                 style="margin-top: 1rem; font-weight: 800; color: #cbd5e1; font-size: 1.2rem; font-family: 'Inter', sans-serif; display: flex; justify-content: center; gap: 15px;">
-                <div style="text-align: center;"><span id="days">0</span>
-                    <div style="font-size: 0.7rem; font-weight: 400; opacity: 0.8;">DAYS</div>
-                </div>
-                <div style="text-align: center;"><span id="hours">0</span>
-                    <div style="font-size: 0.7rem; font-weight: 400; opacity: 0.8;">HOURS</div>
-                </div>
-                <div style="text-align: center;"><span id="minutes">0</span>
-                    <div style="font-size: 0.7rem; font-weight: 400; opacity: 0.8;">MINUTES</div>
-                </div>
-                <div style="text-align: center;"><span id="seconds">0</span>
-                    <div style="font-size: 0.7rem; font-weight: 400; opacity: 0.8;">SECONDS</div>
-                </div>
-            </div>
+            const savedTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+            if (savedTheme === 'dark') {
+                body.setAttribute('data-theme', 'dark');
+                themeToggle.textContent = '☀️';
+            }
 
-            <p style="margin-top: 1rem; margin-bottom: 0; font-size: 0.85rem; opacity: 0.8;">
-                Estimated time remaining until stability patch release.</p>
-        </div>
+            themeToggle.addEventListener('click', () => {
+                const currentTheme = body.getAttribute('data-theme');
+                if (currentTheme === 'dark') {
+                    body.removeAttribute('data-theme');
+                    themeToggle.textContent = '🌙';
+                    localStorage.setItem('theme', 'light');
+                } else {
+                    body.setAttribute('data-theme', 'dark');
+                    themeToggle.textContent = '☀️';
+                    localStorage.setItem('theme', 'dark');
+                }
+            });
 
-        <script>
+            // Reveal animations
+            const elements = document.querySelectorAll('.download-card > *, .status-message > *, .info-box > *');
+            elements.forEach((el, index) => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(20px)';
+                el.style.transition = `all 0.6s cubic-bezier(0.16, 1, 0.3, 1) ${index * 0.1}s`;
+                
+                requestAnimationFrame(() => {
+                    el.style.opacity = '1';
+                    el.style.transform = 'translateY(0)';
+                });
+            });
+
             // Set the target date (7 days from May 22, 2026)
             const targetDate = new Date("May 29, 2026 00:00:00").getTime();
 
@@ -300,15 +231,61 @@
 
             setInterval(updateCountdown, 1000);
             updateCountdown();
-        </script>
+        });
+    </script>
+</head>
+<body>
+
+<nav>
+    <a class="logo" href="index.html">
+        <span style="background: var(--primary); color: white; padding: 4px 10px; border-radius: 12px;">Σ</span>
+        EchoCustom
+    </a>
+    <div class="nav-links">
+        <a href="index.html#features">Features</a>
+        <a href="learning.html">Learning</a>
+        <a href="app_info.html">Help</a>
+        <a href="privacy.html">Privacy</a>
+    </div>
+    <button class="theme-toggle" id="theme-toggle" title="Toggle Dark Mode">🌙</button>
+</nav>
+
+<div class="container">
+    <div class="download-card">
+        <span class="version-badge">v4.1 BETA (EXPERIMENTAL)</span>
+        <h1>EchoCustom v4.1 Beta</h1>
+        <p>Experience the new <b>Maid Voice Assistant</b> with on-device Voice Recognition and customizable Wake Word triggers.</p>
+
+        <button class="btn-download disabled" disabled>Download Paused (Beta Verification)
+        </button>
+
+        <div class="status-message">
+            <strong>🧪 Experimental Build Notice</strong>
+            <p>The <b>Voice Assistant</b> modules are currently in a "Live Debug" phase. Users may experience recognition failures or increased battery drain as we optimize the local speech processing engine.</p>
+            
+            <div id="countdown-timer"
+                 style="margin-top: 1.5rem; font-weight: 800; color: var(--primary); font-size: 1.5rem; font-family: 'Inter', sans-serif; display: flex; justify-content: center; gap: 20px;">
+                <div style="text-align: center;"><span id="days">0</span>
+                    <div style="font-size: 0.75rem; font-weight: 400; opacity: 0.8; color: var(--text-light);">DAYS</div>
+                </div>
+                <div style="text-align: center;"><span id="hours">0</span>
+                    <div style="font-size: 0.75rem; font-weight: 400; opacity: 0.8; color: var(--text-light);">HOURS</div>
+                </div>
+                <div style="text-align: center;"><span id="minutes">0</span>
+                    <div style="font-size: 0.75rem; font-weight: 400; opacity: 0.8; color: var(--text-light);">MINUTES</div>
+                </div>
+                <div style="text-align: center;"><span id="seconds">0</span>
+                    <div style="font-size: 0.75rem; font-weight: 400; opacity: 0.8; color: var(--text-light);">SECONDS</div>
+                </div>
+            </div>
+
+            <p style="margin-top: 1.5rem; margin-bottom: 0; font-size: 0.9rem; opacity: 0.8; color: var(--text-light);">
+                Estimated time remaining until stability patch release.</p>
+        </div>
 
         <div class="info-box">
             <p>Size: ~38.2 MB | Build: Signed Experimental Beta</p>
-            <p>
-                <a href="https://github.com/Om12345679w0/Om12345679w0/">View
-                    GitHub
-                    Repository</a></p>
-
+            <p><a href="https://github.com/Om12345679w0/Om12345679w0/">View GitHub Repository</a></p>
         </div>
     </div>
     <a class="back-link" href="index.html">← Back to Home</a>

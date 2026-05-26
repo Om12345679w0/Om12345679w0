@@ -510,14 +510,30 @@
                 }
             });
 
-            // 1. Antigravity Staggered Reveal
+            // 1. Prepare hero for typewriter
+            const heroH1 = document.querySelector('.hero h1');
+            const heroP = document.querySelector('.hero p');
+            if (heroH1) {
+                heroH1.setAttribute('data-typewrite', 'true');
+                heroH1.setAttribute('data-text', heroH1.innerText);
+                heroH1.setAttribute('data-speed', '50');
+                heroH1.innerText = '';
+            }
+            if (heroP) {
+                heroP.setAttribute('data-typewrite', 'true');
+                heroP.setAttribute('data-text', heroP.innerText);
+                heroP.setAttribute('data-speed', '25');
+                heroP.innerText = '';
+            }
+
+            // 2. Antigravity Staggered Reveal
             const gridCards = document.querySelectorAll('.grid .card, .gallery-grid > div, .roadmap-item');
             gridCards.forEach((card, index) => {
                 card.style.transitionDelay = `${(index % 4) * 0.15}s`;
                 card.classList.add('scroll-reveal');
             });
 
-            // 2. Intersection Observer
+            // 3. Intersection Observer
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
@@ -535,7 +551,7 @@
 
             document.querySelectorAll('.scroll-reveal, .hero-content > *, .section-header').forEach(el => observer.observe(el));
 
-            // 3. Mobile Menu
+            // 4. Mobile Menu
             const menuToggle = document.getElementById('mobile-menu');
             const navLinks = document.querySelector('.nav-links');
             if (menuToggle) {
@@ -558,41 +574,29 @@
                 });
             }
 
-            // 4. Typewriter Effect
+            // 5. Typewriter Effect
             const typeText = (element, text, speed = 40) => {
+                if (element.typingTimer) clearTimeout(element.typingTimer);
                 element.innerHTML = '';
                 element.classList.add('typewriter');
                 let i = 0;
-                const timer = setInterval(() => {
+                
+                const type = () => {
                     if (i < text.length) {
                         element.innerHTML += text.charAt(i);
                         i++;
+                        // Add randomness: speed +/- 50%
+                        const randomSpeed = speed * (0.5 + Math.random());
+                        element.typingTimer = setTimeout(type, randomSpeed);
                     } else {
-                        clearInterval(timer);
+                        element.typingTimer = null;
                     }
-                }, speed);
+                };
+                
+                type();
             };
 
-            // Prepare hero for typewriter (triggered by observer now)
-            const heroH1 = document.querySelector('.hero h1');
-            const heroP = document.querySelector('.hero p');
-            if (heroH1) {
-                heroH1.setAttribute('data-typewrite', 'true');
-                heroH1.setAttribute('data-text', heroH1.innerText);
-                heroH1.setAttribute('data-speed', '50');
-                heroH1.innerText = '';
-                observer.observe(heroH1);
-            }
-            if (heroP) {
-                heroP.setAttribute('data-typewrite', 'true');
-                heroP.setAttribute('data-text', heroP.innerText);
-                heroP.setAttribute('data-speed', '25');
-                heroP.innerText = '';
-                // Delay observing P slightly after H1
-                setTimeout(() => observer.observe(heroP), 500);
-            }
-
-            // 5. Interactive Tilt & Parallax
+            // 6. Interactive Tilt & Parallax
             const interactiveElements = document.querySelectorAll('.card, .gallery-grid > div');
 
             interactiveElements.forEach(el => {

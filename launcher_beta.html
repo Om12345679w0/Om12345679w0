@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>LauncherBeta - Modern Android Launcher</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap"
+          rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --dark: #0f172a;
+            --bg: #f8fafc;
+            --card-bg: rgba(255, 255, 255, 0.8);
+            --text-main: #1e293b;
+            --text-light: #64748b;
+            --animation-easing: cubic-bezier(0.16, 1, 0.3, 1);
+            --nav-bg: rgba(255, 255, 255, 0.7);
+            --border: rgba(255, 255, 255, 0.3);
+        }
+
+        [data-theme="dark"] {
+            --bg: #0f172a;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --text-main: #f1f5f9;
+            --text-light: #94a3b8;
+            --dark: #f8fafc;
+            --nav-bg: rgba(15, 23, 42, 0.8);
+            --border: rgba(255, 255, 255, 0.1);
+        }
+
+        @keyframes float-drift {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text-main);
+            background-color: var(--bg);
+            overflow-x: hidden;
+        }
+
+        nav {
+            background: var(--nav-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid var(--border);
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        .logo { font-size: 1.5rem; font-weight: 800; color: var(--dark); text-decoration: none; display: flex; align-items: center; gap: 10px; }
+
+        .nav-links { display: flex; gap: 1.5rem; align-items: center; }
+        .nav-links a { text-decoration: none; color: var(--text-light); font-weight: 500; transition: all 0.3s var(--animation-easing); position: relative; }
+        .nav-links a:hover { color: var(--primary); transform: translateY(-2px); }
+        .nav-links a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 2px; background: var(--primary); transition: width 0.3s ease; }
+        .nav-links a:hover::after { width: 100%; }
+
+        .theme-toggle { border: none; background: rgba(0,0,0,0.05); padding: 8px; border-radius: 50%; cursor: pointer; font-size: 1.2rem; margin-left: 1rem; display: flex; align-items: center; justify-content: center; transition: 0.3s; color: var(--text-main); }
+
+        header {
+            background: linear-gradient(135deg, #0f172a 0%, #4f46e5 100%);
+            color: white;
+            text-align: center;
+            padding: 8rem 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header h1 { font-size: clamp(2.5rem, 8vw, 4rem); margin-bottom: 1.5rem; animation: fadeInUp 0.8s var(--animation-easing); font-weight: 800; }
+        header p { font-size: 1.25rem; opacity: 0.9; animation: fadeInUp 0.8s var(--animation-easing) 0.2s backwards; font-weight: 300; }
+
+        .container { max-width: 1000px; margin: 0 auto; padding: 4rem 1.5rem; }
+
+        .section {
+            background: var(--card-bg);
+            padding: 4rem;
+            border-radius: 40px;
+            border: 1px solid var(--border);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
+            margin-bottom: 4rem;
+            transition: all 0.4s var(--animation-easing);
+            animation: float-drift 8s infinite ease-in-out;
+        }
+
+        .section:hover {
+            transform: translateY(-10px) perspective(1000px) rotateX(1deg);
+            box-shadow: 0 20px 40px rgba(99, 102, 241, 0.1);
+            border-color: var(--primary);
+        }
+
+        .scroll-reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s var(--animation-easing); }
+        .scroll-reveal.active { opacity: 1; transform: translateY(0); }
+
+        .badge { background: rgba(99, 102, 241, 0.1); color: var(--primary); padding: 8px 20px; border-radius: 99px; font-size: 0.85rem; font-weight: 700; text-transform: uppercase; margin-bottom: 2rem; display: inline-block; letter-spacing: 1px; }
+
+        h2 { font-size: 2.5rem; color: var(--dark); margin-bottom: 2rem; font-weight: 800; }
+        h3 { color: var(--primary); margin: 3rem 0 1.5rem; font-size: 1.5rem; font-weight: 700; display: flex; align-items: center; gap: 12px; }
+        
+        ul { list-style-type: none; margin-bottom: 2rem; }
+        li { margin-bottom: 1.5rem; position: relative; padding-left: 2rem; transition: transform 0.3s ease; }
+        li::before { content: '→'; position: absolute; left: 0; color: var(--primary); font-weight: 800; font-size: 1.1rem; }
+        li:hover { transform: translateX(10px); }
+
+        .code-block {
+            background: rgba(15, 23, 42, 0.05);
+            padding: 2rem;
+            border-radius: 20px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            margin: 2rem 0;
+            overflow-x: auto;
+            border: 1px solid var(--border);
+            line-height: 1.7;
+            color: var(--text-main);
+        }
+        [data-theme="dark"] .code-block { background: rgba(0,0,0,0.3); }
+
+        .footer {
+            text-align: center;
+            padding: 4rem 1.5rem;
+            color: var(--text-light);
+            font-size: 0.95rem;
+            border-top: 1px solid var(--border);
+            margin-top: 4rem;
+        }
+
+        .btn {
+            padding: 1rem 2.5rem;
+            border-radius: 100px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s var(--animation-easing);
+            cursor: pointer;
+            border: none;
+            display: inline-block;
+            margin-top: 1rem;
+        }
+
+        .btn-primary { background: var(--primary); color: white; box-shadow: 0 10px 20px rgba(99, 102, 241, 0.2); }
+        .btn-primary:hover { background: var(--primary-dark); transform: translateY(-3px); box-shadow: 0 15px 30px rgba(99, 102, 241, 0.3); }
+
+        @media (max-width: 768px) {
+            .section { padding: 2.5rem 1.5rem; border-radius: 32px; }
+            h2 { font-size: 2rem; }
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeToggle = document.getElementById('theme-toggle');
+            const body = document.body;
+            
+            const savedTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+            if (savedTheme === 'dark') {
+                body.setAttribute('data-theme', 'dark');
+                themeToggle.textContent = '☀️';
+            }
+
+            themeToggle.addEventListener('click', () => {
+                const currentTheme = body.getAttribute('data-theme');
+                if (currentTheme === 'dark') {
+                    body.removeAttribute('data-theme');
+                    themeToggle.textContent = '🌙';
+                    localStorage.setItem('theme', 'light');
+                } else {
+                    body.setAttribute('data-theme', 'dark');
+                    themeToggle.textContent = '☀️';
+                    localStorage.setItem('theme', 'dark');
+                }
+            });
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) entry.target.classList.add('active');
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.section, header > *, li').forEach((el, index) => {
+                el.classList.add('scroll-reveal');
+                if (el.tagName === 'LI') {
+                    el.style.transitionDelay = `${(index % 5) * 0.1}s`;
+                }
+                observer.observe(el);
+            });
+        });
+    </script>
+</head>
+<body>
+
+<nav>
+    <a class="logo" href="index.html">
+        <span style="background: var(--primary); color: white; padding: 4px 10px; border-radius: 12px;">Σ</span>
+        EchoCustom
+    </a>
+    <div class="nav-links">
+        <a href="index.html#features">Features</a>
+        <a href="learning.html">Learning</a>
+        <a href="app_info.html">Help</a>
+        <a href="download.html">Download</a>
+    </div>
+    <button class="theme-toggle" id="theme-toggle" title="Toggle Dark Mode">🌙</button>
+</nav>
+
+<header>
+    <h1>LauncherBeta</h1>
+    <p>A simple, modern Android launcher built with Jetpack Compose.</p>
+</header>
+
+<div class="container">
+    <div class="section">
+        <span class="badge">Project Overview</span>
+        <h2>Experience the Cleanest Android UI</h2>
+        <p>LauncherBeta is an experimental, modern launcher built from the ground up using <b>Jetpack Compose</b> and <b>Material 3</b>. It focuses on providing a fluid, customizable experience while showcasing the latest Android development practices.</p>
+        
+        <h3>🚀 Core Features</h3>
+        <ul>
+            <li><b>Intelligent App Drawer:</b> Quickly browse and search through all your installed applications with a fluid, state-aware UI.</li>
+            <li><b>Home Screen Customization:</b> Add app shortcuts and folders for a personalized organization strategy.</li>
+            <li><b>Full Widget Support:</b> Seamlessly integrate your favorite tools directly onto your home screen using the system widget picker.</li>
+            <li><b>Modern Navigation:</b> Built with the latest <code>androidx.navigation3</code> library for robust, predictable screen transitions.</li>
+            <li><b>Adaptive Layouts:</b> Designed to scale beautifully from compact phones to large foldable devices.</li>
+            <li><b>Reliable Persistence:</b> Uses <b>Jetpack DataStore</b> for efficient, type-safe layout saving and loading.</li>
+        </ul>
+        
+        <a href="download.html#launcher-beta" class="btn btn-primary">Get Alpha Testing APK</a>
+    </div>
+
+    <div class="section">
+        <span class="badge">Technical Stack</span>
+        <h2>Modern Android Architecture</h2>
+        <p>LauncherBeta is built as a reference project for high-performance UI and clean architecture in 2026.</p>
+        
+        <ul>
+            <li><b>Jetpack Compose:</b> 100% declarative UI for unmatched development speed and reliability.</li>
+            <li><b>Material 3 Design:</b> Leveraging the latest Design System for adaptive colors and modern typography.</li>
+            <li><b>Navigation3:</b> Implementing the latest generation of Android navigation for state management.</li>
+            <li><b>Jetpack DataStore:</b> Modern, asynchronous data storage for high-performance preference management.</li>
+            <li><b>Kotlinx Serialization:</b> Type-safe JSON serialization for complex layout configurations.</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <span class="badge">Project Structure</span>
+        <h2>Engineered for Scalability</h2>
+        <p>The codebase follows a modular structure that prioritizes separation of concerns and testability.</p>
+        
+        <h3>📂 Layer Overview</h3>
+        <ul>
+            <li><code>data/</code>: Repositories (App, Home, Widget) and local data models.</li>
+            <li><code>ui/</code>: Compose-based screens and components.
+                <ul>
+                    <li><code>home/</code>: Main workspace and widget hosting logic.</li>
+                    <li><code>drawer/</code>: App listing and search implementation.</li>
+                    <li><code>theme/</code>: Dynamic Material 3 configuration.</li>
+                </ul>
+            </li>
+            <li><code>navigation/</code>: Centralized destination definitions using Navigation3.</li>
+        </ul>
+    </div>
+
+    <div class="footer">
+        LauncherBeta &copy; 2026 Project EchoCustom | Developed with Jetpack Compose & Material 3
+    </div>
+</div>
+
+</body>
+</html>

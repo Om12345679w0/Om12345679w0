@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learning Guide | LauncherBeta v3.0</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary: #8B5CF6;
+            --bg-dark: #09090b;
+            --bg-card: rgba(24, 24, 27, 0.8);
+            --text-primary: #fafafa;
+            --text-secondary: #a1a1aa;
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-primary);
+            line-height: 1.7;
+        }
+
+        nav {
+            padding: 1.5rem 10%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--glass-border);
+            background: rgba(9, 9, 11, 0.5);
+            backdrop-filter: blur(12px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo { font-weight: 800; font-size: 1.25rem; display: flex; align-items: center; gap: 0.75rem; text-decoration: none; color: white; }
+        .logo-icon { width: 32px; height: 32px; background: var(--primary); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; }
+
+        .container {
+            max-width: 900px;
+            margin: 4rem auto;
+            padding: 0 5%;
+        }
+
+        .doc-section {
+            background: var(--bg-card);
+            border: 1px solid var(--glass-border);
+            border-radius: 32px;
+            padding: 4rem;
+            margin-bottom: 3rem;
+            backdrop-filter: blur(20px);
+        }
+
+        h1 { font-size: 3.5rem; margin-bottom: 3rem; text-align: center; }
+        h2 { font-size: 2rem; margin-bottom: 1.5rem; color: var(--primary); display: flex; align-items: center; gap: 1rem; }
+        h3 { font-size: 1.25rem; margin: 2rem 0 1rem; color: white; }
+
+        p { margin-bottom: 1.5rem; color: var(--text-secondary); font-size: 1.05rem; }
+        
+        ul { margin-bottom: 1.5rem; padding-left: 1.5rem; }
+        li { margin-bottom: 0.75rem; color: var(--text-secondary); }
+
+        code {
+            background: rgba(139, 92, 246, 0.1);
+            color: var(--primary);
+            padding: 0.2rem 0.5rem;
+            border-radius: 6px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9em;
+        }
+
+        .back-link { margin-bottom: 2rem; display: inline-block; color: var(--text-secondary); text-decoration: none; font-size: 0.9rem; transition: var(--transition); }
+        .back-link:hover { color: white; transform: translateX(-5px); }
+
+        footer { padding: 4rem 10% 3rem; text-align: center; color: var(--text-secondary); font-size: 0.85rem; border-top: 1px solid var(--glass-border); margin-top: 4rem; }
+
+        @media (max-width: 640px) {
+            .doc-section { padding: 2rem 1.5rem; }
+            h1 { font-size: 2.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="index.html" class="logo">
+            <div class="logo-icon">Λ</div>
+            LauncherBeta
+        </a>
+    </nav>
+
+    <div class="container">
+        <a href="index.html" class="back-link">← Return to Home</a>
+
+        <h1>Documentation</h1>
+
+        <div class="doc-section">
+            <h2>Architecture Overview</h2>
+            <p>LauncherBeta v3.0 follows a clean, reactive architecture built on the following pillars:</p>
+            <ul>
+                <li><b>Unidirectional Data Flow (UDF)</b> with ViewModels and Kotlin Flow.</li>
+                <li><b>Local-First Persistence</b> using Room for layout state and DataStore for preferences.</li>
+                <li><b>Asynchronous Engine</b> powered by Coroutines for all IO operations.</li>
+            </ul>
+        </div>
+
+        <div class="doc-section">
+            <h2>Resilience Logic</h2>
+            <p>The core of v3.0 is its self-healing capability. This is achieved through:</p>
+            <h3>Package Monitors</h3>
+            <p>We use <code>BroadcastReceiver</code> and <code>LauncherApps.Callback</code> to listen for system-wide app changes. When an app is uninstalled, the <code>CleanupWorker</code> is triggered via WorkManager to scrub the database.</p>
+            <h3>Safe Deserialization</h3>
+            <p>Using <code>Kotlinx.Serialization</code> with custom <code>Json</code> configurations that ignore unknown keys and provide default fallbacks for corrupted fields.</p>
+        </div>
+
+        <div class="doc-section">
+            <h2>Central Hub Search</h2>
+            <p>The search engine in LauncherBeta is a hybrid system:</p>
+            <ul>
+                <li><b>Local Index:</b> Fast, prefix-based matching for installed applications.</li>
+                <li><b>Web Suggestions:</b> Non-blocking network requests to DuckDuckGo API with 300ms debounce to minimize traffic.</li>
+                <li><b>Intent Dispatcher:</b> Smart logic to determine if a query should open an app, trigger a web search, or calculate a mathematical expression.</li>
+            </ul>
+        </div>
+
+        <div class="doc-section">
+            <h2>Customization API</h2>
+            <p>Developers can interact with LauncherBeta through:</p>
+            <ul>
+                <li><code>IconPackManager</code>: Standardized interface for loading resources from external APKs.</li>
+                <li><code>ThemeEngine</code>: A Compose-based system that extracts color palettes from wallpapers using the Android Palette API.</li>
+            </ul>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 LauncherBeta. Built for Android.</p>
+    </footer>
+
+</body>
+</html>

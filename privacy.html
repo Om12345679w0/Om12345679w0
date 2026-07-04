@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy | LauncherBeta</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary: #8B5CF6;
+            --bg-dark: #09090b;
+            --bg-card: rgba(24, 24, 27, 0.8);
+            --text-primary: #fafafa;
+            --text-secondary: #a1a1aa;
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-primary);
+            line-height: 1.7;
+        }
+
+        nav {
+            padding: 1.5rem 10%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--glass-border);
+            background: rgba(9, 9, 11, 0.5);
+            backdrop-filter: blur(12px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo { font-weight: 800; font-size: 1.25rem; display: flex; align-items: center; gap: 0.75rem; text-decoration: none; color: white; }
+        .logo-icon { width: 32px; height: 32px; background: var(--primary); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; }
+
+        .container {
+            max-width: 800px;
+            margin: 4rem auto;
+            padding: 0 5%;
+        }
+
+        .policy-card {
+            background: var(--bg-card);
+            border: 1px solid var(--glass-border);
+            border-radius: 32px;
+            padding: 4rem;
+            backdrop-filter: blur(20px);
+        }
+
+        h1 { font-size: 3rem; margin-bottom: 1rem; }
+        .last-updated { color: var(--text-secondary); font-size: 0.9rem; font-family: 'JetBrains Mono', monospace; margin-bottom: 3rem; display: block; }
+
+        h2 { font-size: 1.75rem; margin-top: 3rem; margin-bottom: 1.5rem; color: var(--primary); border-bottom: 1px solid var(--glass-border); padding-bottom: 0.5rem; }
+        p { margin-bottom: 1.5rem; color: var(--text-secondary); font-size: 1.05rem; }
+        
+        ul { margin-bottom: 1.5rem; padding-left: 1.5rem; }
+        li { margin-bottom: 1rem; color: var(--text-secondary); position: relative; list-style: none; }
+        li::before { content: '→'; position: absolute; left: -1.5rem; color: var(--primary); font-weight: bold; }
+
+        .back-link { margin-bottom: 2rem; display: inline-block; color: var(--text-secondary); text-decoration: none; font-size: 0.9rem; transition: var(--transition); }
+        .back-link:hover { color: white; transform: translateX(-5px); }
+
+        footer { padding: 4rem 10% 3rem; text-align: center; color: var(--text-secondary); font-size: 0.85rem; border-top: 1px solid var(--glass-border); margin-top: 4rem; }
+
+        @media (max-width: 640px) {
+            .policy-card { padding: 2rem 1.5rem; }
+            h1 { font-size: 2.25rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="index.html" class="logo">
+            <div class="logo-icon">Λ</div>
+            LauncherBeta
+        </a>
+    </nav>
+
+    <div class="container">
+        <a href="index.html" class="back-link">← Return to Home</a>
+
+        <div class="policy-card">
+            <h1>Privacy Policy</h1>
+            <span class="last-updated">LAST UPDATED: JUNE 25, 2026</span>
+
+            <p>Your privacy is non-negotiable. LauncherBeta is built from the ground up with a <b>local-first architecture</b>. We believe that your device should be your private sanctuary.</p>
+
+            <h2>1. No Data Collection</h2>
+            <p>LauncherBeta does not collect, store, or transmit any personal data, usage statistics, or analytics to our servers or any third parties. Everything stays on your device.</p>
+
+            <h2>2. On-Device Processing</h2>
+            <ul>
+                <li><b>App Indexing:</b> All app search and sorting logic happens locally.</li>
+                <li><b>Icon Rendering:</b> Third-party icon packs and procedural fallbacks are processed on-device.</li>
+                <li><b>Web Suggestions:</b> Central Hub search queries are sent to DuckDuckGo's API only when you type in the search bar. This is a direct request and we do not intercept or log it.</li>
+            </ul>
+
+            <h2>3. Permissions</h2>
+            <p>We only ask for the minimum required permissions to function as a launcher:</p>
+            <ul>
+                <li><b>Query All Packages:</b> To show your installed apps in the drawer.</li>
+                <li><b>Storage/Media:</b> To allow you to set custom video wallpapers and access icon packs.</li>
+                <li><b>Biometric:</b> Used exclusively to unlock the "Hidden Apps" folder (processed via Android System Biometric API).</li>
+            </ul>
+
+            <h2>4. Third-Party Services</h2>
+            <p>LauncherBeta contains zero third-party tracking, advertising SDKs, or analytics packages. We use standard Android libraries for core functionality (Jetpack, Coil, Room).</p>
+
+            <h2>5. Security</h2>
+            <p>Your launcher configuration and local database are stored in the app's private sandbox, protected by the Android operating system's security layers.</p>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 LauncherBeta. Built for Android.</p>
+    </footer>
+
+</body>
+</html>

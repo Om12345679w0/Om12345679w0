@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Download LauncherBeta v3.0 | Resilience Update</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary: #8B5CF6;
+            --primary-glow: rgba(139, 92, 246, 0.4);
+            --bg-dark: #09090b;
+            --bg-card: rgba(24, 24, 27, 0.8);
+            --text-primary: #fafafa;
+            --text-secondary: #a1a1aa;
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-primary);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Abstract Background */
+        .bg-blobs {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            filter: blur(100px);
+            opacity: 0.3;
+        }
+
+        .blob {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            background: var(--primary);
+        }
+
+        .blob-1 { top: -20%; right: -10%; background: #4f46e5; }
+        .blob-2 { bottom: -20%; left: -10%; background: #7c3aed; }
+
+        nav {
+            padding: 1.5rem 10%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--glass-border);
+            background: rgba(9, 9, 11, 0.5);
+            backdrop-filter: blur(12px);
+        }
+
+        .logo { font-weight: 800; font-size: 1.25rem; display: flex; align-items: center; gap: 0.75rem; text-decoration: none; color: white; }
+        .logo-icon { width: 32px; height: 32px; background: var(--primary); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; box-shadow: 0 0 20px var(--primary-glow); }
+
+        .container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 4rem 5%;
+        }
+
+        .download-card {
+            max-width: 600px;
+            width: 100%;
+            background: var(--bg-card);
+            border: 1px solid var(--glass-border);
+            border-radius: 32px;
+            padding: 4rem;
+            text-align: center;
+            backdrop-filter: blur(20px);
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .version-badge {
+            background: rgba(139, 92, 246, 0.1);
+            color: var(--primary);
+            padding: 0.5rem 1.25rem;
+            border-radius: 100px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            display: inline-block;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(139, 92, 246, 0.2);
+        }
+
+        h1 { font-size: 2.5rem; margin-bottom: 1rem; }
+        p { color: var(--text-secondary); margin-bottom: 2.5rem; line-height: 1.7; }
+
+        .btn-download {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            background: white;
+            color: black;
+            padding: 1.2rem 3rem;
+            border-radius: 16px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: var(--transition);
+            width: 100%;
+            margin-bottom: 2rem;
+        }
+
+        .btn-download:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 30px rgba(255,255,255,0.2);
+        }
+
+        .changelog-preview {
+            text-align: left;
+            background: rgba(0,0,0,0.2);
+            padding: 1.5rem;
+            border-radius: 16px;
+            border: 1px solid var(--glass-border);
+            margin-bottom: 2rem;
+        }
+
+        .changelog-preview h4 { font-size: 0.9rem; color: var(--text-primary); margin-bottom: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; }
+        .changelog-preview ul { list-style: none; }
+        .changelog-preview li { color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.5rem; display: flex; gap: 0.5rem; }
+        .changelog-preview li::before { content: '•'; color: var(--primary); }
+
+        .meta-info { display: flex; justify-content: space-between; color: var(--text-secondary); font-size: 0.8rem; font-family: 'JetBrains Mono', monospace; }
+
+        .back-link { margin-top: 3rem; display: inline-block; color: var(--text-secondary); text-decoration: none; font-size: 0.9rem; transition: var(--transition); }
+        .back-link:hover { color: white; }
+
+        footer { padding: 3rem; text-align: center; color: var(--text-secondary); font-size: 0.85rem; border-top: 1px solid var(--glass-border); }
+
+        @media (max-width: 640px) {
+            .download-card { padding: 2.5rem 1.5rem; }
+            h1 { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-blobs">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+    </div>
+
+    <nav>
+        <a href="index.html" class="logo">
+            <div class="logo-icon">Λ</div>
+            LauncherBeta
+        </a>
+    </nav>
+
+    <div class="container">
+        <div class="download-card">
+            <div class="version-badge">v3.0.0-resilience</div>
+            <h1>The Stability You Need.</h1>
+            <p>LauncherBeta v3.0 is optimized for Android 16 and features a self-healing architecture for a cleaner, faster experience.</p>
+
+            <div class="changelog-preview">
+                <h4>What's New</h4>
+                <ul>
+                    <li>Android 16 Resilience & Edge-to-Edge</li>
+                    <li>Ghost Icon Auto-Cleanup</li>
+                    <li>Asynchronous Icon Loading (Coil)</li>
+                    <li>Full German Localization</li>
+                </ul>
+            </div>
+
+            <a href="#" class="btn-download">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                Download APK
+            </a>
+
+            <div class="meta-info">
+                <span>SIZE: 14.2 MB</span>
+                <span>BUILD: SIGNED_RELEASE</span>
+            </div>
+
+            <a href="index.html" class="back-link">← Return to Home</a>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 LauncherBeta. Built for Android.</p>
+    </footer>
+
+</body>
+</html>

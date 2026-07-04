@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LauncherBeta v3.0 | Resilience & Minimalist Android Experience</title>
+
+    <!-- Meta Tags -->
+    <meta name="title" content="LauncherBeta v3.0 - The Resilience Update">
+    <meta name="description" content="A modern, sleek, and highly customizable Android launcher built with Jetpack Compose and Material 3. Glassmorphic aesthetic, high performance, and AI-driven features.">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary: #8B5CF6;
+            --primary-glow: rgba(139, 92, 246, 0.4);
+            --bg-dark: #09090b;
+            --bg-card: rgba(24, 24, 27, 0.6);
+            --text-primary: #fafafa;
+            --text-secondary: #a1a1aa;
+            --accent: #d4d4d8;
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Abstract Background */
+        .bg-blobs {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+            filter: blur(80px);
+            opacity: 0.4;
+        }
+
+        .blob {
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            background: var(--primary);
+            animation: move 20s infinite alternate;
+        }
+
+        .blob-1 { top: -10%; left: -10%; background: #4f46e5; }
+        .blob-2 { bottom: -10%; right: -10%; background: #7c3aed; animation-delay: -5s; }
+        .blob-3 { top: 40%; left: 30%; background: #c084fc; width: 300px; height: 300px; animation-delay: -10s; }
+
+        @keyframes move {
+            from { transform: translate(0, 0) scale(1); }
+            to { transform: translate(100px, 100px) scale(1.2); }
+        }
+
+        /* Typography */
+        h1, h2, h3, h4 {
+            font-weight: 800;
+            letter-spacing: -0.02em;
+        }
+
+        .gradient-text {
+            background: linear-gradient(to bottom right, #fff 30%, rgba(255,255,255,0.5));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1.5rem 10%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: rgba(9, 9, 11, 0.5);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .logo {
+            font-weight: 800;
+            font-size: 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            color: white;
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: var(--primary);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            box-shadow: 0 0 20px var(--primary-glow);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: white;
+        }
+
+        .nav-cta {
+            background: white;
+            color: black;
+            padding: 0.6rem 1.25rem;
+            border-radius: 100px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255,255,255,0.2);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 12rem 10% 8rem;
+            text-align: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .version-tag {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            padding: 0.4rem 1rem;
+            border-radius: 100px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 2rem;
+            display: inline-block;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero p {
+            font-size: clamp(1.1rem, 2vw, 1.4rem);
+            color: var(--text-secondary);
+            max-width: 800px;
+            margin: 0 auto 3rem;
+        }
+
+        .hero-btns {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 1rem 2.5rem;
+            border-radius: 12px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 10px 30px var(--primary-glow);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 40px var(--primary-glow);
+        }
+
+        .btn-secondary {
+            background: var(--glass-bg);
+            color: white;
+            border: 1px solid var(--glass-border);
+        }
+
+        .btn-secondary:hover {
+            background: var(--glass-border);
+            transform: translateY(-2px);
+        }
+
+        /* Mockup Container */
+        .mockup-container {
+            margin-top: 5rem;
+            position: relative;
+            padding: 0 5%;
+        }
+
+        .mockup {
+            width: 100%;
+            max-width: 1000px;
+            height: 550px;
+            background: var(--bg-card);
+            border: 1px solid var(--glass-border);
+            border-radius: 32px;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 50px 100px -20px rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Live Phone Preview */
+        .phone-mockup {
+            width: 280px;
+            height: 500px;
+            background: #000;
+            border: 8px solid #18181b;
+            border-radius: 40px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+
+        .phone-screen {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
+            position: relative;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .phone-notch {
+            width: 60px;
+            height: 18px;
+            background: #000;
+            border-radius: 0 0 12px 12px;
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+        }
+
+        .phone-time {
+            font-size: 3.5rem;
+            font-weight: 200;
+            margin-top: 40px;
+            margin-bottom: 5px;
+        }
+
+        .phone-date {
+            font-size: 0.9rem;
+            opacity: 0.7;
+            margin-bottom: 40px;
+        }
+
+        .app-icons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            width: 100%;
+            padding: 0 10px;
+        }
+
+        .icon {
+            aspect-ratio: 1;
+            background: rgba(255,255,255,0.1);
+            border-radius: 12px;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .icon-p { background: var(--primary); }
+
+        .search-pill {
+            position: absolute;
+            bottom: 30px;
+            width: 80%;
+            height: 40px;
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 100px;
+            display: flex;
+            align-items: center;
+            padding: 0 15px;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        /* Resilience Animation Mockup */
+        .resilience-mockup {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            position: relative;
+        }
+
+        .db-card {
+            background: #18181b;
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 1.5rem;
+            width: 250px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .db-line { height: 8px; background: #27272a; border-radius: 4px; margin-bottom: 10px; width: 100%; }
+        .db-line.short { width: 60%; }
+        .db-line.active { background: var(--primary); animation: pulse 2s infinite; }
+
+        .cleanup-node {
+            position: absolute;
+            top: 20%;
+            right: 20%;
+            width: 100px;
+            height: 100px;
+            background: rgba(139, 92, 246, 0.1);
+            border: 1px dashed var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: rotate 10s linear infinite;
+        }
+
+        @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        @keyframes pulse { 0% { opacity: 0.5; } 50% { opacity: 1; } 100% { opacity: 0.5; } }
+
+        /* Features Section */
+        .section {
+            padding: 10rem 10%;
+        }
+
+        .section-header {
+            margin-bottom: 5rem;
+            max-width: 600px;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .section-header p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: var(--bg-card);
+            border: 1px solid var(--glass-border);
+            padding: 2.5rem;
+            border-radius: 24px;
+            transition: var(--transition);
+        }
+
+        .feature-card:hover {
+            border-color: var(--primary);
+            background: rgba(139, 92, 246, 0.05);
+            transform: translateY(-8px);
+        }
+
+        .icon-box {
+            width: 50px;
+            height: 50px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+            font-size: 1.5rem;
+        }
+
+        .feature-card h3 {
+            margin-bottom: 1rem;
+            font-size: 1.25rem;
+        }
+
+        .feature-card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Resilience Highlights */
+        .resilience {
+            background: linear-gradient(to bottom, transparent, rgba(139, 92, 246, 0.05), transparent);
+        }
+
+        .highlight-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .highlight-content h2 {
+            font-size: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-list {
+            list-style: none;
+        }
+
+        .stat-item {
+            margin-bottom: 2rem;
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .stat-num {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--primary);
+        }
+
+        .stat-text h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-text p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* Footer */
+        footer {
+            padding: 8rem 10% 4rem;
+            border-top: 1px solid var(--glass-border);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 4rem;
+            margin-bottom: 4rem;
+        }
+
+        .footer-info p {
+            color: var(--text-secondary);
+            max-width: 300px;
+            margin-top: 1rem;
+        }
+
+        .footer-links h4 {
+            margin-bottom: 1.5rem;
+            font-size: 1rem;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-links a {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: white;
+            padding-left: 4px;
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 2rem;
+            border-top: 1px solid var(--glass-border);
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .highlight-grid {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+            .hero { padding-top: 10rem; }
+            .nav-links { display: none; }
+        }
+
+        @media (max-width: 640px) {
+            .hero-btns { flex-direction: column; }
+            .btn { width: 100%; justify-content: center; }
+            .footer-grid { grid-template-columns: 1fr; gap: 3rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-blobs">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <nav>
+        <a href="index.html" class="logo">
+            <div class="logo-icon">Λ</div>
+            LauncherBeta
+        </a>
+        <div class="nav-links">
+            <a href="#features">Features</a>
+            <a href="#resilience">Resilience</a>
+            <a href="learning.html">Docs</a>
+            <a href="app_info.html">About</a>
+        </div>
+        <a href="download.html" class="nav-cta">Download v3.0</a>
+    </nav>
+
+    <header class="hero">
+        <div class="version-tag">Resilience Update v3.0</div>
+        <h1 class="gradient-text">A Slick, Smart, & Self-Healing Android Launcher.</h1>
+        <p>Built with Jetpack Compose & Material 3. Designed for Android 16. Experience the perfect blend of performance and aesthetics.</p>
+        <div class="hero-btns">
+            <a href="download.html" class="btn btn-primary">Download APK</a>
+            <a href="https://github.com/Om12345679w0/LauncherBeta" class="btn btn-secondary">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.042-1.416-4.042-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                GitHub
+            </a>
+        </div>
+
+        <div class="mockup-container">
+            <div class="mockup">
+                <div class="phone-mockup">
+                    <div class="phone-notch"></div>
+                    <div class="phone-screen">
+                        <div class="phone-time" id="live-time">12:00</div>
+                        <div class="phone-date">Monday, June 25</div>
+                        <div class="app-icons">
+                            <div class="icon icon-p"></div>
+                            <div class="icon"></div>
+                            <div class="icon"></div>
+                            <div class="icon"></div>
+                            <div class="icon"></div>
+                            <div class="icon"></div>
+                            <div class="icon"></div>
+                            <div class="icon"></div>
+                        </div>
+                        <div class="search-pill">Search apps, notes...</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="section" id="features">
+        <div class="section-header">
+            <h2>Modern Architecture</h2>
+            <p>Leveraging the latest Android technologies to provide a smooth, future-proof experience.</p>
+        </div>
+
+        <div class="feature-grid">
+            <div class="feature-card">
+                <div class="icon-box">🎨</div>
+                <h3>Glassmorphic UI</h3>
+                <p>Beautiful, translucent UI elements with customizable "frostiness" and opacity, powered by custom Compose shaders.</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon-box">⚡</div>
+                <h3>Optimized Performance</h3>
+                <p>Asynchronous icon loading via Coil and Baseline Profiles ensure instantaneous app launches and zero lag.</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon-box">🧠</div>
+                <h3>AI Central Hub</h3>
+                <p>A powerful search bar querying apps, local notes, shortcuts, and real-time web suggestions from DuckDuckGo.</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon-box">📱</div>
+                <h3>Material You</h3>
+                <p>Full support for Dynamic Color and Material 3 design system, adapting perfectly to your wallpaper.</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon-box">🎬</div>
+                <h3>Video Wallpapers</h3>
+                <p>Immersive backgrounds with customizable scaling, FPS limits, and playback drift (0.2x to 2.0x).</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon-box">🌍</div>
+                <h3>Fully Localized</h3>
+                <p>Thoughtfully translated into multiple languages, including full German (DE) support.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section resilience" id="resilience">
+        <div class="highlight-grid">
+            <div class="highlight-content">
+                <h2>Built for Resilience.</h2>
+                <p style="color: var(--text-secondary); margin-bottom: 2rem; font-size: 1.1rem;">V3.0 introduces a self-healing architecture that keeps your home screen clean and your data safe, no matter what happens.</p>
+                <div class="stat-list">
+                    <div class="stat-item">
+                        <div class="stat-num">01</div>
+                        <div class="stat-text">
+                            <h4>Self-Healing shortcuts</h4>
+                            <p>Integrated BroadcastReceivers automatically clean up "ghost icons" when apps are uninstalled.</p>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-num">02</div>
+                        <div class="stat-text">
+                            <h4>Corrupt Data Protection</h4>
+                            <p>Resilient JSON deserialization prevents crashes even if your configuration files are damaged.</p>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-num">03</div>
+                        <div class="stat-text">
+                            <h4>Android 16 Ready</h4>
+                            <p>Full enforcement of Edge-to-Edge mandates and Predictive Back gesture integration.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="highlight-visual">
+                <div class="mockup" style="height: 400px; background: #0c0c0e;">
+                    <div class="resilience-mockup">
+                        <div class="db-card">
+                            <div style="color: var(--primary); margin-bottom: 15px; font-weight: bold;">[DATABASE_OBSERVER]</div>
+                            <div class="db-line"></div>
+                            <div class="db-line short"></div>
+                            <div class="db-line active"></div>
+                            <div class="db-line"></div>
+                            <div style="margin-top: 15px; font-size: 0.6rem; opacity: 0.5;">SCANNED_ITEMS: 1,402</div>
+                        </div>
+                        <div class="cleanup-node">
+                            <div style="color: var(--primary); font-size: 0.8rem; font-weight: bold;">CLEANUP</div>
+                        </div>
+                        <!-- Connector lines -->
+                        <svg style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; pointer-events: none;">
+                            <line x1="60%" y1="50%" x2="70%" y2="30%" stroke="var(--primary)" stroke-width="1" stroke-dasharray="4" opacity="0.3" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-info">
+                <a href="#" class="logo">
+                    <div class="logo-icon">Λ</div>
+                    LauncherBeta
+                </a>
+                <p>Defining the next generation of Android customization with focus on stability and performance.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Product</h4>
+                <ul>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="download.html">Download APK</a></li>
+                    <li><a href="learning.html">Documentation</a></li>
+                    <li><a href="IMPROVEMENTS_ROADMAP.html">Roadmap</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Legal & Social</h4>
+                <ul>
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                    <li><a href="https://github.com/Om12345679w0/LauncherBeta">GitHub</a></li>
+                    <li><a href="app_info.html">About Developer</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 LauncherBeta. Built for Android.</p>
+            <p>Version 3.0.0-resilience</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scroll for anchors
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Intersection Observer for animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.feature-card, .stat-item, .section-header').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.8s cubic-bezier(0.23, 1, 0.32, 1)';
+            observer.observe(el);
+        });
+
+        // Live Clock for phone mockup
+        function updateClock() {
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const clock = document.getElementById('live-time');
+            if(clock) clock.textContent = `${hours}:${minutes}`;
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+    </script>
+</body>
+</html>

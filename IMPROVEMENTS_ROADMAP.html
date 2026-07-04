@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roadmap | LauncherBeta v3.0</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary: #8B5CF6;
+            --bg-dark: #09090b;
+            --bg-card: rgba(24, 24, 27, 0.8);
+            --text-primary: #fafafa;
+            --text-secondary: #a1a1aa;
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-primary);
+            line-height: 1.7;
+        }
+
+        nav {
+            padding: 1.5rem 10%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--glass-border);
+            background: rgba(9, 9, 11, 0.5);
+            backdrop-filter: blur(12px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo { font-weight: 800; font-size: 1.25rem; display: flex; align-items: center; gap: 0.75rem; text-decoration: none; color: white; }
+        .logo-icon { width: 32px; height: 32px; background: var(--primary); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; }
+
+        .container {
+            max-width: 1000px;
+            margin: 4rem auto;
+            padding: 0 5%;
+        }
+
+        .roadmap-header {
+            text-align: center;
+            margin-bottom: 5rem;
+        }
+
+        h1 { font-size: 3.5rem; margin-bottom: 1rem; }
+        .version { font-family: 'JetBrains Mono', monospace; color: var(--primary); font-size: 1.1rem; }
+
+        .phase {
+            margin-bottom: 5rem;
+            position: relative;
+            padding-left: 3rem;
+        }
+
+        .phase::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--glass-border);
+        }
+
+        .phase-title {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .phase-title .dot {
+            position: absolute;
+            left: -6px;
+            width: 14px;
+            height: 14px;
+            background: var(--primary);
+            border-radius: 50%;
+            box-shadow: 0 0 15px var(--primary);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 2rem;
+            backdrop-filter: blur(20px);
+        }
+
+        .status {
+            font-size: 0.7rem;
+            font-weight: 800;
+            padding: 0.2rem 0.6rem;
+            border-radius: 100px;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            display: inline-block;
+        }
+
+        .status-done { background: rgba(16, 185, 129, 0.1); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.2); }
+        .status-doing { background: rgba(139, 92, 246, 0.1); color: var(--primary); border: 1px solid rgba(139, 92, 246, 0.2); }
+        .status-todo { background: rgba(255, 255, 255, 0.05); color: var(--text-secondary); border: 1px solid var(--glass-border); }
+
+        .card h3 { font-size: 1.1rem; margin-bottom: 0.5rem; }
+        .card p { font-size: 0.9rem; color: var(--text-secondary); }
+
+        .back-link { margin-bottom: 2rem; display: inline-block; color: var(--text-secondary); text-decoration: none; font-size: 0.9rem; transition: var(--transition); }
+        .back-link:hover { color: white; transform: translateX(-5px); }
+
+        footer { padding: 4rem 10% 3rem; text-align: center; color: var(--text-secondary); font-size: 0.85rem; border-top: 1px solid var(--glass-border); margin-top: 4rem; }
+
+        @media (max-width: 640px) {
+            h1 { font-size: 2.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="index.html" class="logo">
+            <div class="logo-icon">Λ</div>
+            LauncherBeta
+        </a>
+    </nav>
+
+    <div class="container">
+        <a href="index.html" class="back-link">← Return to Home</a>
+
+        <div class="roadmap-header">
+            <h1>The Journey Ahead.</h1>
+            <div class="version">V3.0 → V4.0 ROADMAP</div>
+        </div>
+
+        <div class="phase">
+            <div class="phase-title">
+                <div class="dot"></div>
+                <h2>Phase 1: Resilience (v3.0)</h2>
+            </div>
+            <div class="grid">
+                <div class="card">
+                    <div class="status status-done">Completed</div>
+                    <h3>Self-Healing Shortcuts</h3>
+                    <p>Automated cleanup of uninstalled applications from the home screen.</p>
+                </div>
+                <div class="card">
+                    <div class="status status-done">Completed</div>
+                    <h3>Android 16 Readiness</h3>
+                    <p>Edge-to-edge enforcement and Predictive Back gesture integration.</p>
+                </div>
+                <div class="card">
+                    <div class="status status-done">Completed</div>
+                    <h3>Async Icon Loading</h3>
+                    <p>Coil-powered background loading for zero-lag UI performance.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="phase">
+            <div class="phase-title">
+                <div class="dot"></div>
+                <h2>Phase 2: Customization (v3.5)</h2>
+            </div>
+            <div class="grid">
+                <div class="card">
+                    <div class="status status-doing">In Progress</div>
+                    <h3>Icon Pack Support</h3>
+                    <p>Deep integration with 3rd party icon packs from the Play Store.</p>
+                </div>
+                <div class="card">
+                    <div class="status status-doing">In Progress</div>
+                    <h3>Widget Stacks</h3>
+                    <p>Smart, scrollable stacks for better home screen organization.</p>
+                </div>
+                <div class="card">
+                    <div class="status status-todo">Backlog</div>
+                    <h3>Procedural Themes</h3>
+                    <p>Generative UI themes based on wallpaper content and time of day.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="phase">
+            <div class="phase-title">
+                <div class="dot" style="background: var(--text-secondary); box-shadow: none;"></div>
+                <h2>Phase 3: Intelligence (v4.0)</h2>
+            </div>
+            <div class="grid">
+                <div class="card">
+                    <div class="status status-todo">Planned</div>
+                    <h3>AI App Suggestions</h3>
+                    <p>Predictive app shortcuts based on usage patterns and context.</p>
+                </div>
+                <div class="card">
+                    <div class="status status-todo">Planned</div>
+                    <h3>Global Semantic Search</h3>
+                    <p>Searching through documents and messages directly from the Central Hub.</p>
+                </div>
+                <div class="card">
+                    <div class="status status-todo">Planned</div>
+                    <h3>Cloud Sync (Optional)</h3>
+                    <p>Secure, encrypted backup of launcher layouts across devices.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 LauncherBeta. Built for Android.</p>
+    </footer>
+
+</body>
+</html>
